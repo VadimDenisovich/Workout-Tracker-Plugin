@@ -1,85 +1,116 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { App, Plugin, PluginSettingTab, Setting, Notice, moment, TFile } from 'obsidian';
+import { WorkoutTrackerSettings, TemplateOverrides } from './src/types';
+import { DEFAULT_SETTINGS } from './src/templates';
+import { FileManager } from './src/utils/fileManager';
+import { TemplateUpdater } from './src/utils/templateUpdater';
+import { WorkoutLocationModal } from './src/modals/WorkoutLocationModal';
+import { FolderSelectorModal } from './src/modals/FolderSelectorModal';
+import { ExerciseListModal } from './src/modals/ExerciseListModal';
+import { WorkoutLocation, WorkoutDay } from './src/types';
 
-// Remember to rename these classes and interfaces!
-
-interface MyPluginSettings {
-	mySetting: string;
-}
-
-const DEFAULT_SETTINGS: MyPluginSettings = {
-	mySetting: 'default'
-}
-
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class WorkoutTrackerPlugin extends Plugin {
+	settings: WorkoutTrackerSettings;
+	private fileManager: FileManager;
+	private templateUpdater: TemplateUpdater;
 
 	async onload() {
 		await this.loadSettings();
-
-		// This creates an icon in the left ribbon.
-		const ribbonIconEl = this.addRibbonIcon('dice', 'Sample Plugin', (_evt: MouseEvent) => {
-			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
+		this.fileManager = new FileManager(this.app);
+		this.fileManager.setTemplateOverrides(this.settings.templateOverrides);
+		this.templateUpdater = new TemplateUpdater(this.app, async (overrides) => {
+			this.fileManager.setTemplateOverrides(overrides);
+			await this.saveTemplateOverrides(overrides);
 		});
-		// Perform additional things with the ribbon
-		ribbonIconEl.addClass('my-plugin-ribbon-class');
+		this.templateUpdater.setOverrides(this.settings.templateOverrides);
 
-		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
-		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText('Status Bar Text');
+		// Создаем структуру папок при первом запуске
+		await this.fileManager.createWorkoutStructure(
+			this.settings.workoutFolder,
+			this.settings.previousWorkoutFolder
+		);
 
-		// This adds a simple command that can be triggered anywhere
-		this.addCommand({
-			id: 'open-sample-modal-simple',
-			name: 'Open sample modal (simple)',
-			callback: () => {
-				new SampleModal(this.app).open();
-			}
-		});
-		// This adds an editor command that can perform some operation on the current editor instance
-		this.addCommand({
-			id: 'sample-editor-command',
-			name: 'Sample editor command',
-			editorCallback: (editor: Editor, _view: MarkdownView) => {
-				console.log(editor.getSelection());
-				editor.replaceSelection('Sample Editor Command');
-			}
-		});
-		// This adds a complex command that can check whether the current state of the app allows execution of the command
-		this.addCommand({
-			id: 'open-sample-modal-complex',
-			name: 'Open sample modal (complex)',
-			checkCallback: (checking: boolean) => {
-				// Conditions to check
-				const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (markdownView) {
-					// If checking is true, we're simply "checking" if the command can be run.
-					// If checking is false, then we want to actually perform the operation.
-					if (!checking) {
-						new SampleModal(this.app).open();
-					}
+		// Синхронизируем шаблоны с файлами
+		await this.templateUpdater.syncTemplatesWithFiles(this.settings.workoutFolder);
 
-					// This command will only show up in Command Palette when the check function returns true
-					return true;
+		// Мониторинг изменений файлов шаблонов
+		this.registerEvent(
+			this.app.vault.on('modify', async (file) => {
+				if (file instanceof TFile && 
+					file.path.includes(`${this.settings.workoutFolder}/Templates/`) && 
+					file.extension === 'md') {
+					const templateName = file.basename;
+					const content = await this.app.vault.read(file);
+					await this.templateUpdater.updateTemplateInCode(templateName, content);
+					new Notice(`Шаблон "${templateName}" обновлен`);
 				}
+			})
+		);
+
+		// Кнопка создания лога тренировки
+		this.addRibbonIcon('calendar-plus', 'Создать лог тренировки', async () => {
+			await this.createWorkoutLog();
+		});
+
+		// Кнопка открытия упражнений
+		this.addRibbonIcon('dumbbell', 'Упражнения', async () => {
+			await this.openExerciseModal();
+		});
+
+		// Команды
+		this.addCommand({
+			id: 'create-workout-log',
+			name: 'Создать лог тренировки',
+			callback: async () => {
+				await this.createWorkoutLog();
 			}
 		});
 
-		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
-
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			console.log('click', evt);
+		this.addCommand({
+			id: 'open-exercise-modal',
+			name: 'Открыть упражнения',
+			callback: async () => {
+				await this.openExerciseModal();
+			}
 		});
 
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
+		// Настройки
+		this.addSettingTab(new WorkoutTrackerSettingTab(this.app, this));
+	}
+
+	async createWorkoutLog() {
+		try {
+			const today = moment();
+			const dayOfWeek = today.day();
+			const isTrainingDay = dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5; // Пн, Ср, Пт
+
+			const modal = new WorkoutLocationModal(this.app, !isTrainingDay);
+			const result = await modal.show();
+
+			const { file, existed } = await this.fileManager.createWorkoutLog(
+				this.settings.workoutFolder,
+				result.location,
+				result.templateType
+			);
+
+			await this.app.workspace.getLeaf().openFile(file);
+			if (!existed) {
+				new Notice('Лог тренировки создан');
+			}
+
+		} catch (error) {
+			if (error !== 'Modal closed') {
+				new Notice('Ошибка при создании лога тренировки');
+			}
+		}
+	}
+
+	async openExerciseModal() {
+		const modal = new ExerciseListModal(this.app, this);
+		modal.open();
 	}
 
 	onunload() {
-
+		// Cleanup
 	}
 
 	async loadSettings() {
@@ -87,48 +118,82 @@ export default class MyPlugin extends Plugin {
 	}
 
 	async saveSettings() {
+		const previousFolder = this.settings.previousWorkoutFolder;
+		await this.persistSettings();
+
+		await this.fileManager.createWorkoutStructure(
+			this.settings.workoutFolder,
+			previousFolder && previousFolder !== this.settings.workoutFolder ? previousFolder : undefined
+		);
+
+		this.settings.previousWorkoutFolder = this.settings.workoutFolder;
+		await this.persistSettings();
+	}
+
+	private async saveTemplateOverrides(overrides: TemplateOverrides): Promise<void> {
+		const currentSerialized = JSON.stringify(this.settings.templateOverrides ?? {});
+		const nextSerialized = JSON.stringify(overrides ?? {});
+		if (currentSerialized === nextSerialized) {
+			return;
+		}
+		this.settings.templateOverrides = overrides ?? {};
+		await this.persistSettings();
+	}
+
+	private async persistSettings(): Promise<void> {
 		await this.saveData(this.settings);
 	}
 }
 
-class SampleModal extends Modal {
-	constructor(app: App) {
-		super(app);
-	}
+class WorkoutTrackerSettingTab extends PluginSettingTab {
+	plugin: WorkoutTrackerPlugin;
 
-	onOpen() {
-		const {contentEl} = this;
-		contentEl.setText('Woah!');
-	}
-
-	onClose() {
-		const {contentEl} = this;
-		contentEl.empty();
-	}
-}
-
-class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
-
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: WorkoutTrackerPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
 
 	display(): void {
-		const {containerEl} = this;
-
+		const { containerEl } = this;
 		containerEl.empty();
 
+		containerEl.createEl('h2', { text: 'Настройки Workout Tracker' });
+
 		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
-			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue(this.plugin.settings.mySetting)
-				.onChange(async (value) => {
-					this.plugin.settings.mySetting = value;
-					await this.plugin.saveSettings();
-				}));
+			.setName('Папка тренировок')
+			.setDesc('Укажите папку для хранения данных о тренировках')
+			.addText(text => {
+				text
+					.setPlaceholder('Выберите папку...')
+					.setValue(this.plugin.settings.workoutFolder)
+					.onChange(async (value) => {
+						this.plugin.settings.workoutFolder = value;
+						await this.plugin.saveSettings();
+					});
+
+				// Обработчик клика для открытия модального окна
+				text.inputEl.addEventListener('click', async () => {
+					try {
+						const modal = new FolderSelectorModal(this.app, this.plugin.settings.workoutFolder);
+						modal.setInputElement(text.inputEl);
+						const selectedPath = await modal.show();
+						
+						// Сохраняем предыдущую папку
+						const previousFolder = this.plugin.settings.workoutFolder;
+						
+						this.plugin.settings.workoutFolder = selectedPath;
+						this.plugin.settings.previousWorkoutFolder = previousFolder;
+						await this.plugin.saveSettings();
+						text.setValue(selectedPath);
+						
+					} catch (error) {
+						// Пользователь отменил выбор
+					}
+				});
+
+				// Делаем поле только для чтения, чтобы избежать создания папок при вводе
+				text.inputEl.readOnly = true;
+				text.inputEl.style.cursor = 'pointer';
+			});
 	}
 }
