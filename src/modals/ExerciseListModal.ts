@@ -7,14 +7,16 @@ import WorkoutTrackerPlugin from '../../main';
 export class ExerciseListModal extends Modal {
 	private plugin: WorkoutTrackerPlugin;
 	private fileManager: FileManager;
+	private searchQuery = '';
 
-	constructor(app: App, plugin: WorkoutTrackerPlugin) {
+	constructor(app: App, plugin: WorkoutTrackerPlugin, fileManager: FileManager) {
 		super(app);
 		this.plugin = plugin;
-		this.fileManager = new FileManager(app);
+		this.fileManager = fileManager;
 	}
 
 	onOpen() {
+		this.searchQuery = '';
 		this.renderExerciseList();
 	}
 
@@ -25,23 +27,48 @@ export class ExerciseListModal extends Modal {
 		const header = contentEl.createEl('div', { cls: 'exercise-modal-header' });
 		header.createEl('h2', { text: 'Упражнения' });
 
-		const addButton = header.createEl('button', { 
-			text: 'Добавить упражнение',
-			cls: 'mod-cta'
+		const addButton = header.createEl('button', {
+			text: '+',
+			cls: 'exercise-add-button'
 		});
+		addButton.setAttribute('aria-label', 'Добавить упражнение');
+		addButton.title = 'Добавить упражнение';
 		addButton.addEventListener('click', () => this.createNewExercise());
+
+		const searchContainer = contentEl.createEl('div', { cls: 'exercise-search' });
+		const searchInput = searchContainer.createEl('input', {
+			type: 'search',
+			placeholder: 'Поиск упражнения'
+		});
+		searchInput.value = this.searchQuery;
+		searchInput.addEventListener('input', (event) => {
+			const target = event.target as HTMLInputElement;
+			this.searchQuery = target.value;
+			this.renderExerciseList();
+		});
+		searchInput.focus({ preventScroll: true });
+		if (this.searchQuery) {
+			const end = this.searchQuery.length;
+			searchInput.setSelectionRange(end, end);
+		}
 
 		const exerciseList = contentEl.createEl('div', { cls: 'exercise-modal-list' });
 
 		try {
 			const exercises = await this.getExercises();
-			
-			if (exercises.length === 0) {
-				exerciseList.createEl('p', { text: 'Упражнения не найдены' });
+			const normalizedQuery = this.searchQuery.trim().toLocaleLowerCase();
+			const filtered = normalizedQuery
+				? exercises.filter(exercise => exercise.name.toLocaleLowerCase().includes(normalizedQuery))
+				: exercises;
+
+			if (filtered.length === 0) {
+				exerciseList.createEl('p', {
+					text: normalizedQuery ? 'По запросу ничего не найдено' : 'Упражнения не найдены'
+				});
 				return;
 			}
 
-			exercises.forEach(exercise => {
+			filtered.forEach(exercise => {
 				const exerciseItem = exerciseList.createEl('div', { cls: 'exercise-modal-item' });
 				
 				const exerciseButton = exerciseItem.createEl('button', {
@@ -83,9 +110,10 @@ export class ExerciseListModal extends Modal {
 	}
 
 	private async createNewExercise() {
-		const exerciseName = await this.promptForExerciseName();
-		if (!exerciseName) return;
+		const result = await this.promptForExerciseName();
+		if (!result) return;
 
+		const { name: exerciseName, hasWeight } = result;
 		const exercisesPath = `${this.plugin.settings.workoutFolder}/Exercises`;
 		const filePath = `${exercisesPath}/${exerciseName}.md`;
 
@@ -95,14 +123,17 @@ export class ExerciseListModal extends Modal {
 			return;
 		}
 
-		const content = EXERCISE_TEMPLATE
+		// Используем правильный шаблон в зависимости от hasWeight
+		const template = await this.fileManager['getExerciseTemplate'](hasWeight);
+		const content = template
 			.replace(/{{exerciseName}}/g, exerciseName)
-			.replace(/{{workoutFolder}}/g, this.plugin.settings.workoutFolder)
-			.replace(/{{exerciseTag}}/g, exerciseName.toLowerCase().replace(/\s+/g, '-'));
+			.replace(/{{workoutFolder}}/g, this.plugin.settings.workoutFolder);
 
 		try {
 			const file = await this.app.vault.create(filePath, content);
 			await this.app.workspace.getLeaf().openFile(file);
+			this.searchQuery = '';
+			await this.plugin.registerExercise(exerciseName, hasWeight);
 			await this.renderExerciseList(); // Обновляем список
 			this.close();
 		} catch (error) {
@@ -116,6 +147,7 @@ export class ExerciseListModal extends Modal {
 
 		try {
 			await this.fileManager.deleteExerciseFile(exercise.filePath);
+			await this.plugin.unregisterExercise(exercise.name);
 			await this.renderExerciseList(); // Обновляем список
 			new Notice(`Упражнение "${exercise.name}" удалено`);
 		} catch (error) {
@@ -123,7 +155,7 @@ export class ExerciseListModal extends Modal {
 		}
 	}
 
-	private async promptForExerciseName(): Promise<string | null> {
+	private async promptForExerciseName(): Promise<{ name: string; hasWeight: boolean } | null> {
 		return new Promise((resolve) => {
 			const modal = new ExerciseNameModal(this.app, resolve);
 			modal.open();
@@ -137,9 +169,10 @@ export class ExerciseListModal extends Modal {
 }
 
 class ExerciseNameModal extends Modal {
-	private resolve: (value: string | null) => void;
+	private resolve: (value: { name: string; hasWeight: boolean } | null) => void;
+	private hasWeight = false;
 
-	constructor(app: App, resolve: (value: string | null) => void) {
+	constructor(app: App, resolve: (value: { name: string; hasWeight: boolean } | null) => void) {
 		super(app);
 		this.resolve = resolve;
 	}
@@ -156,7 +189,29 @@ class ExerciseNameModal extends Modal {
 		});
 		input.focus();
 
+		// Переключатель "Упражнение с весом"
+		const toggleContainer = contentEl.createEl('div', { cls: 'exercise-weight-toggle' });
+		toggleContainer.style.marginTop = '10px';
+		toggleContainer.style.display = 'flex';
+		toggleContainer.style.alignItems = 'center';
+		toggleContainer.style.gap = '10px';
+
+		const checkbox = toggleContainer.createEl('input', { type: 'checkbox' });
+		checkbox.checked = this.hasWeight;
+		checkbox.style.cursor = 'pointer';
+		checkbox.addEventListener('change', () => {
+			this.hasWeight = checkbox.checked;
+		});
+
+		const toggleLabel = toggleContainer.createEl('label', { text: 'Упражнение с весом' });
+		toggleLabel.style.cursor = 'pointer';
+		toggleLabel.addEventListener('click', () => {
+			checkbox.checked = !checkbox.checked;
+			this.hasWeight = checkbox.checked;
+		});
+
 		const buttonContainer = contentEl.createEl('div', { cls: 'modal-button-container' });
+		buttonContainer.style.marginTop = '20px';
 		
 		const createButton = buttonContainer.createEl('button', {
 			text: 'Создать',
@@ -170,7 +225,7 @@ class ExerciseNameModal extends Modal {
 		const handleCreate = () => {
 			const value = input.value.trim();
 			if (value) {
-				this.resolve(value);
+				this.resolve({ name: value, hasWeight: this.hasWeight });
 				this.close();
 			}
 		};

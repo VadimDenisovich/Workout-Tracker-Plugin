@@ -14,6 +14,72 @@
     margin: 0;
 }
 
+.exercise-add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    background-color: rgba(0, 0, 0, 0.04);
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.exercise-add-button:hover,
+.exercise-add-button:focus {
+    background-color: rgba(0, 0, 0, 0.12);
+    color: #000;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+}
+
+.exercise-search {
+    margin-bottom: 24px;
+}
+
+.exercise-search input[type="search"] {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    font-size: 14px;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+/* Exercise Weight Toggle */
+.exercise-weight-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.exercise-weight-toggle label {
+    cursor: pointer;
+    user-select: none;
+}
+
+.exercise-weight-toggle .checkbox-container {
+    cursor: pointer;
+}
+
+.exercise-weight-toggle input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.exercise-search input[type="search"]:focus {
+    outline: none;
+    border-color: var(--interactive-accent);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+}
+
 .exercise-modal-list {
     display: flex;
     flex-direction: column;
@@ -165,20 +231,4 @@
     outline: none;
     border-color: var(--interactive-accent);
     box-shadow: 0 0 5px var(--interactive-accent-hover);
-}
-
-/* Exercise Modal Specific Styles */
-.modal .exercise-modal-header .mod-cta {
-    background-color: var(--interactive-accent);
-    color: var(--text-on-accent);
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s;
-}
-
-.modal .exercise-modal-header .mod-cta:hover {
-    background-color: var(--interactive-accent-hover);
 }

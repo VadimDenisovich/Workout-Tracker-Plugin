@@ -1,6 +1,6 @@
 import { App, Plugin, PluginSettingTab, Setting, Notice, moment, TFile } from 'obsidian';
-import { WorkoutTrackerSettings, TemplateOverrides } from './src/types';
-import { DEFAULT_SETTINGS } from './src/templates';
+import { WorkoutTrackerSettings, TemplateOverrides, ExerciseInfo } from './src/types';
+import { DEFAULT_SETTINGS, DEFAULT_EXERCISES } from './src/templates';
 import { FileManager } from './src/utils/fileManager';
 import { TemplateUpdater } from './src/utils/templateUpdater';
 import { WorkoutLocationModal } from './src/modals/WorkoutLocationModal';
@@ -10,23 +10,26 @@ import { WorkoutLocation, WorkoutDay } from './src/types';
 
 export default class WorkoutTrackerPlugin extends Plugin {
 	settings: WorkoutTrackerSettings;
-	private fileManager: FileManager;
+	fileManager: FileManager;
 	private templateUpdater: TemplateUpdater;
 
 	async onload() {
 		await this.loadSettings();
-		this.fileManager = new FileManager(this.app);
-		this.fileManager.setTemplateOverrides(this.settings.templateOverrides);
-		this.templateUpdater = new TemplateUpdater(this.app, async (overrides) => {
-			this.fileManager.setTemplateOverrides(overrides);
-			await this.saveTemplateOverrides(overrides);
+		
+		// Получаем путь к директории плагина
+		const adapter = this.app.vault.adapter;
+		const pluginDir = (adapter as any).basePath + '/.obsidian/plugins/' + this.manifest.id;
+		
+		this.fileManager = new FileManager(this.app, pluginDir, () => this.settings);
+		this.templateUpdater = new TemplateUpdater(this.app, this.manifest.id, async () => {
+			// Callback больше не нужен, так как изменения сразу пишутся в templates.ts
 		});
-		this.templateUpdater.setOverrides(this.settings.templateOverrides);
 
 		// Создаем структуру папок при первом запуске
 		await this.fileManager.createWorkoutStructure(
 			this.settings.workoutFolder,
-			this.settings.previousWorkoutFolder
+			this.settings.previousWorkoutFolder,
+			this.settings.exerciseRegistry
 		);
 
 		// Синхронизируем шаблоны с файлами
@@ -35,13 +38,56 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		// Мониторинг изменений файлов шаблонов
 		this.registerEvent(
 			this.app.vault.on('modify', async (file) => {
-				if (file instanceof TFile && 
-					file.path.includes(`${this.settings.workoutFolder}/Templates/`) && 
-					file.extension === 'md') {
-					const templateName = file.basename;
-					const content = await this.app.vault.read(file);
-					await this.templateUpdater.updateTemplateInCode(templateName, content);
-					new Notice(`Шаблон "${templateName}" обновлен`);
+				// Быстрая проверка - только .md файлы в папке Templates
+				if (!(file instanceof TFile) || file.extension !== 'md') {
+					return;
+				}
+				
+				const templatesPath = `${this.settings.workoutFolder}/Templates/`;
+				if (!file.path.startsWith(templatesPath)) {
+					return;
+				}
+				
+				console.log(`[Main] ✅ Обновление шаблона: ${file.basename}`);
+				
+				const templateName = file.basename;
+				const content = await this.app.vault.read(file);
+				
+				await this.templateUpdater.updateTemplateInCode(templateName, content);
+				new Notice(`Шаблон "${templateName}" обновлен`);
+			})
+		);
+
+		// Автообновление файлов упражнений при открытии
+		this.registerEvent(
+			this.app.workspace.on('file-open', async (file) => {
+				if (!file || !(file instanceof TFile) || file.extension !== 'md') {
+					return;
+				}
+				
+				const exercisesPath = `${this.settings.workoutFolder}/Exercises/`;
+				if (!file.path.startsWith(exercisesPath)) {
+					return;
+				}
+				
+				console.log(`[Main] 📖 Открыт файл упражнения: ${file.basename}`);
+				
+				// Обновляем содержимое файла с актуальным шаблоном
+				try {
+					const exerciseName = file.basename;
+					// Ищем информацию об упражнении в реестре
+					const exerciseInfo = this.settings.exerciseRegistry.find(ex => ex.name === exerciseName);
+					const hasWeight = exerciseInfo?.hasWeight ?? true; // По умолчанию с весом
+					
+					await this.fileManager.updateExerciseFile(
+						this.settings.workoutFolder,
+						exerciseName,
+						undefined,
+						hasWeight
+					);
+					console.log(`[Main] ✅ Файл "${exerciseName}" обновлен`);
+				} catch (error) {
+					console.error(`[Main] ❌ Ошибка обновления файла:`, error);
 				}
 			})
 		);
@@ -70,6 +116,23 @@ export default class WorkoutTrackerPlugin extends Plugin {
 			name: 'Открыть упражнения',
 			callback: async () => {
 				await this.openExerciseModal();
+			}
+		});
+
+		this.addCommand({
+			id: 'refresh-exercise-files',
+			name: 'Обновить файлы упражнений',
+			callback: async () => {
+				try {
+					await this.fileManager.updateAllExerciseFiles(
+						this.settings.workoutFolder,
+						this.settings.exerciseRegistry
+					);
+					new Notice('Файлы упражнений обновлены');
+				} catch (error) {
+					console.error('Ошибка обновления файлов упражнений:', error);
+					new Notice('Ошибка при обновлении файлов упражнений');
+				}
 			}
 		});
 
@@ -105,7 +168,7 @@ export default class WorkoutTrackerPlugin extends Plugin {
 	}
 
 	async openExerciseModal() {
-		const modal = new ExerciseListModal(this.app, this);
+		const modal = new ExerciseListModal(this.app, this, this.fileManager);
 		modal.open();
 	}
 
@@ -114,7 +177,15 @@ export default class WorkoutTrackerPlugin extends Plugin {
 	}
 
 	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+		const stored = await this.loadData();
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, stored);
+
+		const { registry, changed } = this.mergeExerciseRegistry(this.settings.exerciseRegistry);
+		this.settings.exerciseRegistry = registry;
+
+		if (changed) {
+			await this.persistSettings();
+		}
 	}
 
 	async saveSettings() {
@@ -123,25 +194,93 @@ export default class WorkoutTrackerPlugin extends Plugin {
 
 		await this.fileManager.createWorkoutStructure(
 			this.settings.workoutFolder,
-			previousFolder && previousFolder !== this.settings.workoutFolder ? previousFolder : undefined
+			previousFolder && previousFolder !== this.settings.workoutFolder ? previousFolder : undefined,
+			this.settings.exerciseRegistry
 		);
 
 		this.settings.previousWorkoutFolder = this.settings.workoutFolder;
 		await this.persistSettings();
 	}
 
-	private async saveTemplateOverrides(overrides: TemplateOverrides): Promise<void> {
-		const currentSerialized = JSON.stringify(this.settings.templateOverrides ?? {});
-		const nextSerialized = JSON.stringify(overrides ?? {});
-		if (currentSerialized === nextSerialized) {
-			return;
-		}
-		this.settings.templateOverrides = overrides ?? {};
-		await this.persistSettings();
-	}
-
 	private async persistSettings(): Promise<void> {
 		await this.saveData(this.settings);
+	}
+
+	async refreshWorkoutStructure(): Promise<void> {
+		console.log('[Main] ========== НАЧАЛО refreshWorkoutStructure ==========');
+		console.log(`[Main] Папка тренировок: ${this.settings.workoutFolder}`);
+		console.log(`[Main] Количество упражнений в реестре: ${this.settings.exerciseRegistry.length}`);
+		
+		try {
+			console.log('[Main] Вызов createWorkoutStructure...');
+			
+			// Просто пересоздаём структуру - шаблоны уже актуальны в templates.ts
+			await this.fileManager.createWorkoutStructure(
+				this.settings.workoutFolder,
+				undefined,
+				this.settings.exerciseRegistry
+			);
+			
+			console.log('[Main] ✅ createWorkoutStructure завершён успешно');
+			new Notice('Структура тренировок обновлена');
+			console.log('[Main] ========== КОНЕЦ refreshWorkoutStructure ==========');
+		} catch (error) {
+			console.error('[Main] ❌ Ошибка в refreshWorkoutStructure:', error);
+			new Notice('Ошибка при обновлении структуры тренировок');
+		}
+	}
+
+	async registerExercise(name: string, hasWeight: boolean = true): Promise<void> {
+		const normalized = name.trim();
+		if (!normalized) return;
+
+		const exists = this.settings.exerciseRegistry.some((item) =>
+			item.name.localeCompare(normalized, undefined, { sensitivity: 'accent' }) === 0
+		);
+
+		if (!exists) {
+			this.settings.exerciseRegistry.push({ name: normalized, hasWeight });
+			await this.persistSettings();
+		}
+	}
+
+	async unregisterExercise(name: string): Promise<void> {
+		const normalized = name.trim();
+		if (!normalized) return;
+
+		const index = this.settings.exerciseRegistry.findIndex((item) =>
+			item.name.localeCompare(normalized, undefined, { sensitivity: 'accent' }) === 0
+		);
+
+		if (index !== -1) {
+			this.settings.exerciseRegistry.splice(index, 1);
+			await this.persistSettings();
+		}
+	}
+
+	private mergeExerciseRegistry(existing: ExerciseInfo[] | undefined): { registry: ExerciseInfo[]; changed: boolean } {
+		const seen = new Set<string>();
+		const registry: ExerciseInfo[] = [];
+
+		const addExercise = (exercise: ExerciseInfo) => {
+			if (!exercise?.name) return;
+			const trimmed = exercise.name.trim();
+			if (!trimmed) return;
+			const key = trimmed.toLocaleLowerCase();
+			if (seen.has(key)) return;
+			seen.add(key);
+			registry.push({ name: trimmed, hasWeight: exercise.hasWeight });
+		};
+
+		DEFAULT_EXERCISES.forEach(addExercise);
+		(existing ?? []).forEach(addExercise);
+
+		const original = existing ?? [];
+		const changed =
+			original.length !== registry.length ||
+			registry.some((ex, index) => ex.name !== (original[index]?.name?.trim() ?? ''));
+
+		return { registry, changed };
 	}
 }
 
@@ -174,7 +313,7 @@ class WorkoutTrackerSettingTab extends PluginSettingTab {
 				// Обработчик клика для открытия модального окна
 				text.inputEl.addEventListener('click', async () => {
 					try {
-						const modal = new FolderSelectorModal(this.app, this.plugin.settings.workoutFolder);
+						const modal = new FolderSelectorModal(this.app, this.plugin.fileManager, this.plugin.settings.workoutFolder);
 						modal.setInputElement(text.inputEl);
 						const selectedPath = await modal.show();
 						
@@ -194,6 +333,76 @@ class WorkoutTrackerSettingTab extends PluginSettingTab {
 				// Делаем поле только для чтения, чтобы избежать создания папок при вводе
 				text.inputEl.readOnly = true;
 				text.inputEl.style.cursor = 'pointer';
+			});
+
+	new Setting(containerEl)
+		.setName('Диапазон повторений на графике')
+		.setDesc('Установите минимальное и максимальное значение для оси Y на графиках упражнений с весом. После изменения файлы упражнений будут автоматически обновлены.')
+		.addText(text => {
+			text
+				.setPlaceholder('Мин.')
+				.setValue(String(this.plugin.settings.chartRepsMin))
+				.onChange(async (value) => {
+					const num = parseInt(value);
+					if (!isNaN(num) && num >= 0) {
+						this.plugin.settings.chartRepsMin = num;
+						await this.plugin.saveSettings();
+						
+						new Notice(`Диапазон графика изменён: ${this.plugin.settings.chartRepsMin}-${this.plugin.settings.chartRepsMax}. Обновляю файлы упражнений...`);
+						
+						try {
+							const count = await this.plugin.fileManager.updateWeightedExerciseFiles(
+								this.plugin.settings.workoutFolder,
+								this.plugin.settings.exerciseRegistry
+							);
+							new Notice(`✅ Обновлено ${count} упражнений с весом`);
+						} catch (error) {
+							new Notice(`❌ Ошибка обновления: ${error.message}`);
+						}
+					}
+				});
+			text.inputEl.type = 'number';
+			text.inputEl.style.width = '60px';
+		})
+		.addText(text => {
+			text
+				.setPlaceholder('Макс.')
+				.setValue(String(this.plugin.settings.chartRepsMax))
+				.onChange(async (value) => {
+					const num = parseInt(value);
+					if (!isNaN(num) && num > 0) {
+						this.plugin.settings.chartRepsMax = num;
+						await this.plugin.saveSettings();
+						
+						new Notice(`Диапазон графика изменён: ${this.plugin.settings.chartRepsMin}-${this.plugin.settings.chartRepsMax}. Обновляю файлы упражнений...`);
+						
+						try {
+							const count = await this.plugin.fileManager.updateWeightedExerciseFiles(
+								this.plugin.settings.workoutFolder,
+								this.plugin.settings.exerciseRegistry
+							);
+							new Notice(`✅ Обновлено ${count} упражнений с весом`);
+						} catch (error) {
+							new Notice(`❌ Ошибка обновления: ${error.message}`);
+						}
+					}
+				});
+			text.inputEl.type = 'number';
+			text.inputEl.style.width = '60px';
+		});		new Setting(containerEl)
+			.setName('Обновить структуру')
+			.setDesc('Пересоздать папки, шаблоны и карточки упражнений. Шаблоны будут использовать актуальные версии из кода.')
+			.addButton(button => {
+				button.setButtonText('Обновить');
+				button.setCta();
+				button.onClick(async () => {
+					button.setDisabled(true);
+					try {
+						await this.plugin.refreshWorkoutStructure();
+					} finally {
+						button.setDisabled(false);
+					}
+				});
 			});
 	}
 }

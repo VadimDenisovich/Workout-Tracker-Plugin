@@ -8,9 +8,9 @@ export class FolderSelectorModal extends Modal {
 	private currentPath: string = '';
 	private inputElement: HTMLInputElement;
 
-	constructor(app: App, currentValue: string = '') {
+	constructor(app: App, fileManager: FileManager, currentValue: string = '') {
 		super(app);
-		this.fileManager = new FileManager(app);
+		this.fileManager = fileManager;
 		this.currentPath = currentValue;
 	}
 

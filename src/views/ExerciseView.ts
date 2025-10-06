@@ -10,10 +10,10 @@ export class ExerciseView extends ItemView {
 	private plugin: WorkoutTrackerPlugin;
 	private fileManager: FileManager;
 
-	constructor(leaf: WorkspaceLeaf, plugin: WorkoutTrackerPlugin) {
+	constructor(leaf: WorkspaceLeaf, plugin: WorkoutTrackerPlugin, fileManager: FileManager) {
 		super(leaf);
 		this.plugin = plugin;
-		this.fileManager = new FileManager(this.app);
+		this.fileManager = fileManager;
 	}
 
 	getViewType(): string {
@@ -110,12 +110,12 @@ export class ExerciseView extends ItemView {
 
 		const content = EXERCISE_TEMPLATE
 			.replace(/{{exerciseName}}/g, exerciseName)
-			.replace(/{{workoutFolder}}/g, this.plugin.settings.workoutFolder)
-			.replace(/{{exerciseTag}}/g, exerciseName.toLowerCase().replace(/\s+/g, '-'));
+			.replace(/{{workoutFolder}}/g, this.plugin.settings.workoutFolder);
 
 		try {
 			const file = await this.app.vault.create(filePath, content);
 			await this.app.workspace.getLeaf().openFile(file);
+			await this.plugin.registerExercise(exerciseName);
 			await this.renderExerciseList(); // Обновляем список
 		} catch (error) {
 			new Notice('Ошибка при создании упражнения');
@@ -128,6 +128,7 @@ export class ExerciseView extends ItemView {
 
 		try {
 			await this.fileManager.deleteExerciseFile(exercise.filePath);
+			await this.plugin.unregisterExercise(exercise.name);
 			await this.renderExerciseList(); // Обновляем список
 			new Notice(`Упражнение "${exercise.name}" удалено`);
 		} catch (error) {

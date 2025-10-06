@@ -1,0 +1,96 @@
+const exerciseName = "{{exerciseName}}";
+const logsFolder = "{{workoutFolder}}/Logs";
+const allPages = dv.pages('"' + logsFolder + '"');
+
+if (allPages.length === 0) {
+	dv.paragraph("Данные по подходам пока не найдены.");
+} else {
+	const rows = [];
+	const summary = new Map();
+	const pageLinks = new Map();
+	
+	const exerciseHeader = "### " + exerciseName;
+	const setRegex = /^Подход\s*(\d+):\s*(.+)$/i;
+	const weightRegex = /(\d+[\,\.]?\d*)\s*кг/i;
+	const repsRegex = /(\d+)\s*раз/i;
+
+	for (const page of allPages) {
+		const content = await dv.io.load(page.file.path);
+		const lines = content.split("\n");
+		const date = page.file.name.slice(0, 10);
+		const dateParts = date.split('-');
+		const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
+		const logLink = "[[" + page.file.path + "|" + displayDate + "]]";
+		pageLinks.set(date, logLink);
+		
+		let i = 0;
+		while (i < lines.length) {
+			if (lines[i].trim() === exerciseHeader) {
+				i++;
+				let setNumber = 0;
+				
+				while (i < lines.length) {
+					const currentLine = lines[i].trim();
+					if (currentLine.startsWith("###") || currentLine.startsWith("##")) break;
+					
+					if (currentLine.length > 0) {
+						const setMatch = setRegex.exec(currentLine);
+						if (setMatch) {
+							setNumber = parseInt(setMatch[1]);
+							const details = setMatch[2];
+							const weightMatch = weightRegex.exec(details);
+							const repsMatch = repsRegex.exec(details);
+							const weight = weightMatch ? weightMatch[1].replace(",", ".") : "—";
+							const reps = repsMatch ? repsMatch[1] : "—";
+							rows.push([logLink, setNumber, weight, reps, details]);
+							if (repsMatch) {
+								summary.set(date, (summary.get(date) || 0) + Number(repsMatch[1]));
+							}
+						} else if (currentLine.includes("раз") || currentLine.includes("кг")) {
+							setNumber++;
+							const weightMatch = weightRegex.exec(currentLine);
+							const repsMatch = repsRegex.exec(currentLine);
+							const weight = weightMatch ? weightMatch[1].replace(",", ".") : "—";
+							const reps = repsMatch ? repsMatch[1] : "—";
+							rows.push([logLink, setNumber, weight, reps, currentLine]);
+							if (repsMatch) {
+								summary.set(date, (summary.get(date) || 0) + Number(repsMatch[1]));
+							}
+						}
+				}
+				i++;
+			}
+			i++;
+		}
+	}	if (rows.length === 0) {
+		dv.paragraph("Данные по подходам пока не найдены.");
+	} else {
+		rows.sort((a, b) => a[0] === b[0] ? Number(a[1]) - Number(b[1]) : (a[0] > b[0] ? -1 : 1));
+
+		const summaryRows = Array.from(summary.entries())
+			.sort((a, b) => (a[0] > b[0] ? -1 : 1))
+			.map(([date, reps]) => [pageLinks.get(date) || date, reps]);
+
+		if (summaryRows.length > 0) {
+			dv.header(3, "📈 График прогресса");
+			const chartData = Array.from(summary.entries()).sort((a, b) => (a[0] < b[0] ? -1 : 1));
+			const labels = chartData.map(([date]) => {
+				const parts = date.split('-');
+				return parts[2] + "." + parts[1];
+			});
+			const values = chartData.map(([, reps]) => reps);
+			const mermaidChart = "```mermaid\n%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'plotColorPalette': '#FF6B00'}}}}%%\nxychart-beta\n    title \"Прогресс повторений по дням\"\n    x-axis [" + labels.map(l => '"' + l + '"').join(', ') + "]\n    y-axis \"Повторения\" 0 --> " + (Math.max(...values) + 10) + "\n    line [" + values.join(', ') + "]\n```";
+			dv.paragraph(mermaidChart);
+			dv.paragraph("");
+		}
+
+		dv.header(3, "📊 Детальная статистика");
+		dv.table(["Дата", "Подход", "Вес (кг)", "Повторения", "Описание"], rows);
+
+		if (summaryRows.length > 0) {
+			dv.paragraph("");
+			dv.header(3, "📝 Суммарные повторения по дням");
+			dv.table(["Дата", "Повторения"], summaryRows);
+		}
+	}
+}

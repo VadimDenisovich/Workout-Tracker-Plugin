@@ -1,0 +1,316 @@
+import { WorkoutTrackerSettings, TemplateKey, TemplateOverrides } from './types';
+
+export const DEFAULT_EXERCISES: string[] = [
+	'Жим гантелей лежа',
+	'Румынская тяга с гантелями',
+	'Двойная верхняя тяга блока в груди',
+	'Подъемы с гантелями',
+	const escapeRegex = (value) => value.replace(/[.*+?^\\\${}()|\\[\\]\\\\]/g, "\\\\\\\$&");
+const headingPattern = new RegExp("^###\\\\\\\\s+" + escapeRegex(exerciseName) + "\\\\\\\\s*$", "mi");
+const sectionPattern = new RegExp("^###\\\\\\\\s+" + escapeRegex(exerciseName) + "\\\\\\\\s*$([\\\\\\\\s\\\\\\\\S]*?)(?=^###\\\\\\\\s+|^##\\\\\\\\s+|$)", "mi");
+
+const pages = dv.pages('"' + logsFolder + '"').where(page => headingPattern.test(page.file.content));цузский жим с нижнего блока',
+	'Подъем гантелей на дельты',
+	'Жим ногами на носки',
+	'Жим ног',
+	'Жим от груди в Смите',
+	'Подъём гантелей на дельты лежа',
+	'Разгибание ног в тренажере',
+	'Подъем EZ-штанги на бицепс стоя',
+	'Скручивание на пресс на скамье',
+	'Жим штанги лёжа узким хватом',
+	'Становая тяга классика (средний вес)',
+	'Тяга горизонтального блока к поясу',
+	'Жим гантелей на наклонной скамье (45°)',
+	'Разгибания рук с гантелью из-за головы (французский жим сидя)',
+	'Подъёмы ног в висе',
+	'Гиперэкстензия (икры)',
+	'Отжимания',
+	'Приседания',
+	'Пресс'
+];
+
+export const DEFAULT_SETTINGS: WorkoutTrackerSettings = {
+	workoutFolder: 'Workout',
+	previousWorkoutFolder: undefined,
+	templateOverrides: {},
+	exerciseRegistry: [...DEFAULT_EXERCISES]
+};
+
+export const TEMPLATE_KEYS: TemplateKey[] = ['MONDAY', 'WEDNESDAY', 'FRIDAY', 'HOME'];
+
+export const TEMPLATE_FILES: Record<TemplateKey, string> = {
+	MONDAY: 'Monday.md',
+	WEDNESDAY: 'Wednesday.md',
+	FRIDAY: 'Friday.md',
+	HOME: 'Home.md'
+};
+
+export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
+	MONDAY: `# Тренировка - Понедельник
+
+**Дата:** {{date}}
+**Место:** {{location}}
+
+## Упражнения
+
+![[Pasted image 20240523211013.png|300]]
+![[Pasted image 20240523211121.png|300]]
+![[Pasted image 20240523211124.png|300]]
+### Жим гантелей лежа
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20240523211504.png|300]]
+![[Pasted image 20240523211651.png|300]]
+![[Pasted image 20240523211654.png|300]]
+### Румынская тяга с гантелями
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20240523212306.png|300]]
+![[Pasted image 20240523212935.png|300]]
+![[Pasted image 20240523212914.png|300]]
+### Двойная верхняя тяга блока в груди
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+Подход 3: _ кг x _ раз
+Подход 4: _ кг x _ раз
+
+![[Pasted image 20240523213357.png|300]]
+### Подъемы с гантелями
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20240523214401.png|300]]
+![[Pasted image 20240523214826.png|300x300]]
+![[Pasted image 20240523214828.png|300x300]]
+### Французский жим с нижнего блока
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20240523215257.png|300]]
+### Подъем гантелей на дельты
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20240523215704.png|300]]
+![[Pasted image 20240523215711.png|300]]
+### Жим ногами на носки
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+## Заметки
+`,
+
+	WEDNESDAY: `# Тренировка - Среда
+
+**Дата:** {{date}}
+**Место:** {{location}}
+
+## Упражнения
+
+![[Pasted image 20251004115009.png|300x300]]
+### Жим ног
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+Подход 3: _ кг x _ раз
+
+![[Pasted image 20240523221030.png|300]]
+### Жим от груди в Смите
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20240523221812.png]]
+### Подъём гантелей на дельты лежа
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20240523222301.png|300]]
+### Разгибание ног в тренажере
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20240523222856.png|300]]
+### Подъем EZ-штанги на бицепс стоя
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20251004122326.png|300]]
+### Скручивание на пресс на скамье
+Подход 1: _ раз
+Подход 2: _ раз
+Подход 3: _ раз
+
+## Заметки
+`,
+
+	FRIDAY: `# Тренировка - Пятница
+
+**Дата:** {{date}}
+**Место:** {{location}}
+
+## Упражнения
+
+![[Pasted image 20251004115159.png|400x250]]
+### Жим штанги лёжа узким хватом
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+_Первый подход тяжёлый, второй — закрепляющий._
+
+![[Pasted image 20251004115509.png|400x250]]
+### Становая тяга классика (средний вес)
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20251004121231.png|400x300]]
+### Тяга горизонтального блока к поясу
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20251004121429.png]]
+### Жим гантелей на наклонной скамье (45°)
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20251004121547.png|400x250]]
+### Разгибания рук с гантелью из-за головы (французский жим сидя)
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+![[Pasted image 20240523215257.png|300]]
+### Подъем гантелей на дельты
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+_Второй подход выполните в формате дроп-сета._
+
+![[Pasted image 20251004121737.png|300]]
+### Подъёмы ног в висе
+Подход 1: _ раз
+Подход 2: _ раз
+
+![[Pasted image 20251004121913.png|300]]
+### Гиперэкстензия (икры)
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+## Заметки
+
+F{D{SA{DAS{Dasdfasdfasdfasdfasdf]}}}}`,
+
+	HOME: `# Домашняя тренировка
+
+**Дата:** {{date}}
+**Место:** Дома
+
+## Инструкции
+
+- 3 круга с отдыхом 2 минуты между кругами.
+- Общая длительность тренировки — около 25 минут.
+- Для контроля времени используйте приложение TabataTimer.
+
+## Круг
+
+### Отжимания
+Подход 1: _ раз
+
+### Приседания
+Подход 1: _ раз
+
+### Пресс
+Подход 1: _ раз
+
+## Заметки
+\`
+};
+
+export const EXERCISE_TEMPLATE = \`# {{exerciseName}} - Прогрессия
+
+## Статистика
+
+\\\`\\\`\\\`dataviewjs
+const exerciseName = "{{exerciseName}}";
+const logsFolder = "{{workoutFolder}}/Logs";
+
+const escapeRegex = (value) => value.replace(/[.*+?^\\\${}()|\\[\\]\\\\]/g, "\\\\\\\$&");
+
+## Заметки
+
+`
+};
+
+export const EXERCISE_TEMPLATE = String.raw`# {{exerciseName}} - Прогрессия
+
+## Статистика
+
+\`\`\`dataviewjs
+const exerciseName = "{{exerciseName}}";
+const logsFolder = "{{workoutFolder}}/Logs";
+
+const escapeRegex = (value) => value.replace(/[.*+?^\${}()|[\]\\]/g, "\\$&");
+const headingPattern = new RegExp("^###\\s+" + escapeRegex(exerciseName) + "\\s*$", "mi");
+const sectionPattern = new RegExp("^###\\s+" + escapeRegex(exerciseName) + "\\s*$([\\s\\S]*?)(?=^###\\s+|^##\\s+|$)", "mi");
+
+const pages = dv.pages("\"" + logsFolder + "\"").where(page => headingPattern.test(page.file.content));
+const rows = [];
+const summary = new Map();
+
+for (const page of pages) {
+	const content = await dv.io.load(page.file.path);
+	const sectionMatch = content.match(sectionPattern);
+	if (!sectionMatch) continue;
+
+	const sectionBody = sectionMatch[1];
+	const setLines = sectionBody
+		.split("\n")
+		.map(line => line.trim())
+		.filter(line => line.toLowerCase().startsWith("подход"));
+
+	if (setLines.length === 0) continue;
+
+	const date = page.file.name.slice(0, 10);
+
+	for (const line of setLines) {
+		const parts = line.match(/^Подход\s*(\d+):\s*(.+)$/i);
+		if (!parts) continue;
+
+		const setNumber = parts[1];
+		const details = parts[2];
+		const weightMatch = details.match(/(\d+[,.]?\d*)\s*кг/i);
+		const repsMatch = details.match(/(\d+)\s*раз/i);
+		const weight = weightMatch ? weightMatch[1].replace(",", ".") : "—";
+		const reps = repsMatch ? repsMatch[1] : "—";
+
+		rows.push([date, setNumber, weight, reps, details]);
+		if (repsMatch) {
+			summary.set(date, (summary.get(date) ?? 0) + Number(repsMatch[1]));
+		}
+	}
+}
+
+if (rows.length === 0) {
+	dv.paragraph("Данные по подходам пока не найдены.");
+} else {
+	rows.sort((a, b) => {
+		if (a[0] === b[0]) {
+			return Number(a[1]) - Number(b[1]);
+		}
+		return a[0] > b[0] ? -1 : 1;
+	});
+
+	dv.table(["Дата", "Подход", "Вес (кг)", "Повторения", "Описание"], rows);
+
+	const summaryRows = Array.from(summary.entries())
+		.sort((a, b) => (a[0] > b[0] ? -1 : 1))
+		.map(([date, reps]) => [date, reps]);
+
+	if (summaryRows.length > 0) {
+		dv.paragraph("");
+		dv.header(3, "Суммарные повторения по дням");
+		dv.table(["Дата", "Повторения"], summaryRows);
+	}
+}
+\`\`\`
+
+## Заметки
+`;

@@ -2,10 +2,17 @@ export type TemplateKey = 'MONDAY' | 'WEDNESDAY' | 'FRIDAY' | 'HOME';
 
 export type TemplateOverrides = Partial<Record<TemplateKey, string>>;
 
+export interface ExerciseInfo {
+	name: string;
+	hasWeight: boolean;
+}
+
 export interface WorkoutTrackerSettings {
 	workoutFolder: string;
 	previousWorkoutFolder?: string;
-	templateOverrides: TemplateOverrides;
+	exerciseRegistry: ExerciseInfo[];
+	chartRepsMin: number;
+	chartRepsMax: number;
 }
 
 export interface Exercise {
