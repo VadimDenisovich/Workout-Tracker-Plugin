@@ -1,198 +1,122 @@
-# Workout Tracker для Obsidian# Workout Tracker Plugin for Obsidian
+пш# Workout Tracker for Obsidian
 
+Smart workout journaling for Obsidian: spin up daily logs from templates, manage an exercise library with progress charts, and keep your folder structure tidy without leaving the vault.
 
+## ✨ Highlights
 
-Плагин помогает вести тренировочные записи прямо в Obsidian: создаёт логи по шаблонам, ведёт библиотеку упражнений, визуализирует прогресс и автоматизирует обслуживание структуры папок.Smart workout journaling for Obsidian: create structured training logs, maintain an exercise library with progress tracking, and manage templates without leaving your vault.
+- **One-click workout logs** – Ribbon button and command palette command pick the correct template for Monday, Wednesday, Friday, or Home sessions. If a log for today already exists you get redirected with a notice.
+- **Home vs gym flows** – A location picker lets you choose “Gym” (date-based template) or “Home” (circuit template that creates files like `2025-10-03-Home.md`).
+- **Exercise library modal** – Floating modal with a full-width search bar, per-exercise open/delete actions, and a bold “+” button in a rounded square to add new drills.
+- **Automatic folder management** – Keeps `Exercises/`, `Logs/`, and `Templates/` in sync. Changing the workout folder migrates the whole structure instead of recreating it.
+- **Dataview-powered stats** – Exercise cards ship with dataviewjs tables and Mermaid charts (weight vs reps or bodyweight volume) and handle set numbering for home circuits.
+- **Template sync** – Editing `Monday.md`, `Wednesday.md`, `Friday.md`, or `Home.md` updates the in-code defaults so future logs use your version.
+- **Chart range settings** – Configure min/max reps from the settings tab; weighted exercise files are refreshed automatically after every change.
+- **Update structure button** – Re-run folder migration on demand while preserving customized templates.
 
+## 📦 Installation
 
+### Option 1 · Use a release build
+1. Download `main.js`, `manifest.json`, and `styles.css` from the latest GitHub release.
+2. Create `<your-vault>/.obsidian/plugins/workout-tracker/` (keep the folder name in sync with `manifest.json` → `id`).
+3. Drop the files into that folder.
+4. In Obsidian go to **Settings → Community plugins**, disable **Restricted mode** if needed, and enable **Workout Tracker**.
 
-## 🗺️ Краткий обзор## ✨ Key features
-
-
-
-- Лог тренировки в один клик с автоматическим выбором шаблона (понедельник, среда, пятница или домашняя тренировка).- **One-click workout logs** – Ribbon button and command palette entry create a daily log using the right template for Monday, Wednesday, or Friday. If a log for today already exists, the plugin opens it instead and shows a notice that you were redirected.
-
-- Модальное окно со списком упражнений, поиском и кнопкой добавления в виде контрастного «+» в закруглённом квадратике.- **Home vs gym workflows** – Before creating a log you choose the training location (home or gym). Home workouts use a dedicated template and produce files like `2025-10-03-Home.md`.
-
-- Автоматическое создание и поддержка структуры `Logs/`, `Exercises/`, `Templates/` в выбранной папке.- **Template auto-detection & overrides** – Default templates for Monday, Wednesday, Friday, and Home live in `Templates`. Editing any of those `.md` files instantly updates the in-code template used on the next log creation.
-
-- Синхронизация шаблонов: изменения Markdown-файлов Monday/Wednesday/Friday/Home автоматически сохраняются в коде.- **Exercise library modal** – A floating modal lists all exercises from `Exercises/`. Clicking an exercise opens its note; the minus icon deletes the underlying file and removes it from the list.
-
-- Dataview-шаблоны для карточек упражнений с графиками и таблицами (весовые и безвесовые варианты).- **Dataview-ready exercise notes** – New exercise files are scaffolded with a Dataview table and chart that aggregate data from `Logs/`.
-
-- Настройки диапазона графиков повторений, кнопка «Обновить структуру» и автообновление карточек упражнений при открытии.- **Folder management & migration** – The plugin keeps track of the previous workout folder. When you change the folder in settings it moves the whole structure (`Exercises`, `Logs`, `Templates`) instead of recreating it.
-
-- **Nested folder picker** – Settings show a read-only input. Clicking it opens a dialog where you navigate existing folders step-by-step, with an option to create a new one at any level.
-
-## 🚀 Как развернуть плагин в своём хранилище
-
-## 📁 Folder structure
-
-### Вариант 1. Использовать готовую сборку
-
-1. Скачайте архив релиза с GitHub (файлы `main.js`, `manifest.json`, `styles.css`).When the plugin runs for the first time (or when you choose a new location) it ensures this structure exists inside your selected workout folder:
-
-2. Создайте папку `<ваше_хранилище>/.obsidian/plugins/workout-tracker/` (или переименуйте как нужно, но сохраните `id` в `manifest.json`).
-
-3. Скопируйте файлы `main.js`, `manifest.json`, `styles.css` в созданную папку.- `Exercises/` – individual exercise notes with Dataview templates.
-
-4. В Obsidian откройте **Settings → Community plugins**, отключите **Restricted mode** (если включён), включите **Workout Tracker**.- `Logs/` – daily workout logs (gym and home).
-
-- `Templates/` – editable Markdown templates (`Monday.md`, `Wednesday.md`, `Friday.md`, `Home.md`).
-
-### Вариант 2. Собрать из исходников
-
-1. Склонируйте репозиторий в папку плагинов:If you move the workout folder in settings, the plugin migrates the whole structure—including existing files—to the new location.
-
-   ```bash
-
-   cd /path/to/your/vault/.obsidian/plugins## 🧭 Using the plugin
-
-   git clone https://github.com/VadimDenisovich/Workout-Tracker-Plugin.git workout-tracker
-
-   cd workout-tracker1. **Create a workout log**
-
-   ```   - Click the calendar ribbon icon or run the `Создать лог тренировки` command.
-
-2. Установите зависимости:   - Choose the location (home or gym). Gym sessions on non-training days prompt you to pick a template manually.
-
-   ```bash   - The plugin writes the log to `Logs/` using the appropriate template and opens the note. You’ll see a notice if you are redirected to an existing file.
-
-   npm install
-
-   ```2. **Browse exercises**
-
-3. Выполните production-сборку:   - Click the dumbbell ribbon icon or run the `Открыть упражнения` command.
-
-   ```bash   - A modal pops up listing exercises. Select one to open its note. Hit the minus icon to delete it from disk and the list.
-
-   npm run build   - When you create a new exercise note (e.g., from within the modal) it includes embedded Dataview queries and charts pointing to your workout logs.
-
-   ```
-
-4. Убедитесь, что в папке плагина находятся `main.js`, `manifest.json`, `styles.css`, затем включите плагин в настройках Obsidian.3. **Edit templates**
-
-   - Open any file in `Templates/` and modify it directly. The plugin captures the new content and uses it for future logs.
-
-### Режим разработки (watch)   - Resetting a template back to its default removes the override automatically.
-
+### Option 2 · Build from source
 ```bash
-
-npm run dev## ⚙️ Settings
-
+cd /path/to/your/vault/.obsidian/plugins
+git clone https://github.com/VadimDenisovich/Workout-Tracker-Plugin.git workout-tracker
+cd workout-tracker
+npm install
+npm run build
 ```
 
-Команда запускает esbuild в режиме наблюдения. Перезагружайте Obsidian (Cmd/Ctrl + R), чтобы увидеть изменения.- **Workout folder selector** – Click the input to navigate through existing folders. Each level shows subfolders plus a `+ создать свою` option. Choosing a folder updates the plugin immediately.
+The build outputs `main.js` at the repository root. Confirm `main.js`, `manifest.json`, and `styles.css` are present, then enable the plugin inside Obsidian.
 
-- The plugin silently stores the previous folder path to support migrations and ensures the target folder has the expected substructure.
-
-## 🧰 Требования
-
-- Obsidian v0.15.0 или выше.## 🚀 Installation
-
-- Установленный плагин **Dataview** (используется во всех шаблонах статистики).
-
-- Node.js LTS (18+) и npm — только для разработки.### From source
-
-
-
-## 🗂️ Автоматическая структура```bash
-
-При первом запуске или смене рабочей папки плагин автоматически создаёт/переносит структуру:git clone https://github.com/VadimDenisovich/Workout-Tracker-Plugin.git
-
-- `Logs/` — логи тренировок (зал и дом). Домашние логи именуются по шаблону `YYYY-MM-DD-Home.md`.cd Workout-Tracker-Plugin
-
-- `Exercises/` — карточки упражнений с dataviewjs-статистикой.npm install
-
-- `Templates/` — шаблоны `Monday.md`, `Wednesday.md`, `Friday.md`, `Home.md`.npm run build
-
+### Development watch mode
+```bash
+npm run dev
 ```
 
-Путь к папке можно изменить в настройках. Плагин сохраняет прошлое расположение и переносит всю структуру в новую папку, не создавая дубликаты. Кнопка «Обновить структуру» принудительно повторяет миграцию.
+esbuild runs in watch mode; reload Obsidian (`Cmd/Ctrl + R`) to see changes.
 
-Copy `main.js`, `manifest.json`, and (optionally) `styles.css` into your vault folder: `Vault/.obsidian/plugins/workout-tracker/`.
+## ✅ Requirements
 
-## 📝 Рабочие процессы
+- Obsidian v0.15.0 or newer
+- [Dataview](https://github.com/blacksmithgu/obsidian-dataview) plugin (required for exercise stats)
+- Node.js 18+ and npm (development only)
 
-### Development mode
+## 🗂️ Folder layout
 
-### Создание логов
+On first launch—or whenever you pick a new workout folder—the plugin guarantees this structure:
 
-1. Нажмите на иконку в боковой панели или выполните команду «Создать лог тренировки».```bash
+- `Logs/` – Gym and home workout logs; home sessions follow `YYYY-MM-DD-Home.md`.
+- `Exercises/` – Exercise cards containing dataviewjs dashboards.
+- `Templates/` – Editable Markdown templates (`Monday.md`, `Wednesday.md`, `Friday.md`, `Home.md`).
 
-2. Выберите место тренировки: **Зал** или **Дом**.npm run dev
+The plugin remembers the previous folder and migrates existing files when you choose a new location. The **Update structure** button in settings re-runs the same migration.
 
-   - Для зала шаблон определяется автоматически по дате (Пн/Ср/Пт). Если день нестандартный, появится модальное окно выбора шаблона.```
+## 🧭 Everyday workflows
 
-   - Для дома используется шаблон Home (3 круга с отжиманиями, приседаниями и прессом, тайминг через TabataTimer).
+### Create a workout log
+1. Click the dumbbell ribbon icon or run the “Создать лог тренировки” command.
+2. Pick the location:
+   - **Gym** – Picks Monday/Wednesday/Friday automatically; non-training days prompt you to choose a template manually.
+   - **Home** – Uses the home circuit template (three rounds of push-ups, squats, core, 2-minute rest, TabataTimer suggestion).
+3. If today’s log already exists the plugin opens it and shows “Переношу вас в созданный файл”.
 
-3. Если лог на текущую дату уже существует, плагин откроет его и покажет уведомление «Переношу вас в созданный файл».The command runs esbuild in watch mode. Point Obsidian to this folder (or symlink it) and reload the app after changes.
+### Manage exercises
+- Open the exercise modal via the ribbon icon or “Открыть упражнения”.
+- Use the wide search bar to filter by name; spacing keeps it separated from the list.
+- Select an exercise to open its card. Click the minus icon to delete the file and remove it from the registry.
+- Add new exercises with the black “+” button; files are created under `Exercises/` and persisted in the settings registry (removal stays in sync).
 
+### Exercise cards & stats
+- **Weighted exercises** – Dataview aggregates sets from logs, builds a weight vs reps chart (Mermaid `xychart-beta`, bright orange `#FF6B00` line), and lists the latest sets with an option to show hidden records. Home workouts number sets based on the circuit round.
+- **Bodyweight exercises** – Charts show total volume and max reps per day. Tables default to 10 rows with a “show all” toggle.
+- Dataview scripts rely on string concatenation (no template literals) to avoid Obsidian parser issues and auto-refresh whenever you open a card.
 
+## 🧱 Templates
 
-### Управление упражнениями## 🧪 Tips & troubleshooting
+### Gym days (Monday / Wednesday / Friday)
+Each template lists the planned exercises pulled from your program. Every exercise includes Obsidian image embeds followed by placeholder sets:
 
-- Модальное окно открывается через иконку или команду «Открыть упражнения».
-
-- Вверху — строка поиска полной ширины с отступом; она фильтрует упражнения по названию.- If templates do not update after edits, ensure you are editing the files inside the configured `Templates/` folder. The plugin listens for modifications there.
-
-- Кнопка добавления — чёрный «+» внутри прозрачного квадрата с закруглёнными углами и тенью.- Logs are keyed by the current date; if you wish to create multiple gym sessions on the same day, rename or archive the existing log first.
-
-- Нажатие на упражнение открывает карточку с датами, подходами и графиками; минус удаляет файл и запись из реестра.- Exercise deletion only removes the Markdown file—linked references elsewhere in your vault remain.
-
-- Для новых упражнений генерируются файлы в `Exercises/` и запись сохраняется в реестре настроек. Удаление синхронизирует обе стороны.
-
-## 📄 License
-
-### Карточки упражнений
-
-- **С весом**: Dataview собирает подходы из логов, строит график зависимости повторений от веса (ось Y настраивается в настройках) и таблицу последних записей. Номер подхода для домашних тренировок вычисляется по номеру круга.This project is released under the MIT License. See `LICENSE` for details.
-
-- **Без веса**: отображаются графики общего объёма и максимума повторений по дням, а также таблица последних записей с кнопкой показать скрытые записи.
-- Dataview-скрипты не используют шаблонные строки, чтобы избежать SyntaxError, и автоматически обновляются при открытии карточки.
-
-## 📄 Шаблоны
-
-### Зал (Monday / Wednesday / Friday)
-Каждый файл содержит список упражнений с изображениями (Obsidian-вставки) и пронумерованными подходами:
 ```
 ![[Pasted image 20240523211013.png|300]]
-Подход 1: _ кг x _ раз
-Подход 2: _ кг x _ раз
+Set 1: _ kg × _ reps
+Set 2: _ kg × _ reps
 ```
-Списки формируются на основе плана, указанного в требованиях: жимы, тяги, разгибания, упражнения на дельты и т.д. Разминка в шаблоны не включается.
 
-### Домашняя тренировка (Home)
-Шаблон содержит 3 круга по 3 упражнения (отжимания, приседания, пресс) и пояснения по таймингу. Каждое поле заполнения повторений оставлено пустым (`_ раз`).
+Warm-ups are intentionally omitted per specification.
 
-Изменения шаблонов в Obsidian автоматически переносятся в код. При пересоздании структуры или смене папки настройки учитывают кастомные версии, чтобы изменения не терялись.
+### Home day (Home.md)
+Three rounds with push-ups, squats, and abs plus timing notes. Repetition fields stay blank (`_ reps`) for quick filling during the session.
 
-## ⚙️ Настройки плагина
-- **Рабочая папка** — поле без прямого ввода. При клике появляется диалог выбора существующих папок с возможностью углубляться во вложенные и пунктом «+ создать свою» на каждом уровне. Новая папка создаётся по подтверждению и сразу применяется.
-- **Диапазон графиков** — два числовых поля (минимум и максимум повторений). После изменения показывается уведомление и автоматически обновляются все файлы упражнений с весом.
-- **Обновить структуру** — кнопка для ручного пересоздания/переноса `Exercises`, `Logs`, `Templates`. Сохраняет кастомные шаблоны и правки.
+Any edits you make inside `Templates/` are captured and stored in the plugin so regenerated files keep your customizations.
 
-## 📊 Статистика и визуализация
-- Используются графики Mermaid (`xychart-beta` с яркой линией цвета `#FF6B00`).
-- Таблицы выводятся через DataviewJS; по умолчанию отображаются последние 10 записей с возможностью показать все.
-- Карточки упражнений учитывают круги домашних тренировок при нумерации подходов.
+## ⚙️ Settings
 
-## 🔁 Автоматизации
-- Автообновление карточек упражнений происходит при их открытии.
-- При изменении диапазона графиков обновляются все тренировочные файлы с весом (с уведомлениями о прогрессе).
-- Шаблоны и структура папок синхронизируются как при изменении настроек, так и через кнопку «Обновить структуру».
+- **Workout folder picker** – Read-only input that opens a nested folder browser. Each level lists subfolders plus a “+ create your own” action; newly created folders are applied immediately.
+- **Chart range** – Two numeric inputs (min and max reps). Changing either value shows a notice and triggers auto-refresh of all weighted exercise files.
+- **Update structure** – Rebuild/migrate `Exercises`, `Logs`, and `Templates` manually while preserving modified templates.
 
-## 🧪 Советы и устранение неполадок
-- **Графики пустые**: убедитесь, что в логах заполнены веса/повторения и установлен Dataview.
-- **Шаблон не обновился**: проверьте, что редактируете файл в `Templates/` выбранной рабочей папки, затем нажмите «Обновить структуру».
-- **Структура не перенеслась**: смените папку в настройках и верните назад — плагин мигрирует файлы с учётом сохранённого прошлого пути.
-- **Dataview ошибки SyntaxError**: убедитесь, что используете поставляемые шаблоны без добавления шаблонных строк; плагин поддерживает только конкатенацию строк.
+## � Automation
 
-## 🤝 Участие и разработка
-- PR и issue приветствуются.
-- Перед отправкой изменений запустите `npm run build` для проверки сборки.
-- Лицензия проекта — MIT (см. `LICENSE`).
+- Exercise cards refresh themselves whenever you open them.
+- Weighted exercise files are recreated after chart range changes (with progress notices).
+- Template edits propagate to the internal defaults, and migrations respect your customized versions.
+
+## 🧪 Troubleshooting
+
+- **Charts are empty** – Make sure Dataview is installed and logs include numeric weights/reps.
+- **Template changes are ignored** – Confirm you edited files in the active `Templates/` folder, then press **Update structure**.
+- **Folder migration failed** – Toggle to another folder and back; the plugin keeps the previous path and migrates files accordingly.
+- **Dataview SyntaxError** – Use the shipped templates (no template literals) or re-run **Update structure** to restore clean copies.
+
+## 🤝 Contributing
+
+- Issues and PRs are welcome.
+- Run `npm run build` before submitting changes to ensure the bundle compiles.
+- Licensed under the MIT License – see [`LICENSE`](LICENSE).
 
 ---
-**Автор**: Vadim Denisovich  
-**Репозиторий**: [VadimDenisovich/Workout-Tracker-Plugin](https://github.com/VadimDenisovich/Workout-Tracker-Plugin)
+Created by Vadim Denisovich · [GitHub Repository](https://github.com/VadimDenisovich/Workout-Tracker-Plugin)
