@@ -1,0 +1,155 @@
+const exerciseName = "{{exerciseName}}";
+
+const plugin = app.plugins.plugins['workout-tracker'];
+const chartMin = plugin?.settings?.chartRepsMin ?? 0;
+const chartMax = plugin?.settings?.chartRepsMax ?? 15;
+
+// Читаем данные из кэша
+const cache = plugin?.exerciseCache;
+if (!cache) {
+	dv.paragraph("⚠️ Кэш не загружен. Перезагрузите плагин.");
+} else {
+	const exerciseData = cache.getExerciseData(exerciseName);
+	
+	if (!exerciseData || exerciseData.history.length === 0) {
+		dv.paragraph("Данные по подходам пока не найдены.");
+	} else {
+		const rows = [];
+		const maxReps = new Map();
+		const maxRepsWeight = new Map();
+		const pageLinks = new Map();
+		
+		// Обрабатываем историю из кэша
+		for (const session of exerciseData.history) {
+			const date = session.date;
+			const dateParts = date.split('-');
+			const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
+			
+			// Создаём ссылку на лог
+			const logFiles = dv.pages('"{{workoutFolder}}/Logs"')
+				.filter(p => p.file.name.startsWith(date));
+			const logLink = logFiles.length > 0 
+				? "[[" + logFiles[0].file.path + "|" + displayDate + "]]"
+				: displayDate;
+			pageLinks.set(date, logLink);
+			
+			// Обрабатываем подходы
+			session.sets.forEach((set, i) => {
+				rows.push({
+					date: date,
+					setNumber: i + 1,
+					weight: set.weight,
+					reps: set.reps,
+					circle: 0
+				});
+				
+				if (!maxReps.has(date) || set.reps > maxReps.get(date)) {
+					maxReps.set(date, set.reps);
+					maxRepsWeight.set(date, set.weight);
+				}
+			});
+		}
+		
+		if (rows.length === 0) {
+			dv.paragraph("Данные по подходам пока не найдены.");
+		} else {
+			// Группируем по дате
+			const groupedByDate = new Map();
+			for (const row of rows) {
+				if (!groupedByDate.has(row.date)) {
+					groupedByDate.set(row.date, []);
+				}
+				groupedByDate.get(row.date).push(row);
+			}
+			
+			// График (простой текстовый вариант)
+			dv.header(3, "📊 График прогресса");
+			const sortedDates = Array.from(groupedByDate.keys()).sort();
+			
+			// Создаём простую визуализацию - два графика
+			const maxRepsValue = Math.max(...sortedDates.map(d => maxReps.get(d)));
+			const maxWeightValue = Math.max(...sortedDates.map(d => maxRepsWeight.get(d)));
+			
+			dv.paragraph("**Макс. повторений:**");
+			const repsChartLines = sortedDates.map(d => {
+				const reps = maxReps.get(d);
+				const barLength = Math.round((reps / maxRepsValue) * 25);
+				const bar = "█".repeat(barLength);
+				const parts = d.split('-');
+				const dateLabel = parts[2] + "." + parts[1];
+				return `${dateLabel}: ${bar} ${reps} раз`;
+			});
+			dv.paragraph("```\n" + repsChartLines.join('\n') + "\n```");
+			
+			dv.paragraph("**Вес при макс. повторениях:**");
+			const weightChartLines = sortedDates.map(d => {
+				const weight = maxRepsWeight.get(d);
+				const barLength = Math.round((weight / maxWeightValue) * 25);
+				const bar = "█".repeat(barLength);
+				const parts = d.split('-');
+				const dateLabel = parts[2] + "." + parts[1];
+				return `${dateLabel}: ${bar} ${weight} кг`;
+			});
+			dv.paragraph("```\n" + weightChartLines.join('\n') + "\n```");
+			
+			// Таблица по дням
+			dv.header(3, "История подходов");
+			const tableRows = [];
+			
+			for (const date of sortedDates.reverse()) {
+				const sets = groupedByDate.get(date);
+				const setsText = sets.map((s, idx) => 
+					`**${idx + 1}.** ${s.weight} кг × ${s.reps} раз`
+				).join(" • ");
+				
+				tableRows.push([
+					pageLinks.get(date),
+					setsText,
+					`${maxReps.get(date)} раз`,
+					`${maxRepsWeight.get(date)} кг`
+				]);
+			}
+			
+			dv.table(
+				["Дата", "Подходы", "Макс повторений", "Вес при макс"],
+				tableRows
+			);
+			
+			// Статистика за последнюю тренировку
+			if (exerciseData.lastWorkout) {
+				dv.header(3, "Последняя тренировка");
+				
+				const lastDate = exerciseData.lastWorkout.date;
+				const dateParts = lastDate.split('-');
+				const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
+				
+				dv.paragraph(`📅 **Дата:** ${displayDate}`);
+				
+				if (exerciseData.lastWorkout.maxActualWeight) {
+					const max = exerciseData.lastWorkout.maxActualWeight;
+					dv.paragraph(`💪 **Максимальный вес за тренировку:** ${max.weight} кг × ${max.reps} раз`);
+				}
+				
+				if (exerciseData.lastWorkout.maxActualWorkingSet) {
+					const working = exerciseData.lastWorkout.maxActualWorkingSet;
+					dv.paragraph(`🔥 **Максимальное количество повторений:** ${working.reps} раз с ${working.weight} кг`);
+				}
+			}
+			
+			// Рекорды за все время
+			dv.header(3, "Рекорды");
+			
+			if (exerciseData.allTimeMaxReps) {
+				const record = exerciseData.allTimeMaxReps;
+				const dateParts = record.date.split('-');
+				const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
+				
+				if (record.weight !== undefined) {
+					dv.paragraph(`🔥 **Максимум повторений:** ${record.reps} раз с ${record.weight} кг (${displayDate})`);
+				} else {
+					dv.paragraph(`🔥 **Максимум повторений:** ${record.reps} раз (${displayDate})`);
+				}
+			}
+		}
+	}
+}

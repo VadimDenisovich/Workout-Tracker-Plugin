@@ -3,6 +3,8 @@ import { WorkoutTrackerSettings, TemplateOverrides, ExerciseInfo } from './src/t
 import { DEFAULT_SETTINGS, DEFAULT_EXERCISES } from './src/templates';
 import { FileManager } from './src/utils/fileManager';
 import { TemplateUpdater } from './src/utils/templateUpdater';
+import { ExerciseCache } from './src/utils/exerciseCache';
+import { ExerciseMetadataManager } from './src/utils/exerciseMetadata';
 import { WorkoutLocationModal } from './src/modals/WorkoutLocationModal';
 import { FolderSelectorModal } from './src/modals/FolderSelectorModal';
 import { ExerciseListModal } from './src/modals/ExerciseListModal';
@@ -11,6 +13,8 @@ import { WorkoutLocation, WorkoutDay } from './src/types';
 export default class WorkoutTrackerPlugin extends Plugin {
 	settings: WorkoutTrackerSettings;
 	fileManager: FileManager;
+	exerciseCache: ExerciseCache;
+	exerciseMetadata: ExerciseMetadataManager;
 	private templateUpdater: TemplateUpdater;
 
 	async onload() {
@@ -24,6 +28,25 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		this.templateUpdater = new TemplateUpdater(this.app, this.manifest.id, async () => {
 			// Callback больше не нужен, так как изменения сразу пишутся в templates.ts
 		});
+
+		// Инициализируем менеджер метаданных упражнений
+		this.exerciseMetadata = new ExerciseMetadataManager(this.app, pluginDir);
+		await this.exerciseMetadata.load();
+		
+		// Синхронизируем метаданные с реестром упражнений
+		await this.exerciseMetadata.syncFromRegistry(this.settings.exerciseRegistry);
+
+		// Инициализируем кэш упражнений
+		this.exerciseCache = new ExerciseCache(this.app, pluginDir, this.exerciseMetadata);
+		await this.exerciseCache.load();
+		
+		// Обновляем кэш при запуске плагина
+		const logsFolder = `${this.settings.workoutFolder}/Logs`;
+		const newCachedCount = await this.exerciseCache.rebuildCache(logsFolder);
+		if (newCachedCount > 0) {
+			new Notice(`✅ Закэшировано ${newCachedCount} ${this.pluralizeLogCount(newCachedCount)}!`);
+			console.log(`[Main] Кэшировано новых логов при запуске: ${newCachedCount}`);
+		}
 
 		// Создаем структуру папок при первом запуске
 		await this.fileManager.createWorkoutStructure(
@@ -58,7 +81,7 @@ export default class WorkoutTrackerPlugin extends Plugin {
 			})
 		);
 
-		// Автообновление файлов упражнений при открытии
+		// Автообновление файлов упражнений при открытии + кэширование логов
 		this.registerEvent(
 			this.app.workspace.on('file-open', async (file) => {
 				if (!file || !(file instanceof TFile) || file.extension !== 'md') {
@@ -71,6 +94,13 @@ export default class WorkoutTrackerPlugin extends Plugin {
 				}
 				
 				console.log(`[Main] 📖 Открыт файл упражнения: ${file.basename}`);
+				
+				// Обновляем кэш логов перед обновлением файла
+				const logsFolder = `${this.settings.workoutFolder}/Logs`;
+				const newCachedCount = await this.exerciseCache.rebuildCache(logsFolder);
+				if (newCachedCount > 0) {
+					console.log(`[Main] Закэшировано ${newCachedCount} новых логов при открытии упражнения`);
+				}
 				
 				// Обновляем содержимое файла с актуальным шаблоном
 				try {
@@ -120,6 +150,20 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		});
 
 		this.addCommand({
+			id: 'rebuild-cache',
+			name: 'Обновить кэш упражнений',
+			callback: async () => {
+				const logsFolder = `${this.settings.workoutFolder}/Logs`;
+				const count = await this.exerciseCache.rebuildCache(logsFolder);
+				if (count > 0) {
+					new Notice(`✅ Закэшировано ${count} ${this.pluralizeLogCount(count)}!`);
+				} else {
+					new Notice('✅ Все логи уже закэшированы!');
+				}
+			}
+		});
+
+		this.addCommand({
 			id: 'refresh-exercise-files',
 			name: 'Обновить файлы упражнений',
 			callback: async () => {
@@ -154,6 +198,10 @@ export default class WorkoutTrackerPlugin extends Plugin {
 				result.location,
 				result.templateType
 			);
+
+			// Обновляем кэш после создания лога
+			const logsFolder = `${this.settings.workoutFolder}/Logs`;
+			const newCachedCount = await this.exerciseCache.rebuildCache(logsFolder);
 
 			await this.app.workspace.getLeaf().openFile(file);
 			if (!existed) {
@@ -241,6 +289,9 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		if (!exists) {
 			this.settings.exerciseRegistry.push({ name: normalized, hasWeight });
 			await this.persistSettings();
+			
+			// Добавляем в метаданные
+			await this.exerciseMetadata.addExercise(normalized, hasWeight);
 		}
 	}
 
@@ -255,6 +306,9 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		if (index !== -1) {
 			this.settings.exerciseRegistry.splice(index, 1);
 			await this.persistSettings();
+			
+			// Удаляем из метаданных
+			await this.exerciseMetadata.removeExercise(normalized);
 		}
 	}
 
@@ -281,6 +335,22 @@ export default class WorkoutTrackerPlugin extends Plugin {
 			registry.some((ex, index) => ex.name !== (original[index]?.name?.trim() ?? ''));
 
 		return { registry, changed };
+	}
+
+	pluralizeLogCount(count: number): string {
+		const lastDigit = count % 10;
+		const lastTwoDigits = count % 100;
+		
+		if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+			return 'логов';
+		}
+		if (lastDigit === 1) {
+			return 'лог';
+		}
+		if (lastDigit >= 2 && lastDigit <= 4) {
+			return 'лога';
+		}
+		return 'логов';
 	}
 }
 
@@ -399,6 +469,44 @@ class WorkoutTrackerSettingTab extends PluginSettingTab {
 					button.setDisabled(true);
 					try {
 						await this.plugin.refreshWorkoutStructure();
+					} finally {
+						button.setDisabled(false);
+					}
+				});
+			});
+
+		new Setting(containerEl)
+			.setName('Кэширование логов')
+			.setDesc('Обновить кэш упражнений из всех файлов логов. Это ускорит загрузку страниц упражнений.')
+			.addButton(button => {
+				button.setButtonText('Обновить кэш');
+				button.onClick(async () => {
+					button.setDisabled(true);
+					button.setButtonText('Обновление...');
+					try {
+						const logsFolder = `${this.plugin.settings.workoutFolder}/Logs`;
+						const count = await this.plugin.exerciseCache.rebuildCache(logsFolder);
+						if (count > 0) {
+							new Notice(`✅ Закэшировано ${count} ${this.plugin.pluralizeLogCount(count)}!`);
+						} else {
+							new Notice('✅ Все логи уже закэшированы!');
+						}
+					} catch (error) {
+						new Notice(`❌ Ошибка кэширования: ${error.message}`);
+					} finally {
+						button.setDisabled(false);
+						button.setButtonText('Обновить кэш');
+					}
+				});
+			})
+			.addButton(button => {
+				button.setButtonText('Очистить кэш');
+				button.setWarning();
+				button.onClick(async () => {
+					button.setDisabled(true);
+					try {
+						await this.plugin.exerciseCache.clearCache();
+						new Notice('✅ Кэш очищен');
 					} finally {
 						button.setDisabled(false);
 					}

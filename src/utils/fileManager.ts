@@ -59,10 +59,10 @@ export class FileManager {
 		const chartMax = settings.chartRepsMax ?? 15;
 		
 		try {
-			// Выбираем нужный шаблон в зависимости от наличия веса
+			// Используем КЭШИРОВАННЫЕ шаблоны для ускорения
 			const templateFileName = hasWeight 
-				? 'exercise-stats-with-weight.dataviewjs'
-				: 'exercise-stats-no-weight.dataviewjs';
+				? 'exercise-stats-with-weight-cached.dataviewjs'
+				: 'exercise-stats-no-weight-cached.dataviewjs';
 			
 			const dataviewjsPath = path.join(this.pluginDir, 'src', 'templates', templateFileName);
 			let dataviewjsCode = await fs.readFile(dataviewjsPath, 'utf-8');
