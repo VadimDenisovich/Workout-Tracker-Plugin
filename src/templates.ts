@@ -147,6 +147,7 @@ export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
 
 ![[Pasted image 20251004122326.png|300]]
 ### Скручивание на пресс на скамье
+{{exercise:Скручивание на пресс на скамье}}
 Подход 1: _ раз
 Подход 2: _ раз
 Подход 3: _ раз
@@ -199,6 +200,7 @@ export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
 
 ![[Pasted image 20251004121737.png|300]]
 ### Подъёмы ног в висе
+{{exercise:Подъёмы ног в висе}}
 Подход 1: _ раз
 Подход 2: _ раз
 
@@ -225,34 +227,43 @@ export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
 ## Круг 1
 
 ### Отжимания
+{{exercise:Отжимания}}
 _ раз
 
 ### Приседания
+{{exercise:Приседания}}
 _ раз
 
 ### Пресс
+{{exercise:Пресс}}
 _ раз
 
 ## Круг 2
 
 ### Отжимания
+{{exercise:Отжимания}}
 _ раз
 
 ### Приседания
+{{exercise:Приседания}}
 _ раз
 
 ### Пресс
+{{exercise:Пресс}}
 _ раз
 
 ## Круг 3
 
 ### Отжимания
+{{exercise:Отжимания}}
 _ раз
 
 ### Приседания
+{{exercise:Приседания}}
 _ раз
 
 ### Пресс
+{{exercise:Пресс}}
 _ раз
 
 ## Заметки
