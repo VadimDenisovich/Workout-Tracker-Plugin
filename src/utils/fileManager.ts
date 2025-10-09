@@ -104,6 +104,77 @@ ${dataviewjsCode}
 		}
 	}
 
+	private async getExerciseStats(exerciseName: string, workoutFolder: string): Promise<string> {
+		const logsFolder = `${workoutFolder}/Logs`;
+		const files = this.app.vault.getMarkdownFiles();
+		const logFiles = files.filter(f => f.path.startsWith(logsFolder));
+		
+		const exerciseHeader = `### ${exerciseName}`;
+		const setRegex = /^Подход\s*(\d+):\s*(.+)$/i;
+		const weightRegex = /(\d+[,.]?\d*)\s*кг/i;
+		const repsRegex = /(\d+)\s*раз/i;
+		
+		let workingSet: { weight: number; reps: number } | null = null;
+		let maxWeightSet: { weight: number; reps: number } | null = null;
+		
+		// Сортируем файлы по дате (новые первые)
+		const sortedFiles = logFiles.sort((a, b) => b.name.localeCompare(a.name));
+		
+		for (const file of sortedFiles) {
+			const content = await this.app.vault.read(file);
+			const lines = content.split('\n');
+			
+			let i = 0;
+			while (i < lines.length) {
+				if (lines[i].trim() === exerciseHeader) {
+					i++;
+					while (i < lines.length) {
+						const line = lines[i].trim();
+						if (line.startsWith('###') || line.startsWith('##')) break;
+						
+						const setMatch = setRegex.exec(line);
+						if (setMatch) {
+							const details = setMatch[2];
+							const weightMatch = weightRegex.exec(details);
+							const repsMatch = repsRegex.exec(details);
+							
+							if (weightMatch && repsMatch) {
+								const weight = Number(weightMatch[1].replace(',', '.'));
+								const reps = Number(repsMatch[1]);
+								
+								// Ищем рабочий подход (12-15 повторений)
+								if (reps >= 12 && reps <= 15 && !workingSet) {
+									workingSet = { weight, reps };
+								}
+								
+								// Ищем максимальный вес
+								if (!maxWeightSet || weight > maxWeightSet.weight) {
+									maxWeightSet = { weight, reps };
+								}
+							}
+						}
+						i++;
+					}
+					break;
+				}
+				i++;
+			}
+			
+			// Если нашли оба значения, прекращаем поиск
+			if (workingSet && maxWeightSet) break;
+		}
+		
+		let result = '';
+		if (workingSet) {
+			result += `Последний актуальный подход на 12-15: ${workingSet.weight} кг x ${workingSet.reps} раз\n`;
+		}
+		if (maxWeightSet) {
+			result += `Максимальный вес: ${maxWeightSet.weight} кг x ${maxWeightSet.reps} раз\n`;
+		}
+		
+		return result;
+	}
+
 	async ensureFolderExists(folderPath: string): Promise<TFolder> {
 		const folder = this.app.vault.getAbstractFileByPath(folderPath);
 		if (folder instanceof TFolder) {
@@ -419,9 +490,19 @@ ${dataviewjsCode}
 		}
 
 		const template = await this.getTemplate(templateKey);
-		const content = template
+		let content = template
 			.replace(/{{date}}/g, todayDisplay)
 			.replace(/{{location}}/g, location === WorkoutLocation.HOME ? 'Дома' : 'Спортзал');
+
+		// Заменяем плейсхолдеры упражнений
+		const exercisePlaceholderRegex = /{{exercise:([^}]+)}}/g;
+		const matches = [...content.matchAll(exercisePlaceholderRegex)];
+		
+		for (const match of matches) {
+			const exerciseName = match[1];
+			const stats = await this.getExerciseStats(exerciseName, workoutFolder);
+			content = content.replace(match[0], stats);
+		}
 
 		console.log(`[FileManager] createWorkoutLog - создаём файл ${fileName}`);
 		console.log(`[FileManager] Шаблон ${templateKey}, длина: ${template.length}`);

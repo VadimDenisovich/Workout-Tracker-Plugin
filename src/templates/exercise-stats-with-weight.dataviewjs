@@ -109,28 +109,28 @@ if (allPages.length === 0) {
 			.sort((a, b) => (a[0] > b[0] ? -1 : 1))
 			.map(([date, reps]) => [pageLinks.get(date) || date, reps, maxRepsWeight.get(date) || "—"]);
 
-		if (maxRepsRows.length > 0) {
+		if (rows.length > 0) {
 			dv.header(3, "🎯 График зависимости повторений от веса");
 			
-			const weightRepsMap = new Map();
-			for (const [date, reps] of maxReps.entries()) {
-				const weight = maxRepsWeight.get(date);
-				if (weight && weight > 0) {
-					if (!weightRepsMap.has(weight)) {
-						weightRepsMap.set(weight, []);
+			const allSetsData = [];
+			for (const row of rows) {
+				const weight = row[2];
+				const reps = row[3];
+				if (weight !== "—" && reps !== "—") {
+					const weightNum = Number(weight);
+					const repsNum = Number(reps);
+					if (weightNum > 0 && repsNum > 0) {
+						allSetsData.push([weightNum, repsNum]);
 					}
-					weightRepsMap.get(weight).push(reps);
 				}
 			}
 			
-			const chartData = Array.from(weightRepsMap.entries())
-				.map(([weight, repsArray]) => [weight, Math.max(...repsArray)])
-				.sort((a, b) => a[0] - b[0]);
-			
-			if (chartData.length > 0) {
-				const labels = chartData.map(([weight]) => weight + " кг");
-				const values = chartData.map(([, reps]) => reps);
-				const mermaidChart = "```mermaid\n%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'plotColorPalette': '#FF6B00'}}}}%%\nxychart-beta\n    title \"Повторения в зависимости от веса\"\n    x-axis [" + labels.map(l => '"' + l + '"').join(', ') + "]\n    y-axis \"Повторения\" " + chartMin + " --> " + chartMax + "\n    line [" + values.join(', ') + "]\n```";
+			if (allSetsData.length > 0) {
+				allSetsData.sort((a, b) => a[0] - b[0]);
+				
+				const labels = allSetsData.map(([weight]) => weight + " кг");
+				const values = allSetsData.map(([, reps]) => reps);
+				const mermaidChart = "```mermaid\n%%{init: {'theme':'base', 'themeVariables': { 'xyChart': {'plotColorPalette': '#FF6B00'}}}}%%\nxychart-beta\n    title \"Повторения в зависимости от веса (все подходы)\"\n    x-axis [" + labels.map(l => '"' + l + '"').join(', ') + "]\n    y-axis \"Повторения\" " + chartMin + " --> " + chartMax + "\n    line [" + values.join(', ') + "]\n```";
 				dv.paragraph(mermaidChart);
 				dv.paragraph("");
 			}
