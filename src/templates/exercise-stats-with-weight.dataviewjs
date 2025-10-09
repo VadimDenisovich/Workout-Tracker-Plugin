@@ -51,6 +51,15 @@ if (allPages.length === 0) {
 					const currentLine = lines[i].trim();
 					if (currentLine.startsWith("###") || currentLine.startsWith("##")) break;
 					
+					// Игнорируем строки со статистикой (но НЕ строки с "Подход")
+					if (!currentLine.startsWith("Подход") && (
+						currentLine.includes("Максималка") || 
+						currentLine.includes("Последний актуальный подход") || 
+						currentLine.includes("Максимальный вес"))) {
+						i++;
+						continue;
+					}
+					
 					if (currentLine.length > 0) {
 						const setMatch = setRegex.exec(currentLine);
 						if (setMatch) {
@@ -119,7 +128,7 @@ if (allPages.length === 0) {
 				if (weight !== "—" && reps !== "—") {
 					const weightNum = Number(weight);
 					const repsNum = Number(reps);
-					if (weightNum > 0 && repsNum > 0) {
+					if (weightNum >= 0 && repsNum > 0) {
 						allSetsData.push([weightNum, repsNum]);
 					}
 				}

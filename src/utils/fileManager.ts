@@ -117,13 +117,11 @@ ${dataviewjsCode}
 		const exerciseInfo = this.getExerciseInfoByName(exerciseName);
 		const hasWeight = exerciseInfo?.hasWeight ?? true;
 
-		console.log(`[getExerciseStats] Запрос для упражнения: ${exerciseName}, hasWeight: ${hasWeight}`);
-
 		const logsFolder = `${workoutFolder}/Logs`;
 		const files = this.app.vault.getMarkdownFiles();
 		const logFiles = files.filter(f => f.path.startsWith(logsFolder));
 		
-		console.log(`[getExerciseStats] Найдено файлов логов: ${logFiles.length}`);
+		console.log(`[getExerciseStats] ${exerciseName} - hasWeight: ${hasWeight}, найдено логов: ${logFiles.length}`);
 		
 		const exerciseHeader = `### ${exerciseName}`;
 		const setRegex = /^Подход\s*(\d+):\s*(.+)$/i;
@@ -139,38 +137,38 @@ ${dataviewjsCode}
 		// Сортируем файлы по дате (новые первые)
 		const sortedFiles = logFiles.sort((a, b) => b.name.localeCompare(a.name));
 		
-		console.log(`[getExerciseStats] Ищем заголовок: "${exerciseHeader}"`);
-		
 		for (const file of sortedFiles) {
 			const content = await this.app.vault.read(file);
 			const lines = content.split('\n');
 			
 			console.log(`[getExerciseStats] Проверяем файл: ${file.name}`);
 			
-			// Проверяем, есть ли заголовок упражнения в файле
-			const hasExercise = lines.some(line => line.trim() === exerciseHeader);
-			console.log(`[getExerciseStats] Заголовок "${exerciseHeader}" найден в файле: ${hasExercise}`);
-			
-			if (hasExercise) {
-				console.log(`[getExerciseStats] Все строки с "###" в файле ${file.name}:`);
-				lines.filter(l => l.trim().startsWith('###')).forEach(l => console.log(`  - "${l.trim()}"`));
-			}
-			
 			let i = 0;
 			while (i < lines.length) {
 				if (lines[i].trim() === exerciseHeader) {
-					console.log(`[getExerciseStats] ✓ Нашли заголовок в файле ${file.name} на строке ${i}`);
+					console.log(`[getExerciseStats] ✓ Нашли заголовок "${exerciseHeader}" в ${file.name} на строке ${i}`);
 					i++;
-					let foundLines = 0;
+					let processedLines = 0;
 					while (i < lines.length) {
 						const line = lines[i].trim();
-						foundLines++;
+						processedLines++;
 						
-						console.log(`[getExerciseStats] Строка ${i}: "${line}"`);
+						if (processedLines <= 5) {
+							console.log(`[getExerciseStats]   Строка ${i}: "${line}"`);
+						}
 						
 						if (line.startsWith('###') || line.startsWith('##')) {
-							console.log(`[getExerciseStats] Достигли следующего заголовка, выходим`);
+							console.log(`[getExerciseStats] Достигли следующего заголовка: "${line}"`);
 							break;
+						}
+						
+						// Игнорируем строки статистики (но НЕ строки с "Подход")
+						if (!line.startsWith('Подход') && (
+							line.includes('Максималка') || 
+							line.includes('Последний актуальный подход') || 
+							line.includes('Максимальный вес'))) {
+							i++;
+							continue;
 						}
 						
 						// Проверяем простой формат "45 раз" для bodyweight упражнений
@@ -183,20 +181,19 @@ ${dataviewjsCode}
 							if (maxReps === null || reps > maxReps) {
 								maxReps = reps;
 							}
-							console.log(`[getExerciseStats] ✓ Простой формат: ${reps} раз, latestReps: ${latestReps}, maxReps: ${maxReps}`);
 							i++;
 							continue;
 						}
 						
 						const setMatch = setRegex.exec(line);
-						console.log(`[getExerciseStats] setMatch для "${line}": ${setMatch ? 'ДА' : 'НЕТ'}`);
 						
 						if (setMatch) {
+							console.log(`[getExerciseStats]   ✓ setMatch найден! details: "${setMatch[2]}"`);
 							const details = setMatch[2];
 							const weightMatch = weightRegex.exec(details);
 							const repsMatch = repsRegex.exec(details);
 							
-							console.log(`[getExerciseStats] details: "${details}", repsMatch: ${repsMatch ? repsMatch[1] : 'НЕТ'}`);
+							console.log(`[getExerciseStats]   weightMatch: ${weightMatch ? weightMatch[1] : 'НЕТ'}, repsMatch: ${repsMatch ? repsMatch[1] : 'НЕТ'}`);
 							
 							if (repsMatch) {
 								const reps = Number(repsMatch[1]);
@@ -206,7 +203,6 @@ ${dataviewjsCode}
 								if (maxReps === null || reps > maxReps) {
 									maxReps = reps;
 								}
-								console.log(`[getExerciseStats] Нашли повторения: ${reps}, latestReps: ${latestReps}, maxReps: ${maxReps}`);
 								
 								if (hasWeight && weightMatch) {
 									const weight = Number(weightMatch[1].replace(',', '.'));
@@ -238,11 +234,19 @@ ${dataviewjsCode}
 		
 		let result = '';
 		if (hasWeight) {
-			if (workingSet) {
-				result += `Последний актуальный подход на 12-15: ${workingSet.weight} кг x ${workingSet.reps} раз\n`;
-			}
-			if (maxWeightSet) {
-				result += `Максимальный вес: ${maxWeightSet.weight} кг x ${maxWeightSet.reps} раз\n`;
+			console.log(`[getExerciseStats] ${exerciseName} - workingSet:`, workingSet, 'maxWeightSet:', maxWeightSet);
+			
+			// Если нет данных, выводим шаблон с нулями
+			if (!workingSet && !maxWeightSet) {
+				result += `Последний актуальный подход на 12-15: 0 кг x 0 раз\n`;
+				result += `Максимальный вес: 0 кг x 0 раз\n`;
+			} else {
+				if (workingSet) {
+					result += `Последний актуальный подход на 12-15: ${workingSet.weight} кг x ${workingSet.reps} раз\n`;
+				}
+				if (maxWeightSet) {
+					result += `Максимальный вес: ${maxWeightSet.weight} кг x ${maxWeightSet.reps} раз\n`;
+				}
 			}
 		} else {
 			if (maxReps !== null) {
@@ -253,8 +257,7 @@ ${dataviewjsCode}
 			}
 		}
 		
-		console.log(`[getExerciseStats] Результат для ${exerciseName}: "${result}"`);
-		console.log(`[getExerciseStats] maxReps: ${maxReps}, latestReps: ${latestReps}`);
+		console.log(`[getExerciseStats] ${exerciseName} - результат: "${result}"`);
 		
 		return result;
 	}
