@@ -3,6 +3,8 @@ import { WorkoutTrackerSettings, TemplateOverrides, ExerciseInfo } from './src/t
 import { DEFAULT_SETTINGS, DEFAULT_EXERCISES } from './src/templates';
 import { FileManager } from './src/utils/fileManager';
 import { TemplateUpdater } from './src/utils/templateUpdater';
+import { ExerciseCache } from './src/utils/exerciseCache';
+import { ExerciseMetadataManager } from './src/utils/exerciseMetadata';
 import { WorkoutLocationModal } from './src/modals/WorkoutLocationModal';
 import { FolderSelectorModal } from './src/modals/FolderSelectorModal';
 import { ExerciseListModal } from './src/modals/ExerciseListModal';
@@ -11,10 +13,15 @@ import { WorkoutLocation, WorkoutDay } from './src/types';
 export default class WorkoutTrackerPlugin extends Plugin {
 	settings: WorkoutTrackerSettings;
 	fileManager: FileManager;
+	exerciseCache: ExerciseCache;
+	exerciseMetadata: ExerciseMetadataManager;
 	private templateUpdater: TemplateUpdater;
 
 	async onload() {
 		await this.loadSettings();
+		
+		// Загружаем Chart.js глобально один раз при старте плагина
+		this.loadChartJS();
 		
 		// Получаем путь к директории плагина
 		const adapter = this.app.vault.adapter;
@@ -24,6 +31,25 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		this.templateUpdater = new TemplateUpdater(this.app, this.manifest.id, async () => {
 			// Callback больше не нужен, так как изменения сразу пишутся в templates.ts
 		});
+
+		// Инициализируем менеджер метаданных упражнений
+		this.exerciseMetadata = new ExerciseMetadataManager(this.app, pluginDir);
+		await this.exerciseMetadata.load();
+		
+		// Синхронизируем метаданные с реестром упражнений
+		await this.exerciseMetadata.syncFromRegistry(this.settings.exerciseRegistry);
+
+		// Инициализируем кэш упражнений
+		this.exerciseCache = new ExerciseCache(this.app, pluginDir, this.exerciseMetadata);
+		await this.exerciseCache.load();
+		
+		// Обновляем кэш при запуске плагина
+		const logsFolder = `${this.settings.workoutFolder}/Logs`;
+		const newCachedCount = await this.exerciseCache.rebuildCache(logsFolder);
+		if (newCachedCount > 0) {
+			new Notice(`✅ Закэшировано ${newCachedCount} ${this.pluralizeLogCount(newCachedCount)}!`);
+			console.log(`[Main] Кэшировано новых логов при запуске: ${newCachedCount}`);
+		}
 
 		// Создаем структуру папок при первом запуске
 		await this.fileManager.createWorkoutStructure(
@@ -35,30 +61,56 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		// Синхронизируем шаблоны с файлами
 		await this.templateUpdater.syncTemplatesWithFiles(this.settings.workoutFolder);
 
-		// Мониторинг изменений файлов шаблонов
+		// Мониторинг изменений файлов (шаблоны и логи)
 		this.registerEvent(
 			this.app.vault.on('modify', async (file) => {
-				// Быстрая проверка - только .md файлы в папке Templates
+				console.log(`[Main-Modify] 🔔 Событие modify сработало для файла: ${file.path}`);
+				console.log(`[Main-Modify] Тип файла:`, file instanceof TFile ? 'TFile' : 'другое');
+				console.log(`[Main-Modify] Расширение:`, file instanceof TFile ? file.extension : 'N/A');
+				
 				if (!(file instanceof TFile) || file.extension !== 'md') {
+					console.log(`[Main-Modify] ❌ Пропускаем - не .md файл`);
 					return;
 				}
 				
 				const templatesPath = `${this.settings.workoutFolder}/Templates/`;
-				if (!file.path.startsWith(templatesPath)) {
+				const logsPath = `${this.settings.workoutFolder}/Logs/`;
+				
+				console.log(`[Main-Modify] Проверка путей:`);
+				console.log(`[Main-Modify] - Файл: ${file.path}`);
+				console.log(`[Main-Modify] - Templates: ${templatesPath}`);
+				console.log(`[Main-Modify] - Logs: ${logsPath}`);
+				
+				// Обработка изменений в шаблонах
+				if (file.path.startsWith(templatesPath)) {
+					console.log(`[Main] ✅ Обновление шаблона: ${file.basename}`);
+					
+					const templateName = file.basename;
+					const content = await this.app.vault.read(file);
+					
+					await this.templateUpdater.updateTemplateInCode(templateName, content);
+					new Notice(`Шаблон "${templateName}" обновлен`);
 					return;
 				}
 				
-				console.log(`[Main] ✅ Обновление шаблона: ${file.basename}`);
+				// Обработка изменений в логах
+				if (file.path.startsWith(logsPath)) {
+					console.log(`[Main] 📝 Изменён файл лога: ${file.basename}`);
+					console.log(`[Main] Полный путь файла: ${file.path}`);
+					console.log(`[Main] Путь папки логов: ${logsPath}`);
+					
+					// Пересчитываем кэш для этого файла
+					await this.exerciseCache.recacheFile(file);
+					console.log(`[Main] ✅ Кэш для "${file.basename}" обновлён`);
+					new Notice(`Кэш обновлён: ${file.basename}`);
+					return;
+				}
 				
-				const templateName = file.basename;
-				const content = await this.app.vault.read(file);
-				
-				await this.templateUpdater.updateTemplateInCode(templateName, content);
-				new Notice(`Шаблон "${templateName}" обновлен`);
+				console.log(`[Main-Modify] ⚠️ Файл не относится ни к шаблонам, ни к логам`);
 			})
 		);
 
-		// Автообновление файлов упражнений при открытии
+		// Автообновление файлов упражнений при открытии + кэширование логов
 		this.registerEvent(
 			this.app.workspace.on('file-open', async (file) => {
 				if (!file || !(file instanceof TFile) || file.extension !== 'md') {
@@ -71,6 +123,13 @@ export default class WorkoutTrackerPlugin extends Plugin {
 				}
 				
 				console.log(`[Main] 📖 Открыт файл упражнения: ${file.basename}`);
+				
+				// Обновляем кэш логов перед обновлением файла
+				const logsFolder = `${this.settings.workoutFolder}/Logs`;
+				const newCachedCount = await this.exerciseCache.rebuildCache(logsFolder);
+				if (newCachedCount > 0) {
+					console.log(`[Main] Закэшировано ${newCachedCount} новых логов при открытии упражнения`);
+				}
 				
 				// Обновляем содержимое файла с актуальным шаблоном
 				try {
@@ -120,6 +179,20 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		});
 
 		this.addCommand({
+			id: 'rebuild-cache',
+			name: 'Обновить кэш упражнений',
+			callback: async () => {
+				const logsFolder = `${this.settings.workoutFolder}/Logs`;
+				const count = await this.exerciseCache.rebuildCache(logsFolder);
+				if (count > 0) {
+					new Notice(`✅ Закэшировано ${count} ${this.pluralizeLogCount(count)}!`);
+				} else {
+					new Notice('✅ Все логи уже закэшированы!');
+				}
+			}
+		});
+
+		this.addCommand({
 			id: 'refresh-exercise-files',
 			name: 'Обновить файлы упражнений',
 			callback: async () => {
@@ -154,6 +227,10 @@ export default class WorkoutTrackerPlugin extends Plugin {
 				result.location,
 				result.templateType
 			);
+
+			// Обновляем кэш после создания лога
+			const logsFolder = `${this.settings.workoutFolder}/Logs`;
+			const newCachedCount = await this.exerciseCache.rebuildCache(logsFolder);
 
 			await this.app.workspace.getLeaf().openFile(file);
 			if (!existed) {
@@ -241,6 +318,9 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		if (!exists) {
 			this.settings.exerciseRegistry.push({ name: normalized, hasWeight });
 			await this.persistSettings();
+			
+			// Добавляем в метаданные
+			await this.exerciseMetadata.addExercise(normalized, hasWeight);
 		}
 	}
 
@@ -255,6 +335,9 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		if (index !== -1) {
 			this.settings.exerciseRegistry.splice(index, 1);
 			await this.persistSettings();
+			
+			// Удаляем из метаданных
+			await this.exerciseMetadata.removeExercise(normalized);
 		}
 	}
 
@@ -281,6 +364,74 @@ export default class WorkoutTrackerPlugin extends Plugin {
 			registry.some((ex, index) => ex.name !== (original[index]?.name?.trim() ?? ''));
 
 		return { registry, changed };
+	}
+
+	pluralizeLogCount(count: number): string {
+		const lastDigit = count % 10;
+		const lastTwoDigits = count % 100;
+		
+		if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+			return 'логов';
+		}
+		if (lastDigit === 1) {
+			return 'лог';
+		}
+		if (lastDigit >= 2 && lastDigit <= 4) {
+			return 'лога';
+		}
+		return 'логов';
+	}
+	
+	private loadChartJS() {
+		console.log('[Plugin] ═══════════════════════════════════');
+		console.log('[Plugin] 🚀 loadChartJS() вызван');
+		console.log('[Plugin] Текущее состояние window.Chart:', !!(window as any).Chart);
+		console.log('[Plugin] Текущее состояние window.chartJSLoading:', !!(window as any).chartJSLoading);
+		console.log('[Plugin] Текущее состояние window.chartJSLoaded:', !!(window as any).chartJSLoaded);
+		
+		// Проверяем, не загружен ли уже Chart.js
+		if ((window as any).Chart) {
+			console.log('[Plugin] ✅ Chart.js уже загружен, выходим');
+			console.log('[Plugin] ═══════════════════════════════════');
+			return;
+		}
+
+		// Проверяем, не идёт ли уже загрузка
+		if ((window as any).chartJSLoading) {
+			console.log('[Plugin] ⏳ Chart.js уже загружается, выходим');
+			console.log('[Plugin] ═══════════════════════════════════');
+			return;
+		}
+
+		console.log('[Plugin] 📥 Начинаем загрузку Chart.js с CDN...');
+		(window as any).chartJSLoading = true;
+
+		const script = document.createElement('script');
+		script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+		script.async = true;
+		
+		console.log('[Plugin] 📝 Script элемент создан, src:', script.src);
+		
+		script.onload = () => {
+			console.log('[Plugin] ✅✅✅ Chart.js успешно загружен глобально!');
+			console.log('[Plugin] window.Chart теперь:', !!(window as any).Chart);
+			console.log('[Plugin] typeof window.Chart:', typeof (window as any).Chart);
+			(window as any).chartJSLoading = false;
+			(window as any).chartJSLoaded = true;
+			console.log('[Plugin] ═══════════════════════════════════');
+		};
+		
+		script.onerror = (error) => {
+			console.error('[Plugin] ❌❌❌ Ошибка загрузки Chart.js!');
+			console.error('[Plugin] Error object:', error);
+			(window as any).chartJSLoading = false;
+			console.log('[Plugin] ═══════════════════════════════════');
+		};
+		
+		console.log('[Plugin] 🔗 Добавляем script в document.head...');
+		document.head.appendChild(script);
+		console.log('[Plugin] ✅ Script добавлен в DOM');
+		console.log('[Plugin] ═══════════════════════════════════');
 	}
 }
 
@@ -399,6 +550,44 @@ class WorkoutTrackerSettingTab extends PluginSettingTab {
 					button.setDisabled(true);
 					try {
 						await this.plugin.refreshWorkoutStructure();
+					} finally {
+						button.setDisabled(false);
+					}
+				});
+			});
+
+		new Setting(containerEl)
+			.setName('Кэширование логов')
+			.setDesc('Обновить кэш упражнений из всех файлов логов. Это ускорит загрузку страниц упражнений.')
+			.addButton(button => {
+				button.setButtonText('Обновить кэш');
+				button.onClick(async () => {
+					button.setDisabled(true);
+					button.setButtonText('Обновление...');
+					try {
+						const logsFolder = `${this.plugin.settings.workoutFolder}/Logs`;
+						const count = await this.plugin.exerciseCache.rebuildCache(logsFolder);
+						if (count > 0) {
+							new Notice(`✅ Закэшировано ${count} ${this.plugin.pluralizeLogCount(count)}!`);
+						} else {
+							new Notice('✅ Все логи уже закэшированы!');
+						}
+					} catch (error) {
+						new Notice(`❌ Ошибка кэширования: ${error.message}`);
+					} finally {
+						button.setDisabled(false);
+						button.setButtonText('Обновить кэш');
+					}
+				});
+			})
+			.addButton(button => {
+				button.setButtonText('Очистить кэш');
+				button.setWarning();
+				button.onClick(async () => {
+					button.setDisabled(true);
+					try {
+						await this.plugin.exerciseCache.clearCache();
+						new Notice('✅ Кэш очищен');
 					} finally {
 						button.setDisabled(false);
 					}

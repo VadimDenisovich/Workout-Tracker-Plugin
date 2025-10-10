@@ -1,0 +1,241 @@
+(function() {
+const exerciseName = "{{exerciseName}}";
+
+const plugin = app.plugins.plugins['workout-tracker'];
+
+const cache = plugin?.exerciseCache;
+if (!cache) {
+    dv.paragraph("⚠️ Кэш не загружен. Перезагрузите плагин.");
+} else {
+    const exerciseData = cache.getExerciseData(exerciseName);
+    
+    if (!exerciseData || exerciseData.history.length === 0) {
+        dv.paragraph("Данные по подходам пока не найдены.");
+    } else {
+        const rows = [];
+        const pageLinks = new Map();
+        
+        for (const session of exerciseData.history) {
+            const date = session.date;
+            const dateParts = date.split('-');
+            const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
+            
+            const logFiles = dv.pages('"{{workoutFolder}}/Logs"')
+                .filter(p => p.file.name.startsWith(date));
+            const logLink = logFiles.length > 0 
+                ? "[[" + logFiles[0].file.path + "|" + displayDate + "]]"
+                : displayDate;
+            pageLinks.set(date, logLink);
+            
+            session.sets.forEach((set, i) => {
+                rows.push({
+                    date: date,
+                    setNumber: i + 1,
+                    reps: set.reps,
+                    circle: 0
+                });
+            });
+        }
+        
+        if (rows.length === 0) {
+            dv.paragraph("Данные по подходам пока не найдены.");
+        } else {
+            const groupedByDate = new Map();
+            const maxRepsPerDate = new Map();
+            
+            for (const row of rows) {
+                if (!groupedByDate.has(row.date)) {
+                    groupedByDate.set(row.date, []);
+                    maxRepsPerDate.set(row.date, 0);
+                }
+                groupedByDate.get(row.date).push(row);
+                if (row.reps > maxRepsPerDate.get(row.date)) {
+                    maxRepsPerDate.set(row.date, row.reps);
+                }
+            }
+            
+        const sortedDates = Array.from(groupedByDate.keys()).sort();
+        
+    dv.header(3, "📊 График прогресса");
+    
+    const chartContainer = dv.el('div', '', { 
+        attr: { style: 'position: relative; height: 280px; width: 100%; margin: 15px 0;' }
+    });
+    
+    const loadingDiv = chartContainer.createEl('div', { 
+        text: '⏳ Загрузка графика...',
+        attr: { style: 'text-align: center; padding: 50px; color: rgba(200,200,200,0.7);' }
+    });
+    
+    setTimeout(() => {
+        try {
+            if (!window.Chart) {
+                loadingDiv.textContent = '❌ Chart.js не загружен. Перезагрузите Obsidian.';
+                loadingDiv.style.color = '#ff6b6b';
+                return;
+            }
+            
+            loadingDiv.remove();
+            
+            const chartCanvas = chartContainer.createEl('canvas');
+
+            const dataPoints = [];
+            
+            sortedDates.forEach(date => {
+                const sets = groupedByDate.get(date);
+                sets.forEach((set, idx) => {
+                    const parts = date.split('-');
+                    const dateLabel = parts[2] + "." + parts[1];
+                    dataPoints.push({
+                        date: date,
+                        dateLabel: dateLabel,
+                        setIndex: idx + 1,
+                        reps: set.reps
+                    });
+                });
+            });
+            
+            const labels = dataPoints.map(() => '');
+            
+            const theme = {
+                grid: 'rgba(100, 100, 100, 0.2)',
+                text: 'rgba(200, 200, 200, 0.9)',
+                reps: 'rgba(150, 255, 150, 0.9)'
+            };
+            
+            const chartId = 'chart-' + exerciseName.replace(/\s+/g, '-');
+            
+            if (window[chartId]) {
+                try {
+                    window[chartId].destroy();
+                } catch (e) {}
+            }
+            
+            window[chartId] = new Chart(chartCanvas, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Повторения',
+                    data: dataPoints.map(p => p.reps),
+                    borderColor: theme.reps,
+                    backgroundColor: theme.reps,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    borderWidth: 2,
+                    tension: 0.2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Прогресс: ' + exerciseName,
+                        color: theme.text,
+                        font: { size: 16, weight: 'bold' }
+                    },
+                    legend: { display: true, labels: { color: theme.text } },
+                    tooltip: {
+                        backgroundColor: 'rgba(30, 30, 30, 0.9)',
+                        titleColor: theme.text,
+                        bodyColor: theme.text,
+                        callbacks: {
+                            title: (items) => {
+                                const p = dataPoints[items[0].dataIndex];
+                                return p.dateLabel + ' | Подход ' + p.setIndex;
+                            },
+                            label: (ctx) => {
+                                const p = dataPoints[ctx.dataIndex];
+                                return 'Повторения: ' + p.reps + ' раз';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: false },
+                        ticks: { display: false },
+                        grid: { display: false }
+                    },
+                    y: {
+                        title: { display: true, text: 'Повторения', color: theme.reps },
+                        ticks: { 
+                            color: theme.text,
+                            stepSize: 1,
+                            precision: 0
+                        },
+                        grid: { color: theme.grid }
+                    }
+                }
+            }
+        });
+        
+    } catch (error) {
+        loadingDiv.textContent = '❌ Ошибка: ' + error.message;
+        loadingDiv.style.color = '#ff6b6b';
+    }
+        }, 100);
+        
+        dv.header(3, "История подходов");
+        const tableRows = [];
+        
+        for (const date of sortedDates.slice().reverse()) {
+            const sets = groupedByDate.get(date);
+            const setsText = sets.map((s, idx) => 
+                '• ' + s.reps + ' раз'
+            ).join("<br>");
+            
+            tableRows.push([
+                pageLinks.get(date),
+                setsText,
+                maxRepsPerDate.get(date) + ' раз'
+            ]);
+        }
+        
+        dv.table(
+            ["Дата", "Подходы", "Макс повторений"],
+            tableRows
+        );
+        
+        if (exerciseData.lastWorkout) {
+            dv.header(3, "Последняя тренировка");
+            
+            const lastDate = exerciseData.lastWorkout.date;
+            const dateParts = lastDate.split('-');
+            const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
+            
+            // Создаём ссылку на лог
+            const logFiles = dv.pages('"{{workoutFolder}}/Logs"')
+                .filter(p => p.file.name.startsWith(lastDate));
+            const logLink = logFiles.length > 0 
+                ? "[[" + logFiles[0].file.path + "|" + displayDate + "]]"
+                : displayDate;
+            
+            dv.paragraph('📅 **Дата:** ' + logLink);
+            
+            const maxReps = Math.max(...exerciseData.lastWorkout.sets.map(s => s.reps));
+            dv.paragraph('🔥 **Максимум повторений за тренировку:** ' + maxReps + ' раз');
+        }
+        
+        if (exerciseData.allTimeMaxReps) {
+            dv.header(3, "Рекорд");
+            const record = exerciseData.allTimeMaxReps;
+            const dateParts = record.date.split('-');
+            const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
+            
+            const logFiles = dv.pages('"{{workoutFolder}}/Logs"')
+                .filter(p => p.file.name.startsWith(record.date));
+            const logLink = logFiles.length > 0 
+                ? "[[" + logFiles[0].file.path + "|" + displayDate + "]]"
+                : displayDate;
+            
+            dv.paragraph("🏆 **Максимум повторений:** " + record.reps + " раз (" + logLink + ")");
+        }
+    }
+}
+}
+})();
