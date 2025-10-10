@@ -230,9 +230,8 @@ ${dataviewjsCode}
 		} else {
 			if (maxReps !== null) {
 				result += `Максималка: ${maxReps} раз\n`;
-			}
-			if (latestReps !== null && latestReps !== maxReps) {
-				result += `${latestReps} раз\n`;
+			} else {
+				result += 'Максималка: 0 раз\n';
 			}
 		}
 		

@@ -61,26 +61,52 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		// Синхронизируем шаблоны с файлами
 		await this.templateUpdater.syncTemplatesWithFiles(this.settings.workoutFolder);
 
-		// Мониторинг изменений файлов шаблонов
+		// Мониторинг изменений файлов (шаблоны и логи)
 		this.registerEvent(
 			this.app.vault.on('modify', async (file) => {
-				// Быстрая проверка - только .md файлы в папке Templates
+				console.log(`[Main-Modify] 🔔 Событие modify сработало для файла: ${file.path}`);
+				console.log(`[Main-Modify] Тип файла:`, file instanceof TFile ? 'TFile' : 'другое');
+				console.log(`[Main-Modify] Расширение:`, file instanceof TFile ? file.extension : 'N/A');
+				
 				if (!(file instanceof TFile) || file.extension !== 'md') {
+					console.log(`[Main-Modify] ❌ Пропускаем - не .md файл`);
 					return;
 				}
 				
 				const templatesPath = `${this.settings.workoutFolder}/Templates/`;
-				if (!file.path.startsWith(templatesPath)) {
+				const logsPath = `${this.settings.workoutFolder}/Logs/`;
+				
+				console.log(`[Main-Modify] Проверка путей:`);
+				console.log(`[Main-Modify] - Файл: ${file.path}`);
+				console.log(`[Main-Modify] - Templates: ${templatesPath}`);
+				console.log(`[Main-Modify] - Logs: ${logsPath}`);
+				
+				// Обработка изменений в шаблонах
+				if (file.path.startsWith(templatesPath)) {
+					console.log(`[Main] ✅ Обновление шаблона: ${file.basename}`);
+					
+					const templateName = file.basename;
+					const content = await this.app.vault.read(file);
+					
+					await this.templateUpdater.updateTemplateInCode(templateName, content);
+					new Notice(`Шаблон "${templateName}" обновлен`);
 					return;
 				}
 				
-				console.log(`[Main] ✅ Обновление шаблона: ${file.basename}`);
+				// Обработка изменений в логах
+				if (file.path.startsWith(logsPath)) {
+					console.log(`[Main] 📝 Изменён файл лога: ${file.basename}`);
+					console.log(`[Main] Полный путь файла: ${file.path}`);
+					console.log(`[Main] Путь папки логов: ${logsPath}`);
+					
+					// Пересчитываем кэш для этого файла
+					await this.exerciseCache.recacheFile(file);
+					console.log(`[Main] ✅ Кэш для "${file.basename}" обновлён`);
+					new Notice(`Кэш обновлён: ${file.basename}`);
+					return;
+				}
 				
-				const templateName = file.basename;
-				const content = await this.app.vault.read(file);
-				
-				await this.templateUpdater.updateTemplateInCode(templateName, content);
-				new Notice(`Шаблон "${templateName}" обновлен`);
+				console.log(`[Main-Modify] ⚠️ Файл не относится ни к шаблонам, ни к логам`);
 			})
 		);
 
