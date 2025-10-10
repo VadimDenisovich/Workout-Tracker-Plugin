@@ -43,7 +43,6 @@ export class FileManager {
 	}
 
 	private async getExerciseTemplate(hasWeight: boolean = true): Promise<string> {
-		
 		const settings = this.getSettings();
 		const chartMin = settings.chartRepsMin ?? 0;
 		const chartMax = settings.chartRepsMax ?? 15;

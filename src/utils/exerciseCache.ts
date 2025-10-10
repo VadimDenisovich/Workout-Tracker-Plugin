@@ -159,8 +159,10 @@ export class ExerciseCache {
 			}
 			const workoutDate = dateMatch[1];
 
+			// Храним все упражнения из этого лога
+			const exercisesInLog = new Map<string, { sets: ExerciseSet[], hasWeight: boolean }>();
+			
 			let currentExercise: string | null = null;
-			let currentSets: ExerciseSet[] = [];
 			let hasWeight = false;
 
 			const setRegex = /^Подход\s*(\d+):\s*(.+)$/i;
@@ -173,18 +175,16 @@ export class ExerciseCache {
 
 				// Находим заголовок упражнения
 				if (line.startsWith('###')) {
-					// Сохраняем предыдущее упражнение
-					if (currentExercise && currentSets.length > 0) {
-						this.addExerciseData(currentExercise, workoutDate, currentSets, hasWeight);
-					}
-
-					// Начинаем новое упражнение
 					currentExercise = line.replace(/^###\s*/, '').trim();
-					currentSets = [];
 					
 					// Определяем тип упражнения из метаданных
 					const metadataHasWeight = this.metadataManager.hasWeight(currentExercise);
 					hasWeight = metadataHasWeight !== null ? metadataHasWeight : false;
+					
+					// Создаём запись для упражнения если её нет
+					if (!exercisesInLog.has(currentExercise)) {
+						exercisesInLog.set(currentExercise, { sets: [], hasWeight });
+					}
 					
 					continue;
 				}
@@ -196,9 +196,13 @@ export class ExerciseCache {
 					continue;
 				}
 
+				if (!currentExercise) continue;
+
+				const exerciseData = exercisesInLog.get(currentExercise)!;
+
 				// Парсим подход в формате "Подход 1: X кг x Y раз" или "Подход 1: X раз"
 				const setMatch = line.match(setRegex);
-				if (setMatch && currentExercise) {
+				if (setMatch) {
 					const details = setMatch[2];
 					const weightMatch = details.match(weightRegex);
 					const repsMatch = details.match(repsRegex);
@@ -207,28 +211,30 @@ export class ExerciseCache {
 						// Упражнение с весом
 						const weight = parseFloat(weightMatch[1].replace(',', '.'));
 						const reps = parseInt(repsMatch[1]);
-						currentSets.push({ weight, reps });
+						exerciseData.sets.push({ weight, reps });
 					} else {
 						// Упражнение без веса (только повторения)
 						const simpleReps = details.match(simpleRepsRegex);
 						if (simpleReps) {
 							const reps = parseInt(simpleReps[1]);
-							currentSets.push({ reps }); // Без weight
+							exerciseData.sets.push({ reps }); // Без weight
 						}
 					}
-				} else if (currentExercise && !setMatch) {
+				} else {
 					// Парсим упрощённый формат для HOME: просто "15 раз" на следующей строке после заголовка
 					const directReps = line.match(simpleRepsRegex);
 					if (directReps) {
 						const reps = parseInt(directReps[1]);
-						currentSets.push({ reps }); // Без weight
+						exerciseData.sets.push({ reps }); // Без weight
 					}
 				}
 			}
 
-			// Сохраняем последнее упражнение
-			if (currentExercise && currentSets.length > 0) {
-				this.addExerciseData(currentExercise, workoutDate, currentSets, hasWeight);
+			// Сохраняем все упражнения из лога
+			for (const [exerciseName, data] of exercisesInLog.entries()) {
+				if (data.sets.length > 0) {
+					this.addExerciseData(exerciseName, workoutDate, data.sets, data.hasWeight);
+				}
 			}
 
 			// Добавляем файл в список закэшированных
@@ -255,7 +261,8 @@ export class ExerciseCache {
 				hasWeight,
 				history: [],
 				lastWorkout: null,
-				allTimeMaxReps: null
+				allTimeMaxReps: null,
+				allTimeMaxWeight: null // Инициализируем для всех упражнений
 			};
 		}
 
@@ -265,8 +272,8 @@ export class ExerciseCache {
 		let existingSession = exercise.history.find(s => s.date === date);
 		
 		if (existingSession) {
-			// Добавляем подходы к существующей сессии
-			existingSession.sets.push(...sets);
+			// ЗАМЕНЯЕМ подходы (не добавляем!), чтобы избежать дубликатов при повторном кэшировании
+			existingSession.sets = [...sets];
 		} else {
 			// Создаём новую сессию
 			const session: WorkoutSession = {

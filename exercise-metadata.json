@@ -93,10 +93,6 @@
       "name": "Пресс",
       "hasWeight": false
     },
-    "Тверк": {
-      "name": "Тверк",
-      "hasWeight": true
-    },
     "Жим под 45": {
       "name": "Жим под 45",
       "hasWeight": true
@@ -104,6 +100,18 @@
     "Мясо": {
       "name": "Мясо",
       "hasWeight": false
+    },
+    "Тверк": {
+      "name": "Тверк",
+      "hasWeight": false
+    },
+    "Пилатес": {
+      "name": "Пилатес",
+      "hasWeight": false
+    },
+    "Гоблет-присед с гантелью": {
+      "name": "Гоблет-присед с гантелью",
+      "hasWeight": true
     }
   }
 }

@@ -131,9 +131,11 @@ export class ExerciseListModal extends Modal {
 
 		try {
 			const file = await this.app.vault.create(filePath, content);
+			// ВАЖНО: Сначала регистрируем упражнение, ПОТОМ открываем файл
+			// Иначе событие file-open сработает раньше и не найдет упражнение в реестре
+			await this.plugin.registerExercise(exerciseName, hasWeight);
 			await this.app.workspace.getLeaf().openFile(file);
 			this.searchQuery = '';
-			await this.plugin.registerExercise(exerciseName, hasWeight);
 			await this.renderExerciseList(); // Обновляем список
 			this.close();
 		} catch (error) {
