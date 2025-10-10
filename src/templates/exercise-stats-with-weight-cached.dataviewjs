@@ -6,6 +6,7 @@ const chartMax = plugin?.settings?.chartRepsMax ?? 15;
 
 // Читаем данные из кэша
 const cache = plugin?.exerciseCache;
+
 if (!cache) {
 	dv.paragraph("⚠️ Кэш не загружен. Перезагрузите плагин.");
 } else {
@@ -62,53 +63,187 @@ if (!cache) {
 				groupedByDate.get(row.date).push(row);
 			}
 			
-			// График (простой текстовый вариант)
-			dv.header(3, "📊 График прогресса");
 			const sortedDates = Array.from(groupedByDate.keys()).sort();
 			
-			// Создаём простую визуализацию - два графика
-			const maxRepsValue = Math.max(...sortedDates.map(d => maxReps.get(d)));
-			const maxWeightValue = Math.max(...sortedDates.map(d => maxRepsWeight.get(d)));
-			
-			dv.paragraph("**Макс. повторений:**");
-			const repsChartLines = sortedDates.map(d => {
-				const reps = maxReps.get(d);
-				const barLength = Math.round((reps / maxRepsValue) * 25);
-				const bar = "█".repeat(barLength);
-				const parts = d.split('-');
-				const dateLabel = parts[2] + "." + parts[1];
-				return `${dateLabel}: ${bar} ${reps} раз`;
-			});
-			dv.paragraph("```\n" + repsChartLines.join('\n') + "\n```");
-			
-			dv.paragraph("**Вес при макс. повторениях:**");
-			const weightChartLines = sortedDates.map(d => {
-				const weight = maxRepsWeight.get(d);
-				const barLength = Math.round((weight / maxWeightValue) * 25);
-				const bar = "█".repeat(barLength);
-				const parts = d.split('-');
-				const dateLabel = parts[2] + "." + parts[1];
-				return `${dateLabel}: ${bar} ${weight} кг`;
-			});
-			dv.paragraph("```\n" + weightChartLines.join('\n') + "\n```");
-			
-			// Таблица по дням
-			dv.header(3, "История подходов");
-			const tableRows = [];
-			
-			for (const date of sortedDates.reverse()) {
-				const sets = groupedByDate.get(date);
-				const setsText = sets.map((s, idx) => 
-					`**${idx + 1}.** ${s.weight} кг × ${s.reps} раз`
-				).join(" • ");
+		// График с Chart.js
+		dv.header(3, "📊 График прогресса");
+		
+		// Создаём контейнер сразу
+		const chartContainer = dv.el('div', '', { 
+			attr: { style: 'position: relative; height: 280px; width: 100%; margin: 15px 0;' }
+		});
+		
+		// Показываем индикатор загрузки
+		const loadingDiv = chartContainer.createEl('div', { 
+			text: '⏳ Загрузка графика...',
+			attr: { style: 'text-align: center; padding: 50px; color: rgba(200,200,200,0.7);' }
+		});
+		
+		// Небольшая задержка для асинхронной загрузки Chart.js
+		setTimeout(() => {
+			try {
+				// Проверяем доступность Chart.js
+				if (!window.Chart) {
+					loadingDiv.textContent = '❌ Chart.js не загружен. Перезагрузите Obsidian.';
+					loadingDiv.style.color = '#ff6b6b';
+					return;
+				}
 				
-				tableRows.push([
-					pageLinks.get(date),
-					setsText,
-					`${maxReps.get(date)} раз`,
-					`${maxRepsWeight.get(date)} кг`
-				]);
-			}
+				// Удаляем индикатор загрузки
+				loadingDiv.remove();
+				
+				// Создаём canvas для графика
+				const chartCanvas = chartContainer.createEl('canvas');
+
+			// Подготавливаем данные (от старых к новым - слева направо)
+			const dataPoints = [];
+	
+			sortedDates.forEach(date => {
+				const sets = groupedByDate.get(date);
+				sets.forEach((set, idx) => {
+					const parts = date.split('-');
+					const dateLabel = parts[2] + "." + parts[1];
+					dataPoints.push({
+						date: date,
+						dateLabel: dateLabel,
+						setIndex: idx + 1,
+						weight: set.weight,
+						reps: set.reps
+					});
+				});
+			});				const labels = dataPoints.map(() => '');
+				
+				// Тёмная тема
+				const theme = {
+					grid: 'rgba(100, 100, 100, 0.2)',
+					text: 'rgba(200, 200, 200, 0.9)',
+					weight: 'rgba(100, 180, 255, 0.9)',
+					reps: 'rgba(150, 255, 150, 0.9)'
+				};
+				
+				// Создаём уникальный ID для этого графика
+				const chartId = 'chart-' + exerciseName.replace(/\s+/g, '-');
+				
+				// Уничтожаем старый экземпляр если существует
+				if (window[chartId]) {
+					try {
+						window[chartId].destroy();
+					} catch (e) {}
+				}
+				
+				// Создаём и сохраняем новый экземпляр
+				window[chartId] = new Chart(chartCanvas, {
+				type: 'line',
+				data: {
+					labels: labels,
+					datasets: [
+						{
+							label: 'Вес (кг)',
+							data: dataPoints.map(p => p.weight),
+							borderColor: theme.weight,
+							backgroundColor: theme.weight,
+							pointRadius: 5,
+							pointHoverRadius: 7,
+							borderWidth: 2,
+							yAxisID: 'y',
+							tension: 0.2
+						},
+						{
+							label: 'Повторения',
+							data: dataPoints.map(p => p.reps),
+							borderColor: theme.reps,
+							backgroundColor: theme.reps,
+							pointRadius: 5,
+							pointHoverRadius: 7,
+							borderWidth: 2,
+							yAxisID: 'y1',
+							tension: 0.2
+						}
+					]
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					animation: false,
+					interaction: { mode: 'index', intersect: false },
+					plugins: {
+						title: {
+							display: true,
+							text: `Прогресс: ${exerciseName}`,
+							color: theme.text,
+							font: { size: 16, weight: 'bold' }
+						},
+						legend: { display: true, labels: { color: theme.text } },
+						tooltip: {
+							backgroundColor: 'rgba(30, 30, 30, 0.9)',
+							titleColor: theme.text,
+							bodyColor: theme.text,
+							callbacks: {
+								title: (items) => {
+									const p = dataPoints[items[0].dataIndex];
+									return `${p.dateLabel} | Подход ${p.setIndex}`;
+								},
+								label: (ctx) => {
+									const p = dataPoints[ctx.dataIndex];
+									return ctx.dataset.label === 'Вес (кг)' 
+										? `Вес: ${p.weight} кг` 
+										: `Повторения: ${p.reps} раз`;
+								}
+							}
+						}
+					},
+					scales: {
+						x: {
+							title: { display: false },
+							ticks: { display: false },
+							grid: { display: false }
+						},
+						y: {
+							position: 'left',
+							title: { display: true, text: 'Вес (кг)', color: theme.weight },
+							ticks: { 
+								color: theme.text,
+								stepSize: 1
+							},
+							grid: { color: theme.grid }
+						},
+						y1: {
+							position: 'right',
+							title: { display: true, text: 'Повторения', color: theme.reps },
+							ticks: { 
+								color: theme.text,
+								stepSize: 1,
+								precision: 0
+							},
+							grid: { drawOnChartArea: false }
+						}
+					}
+				}
+			});
+			
+		} catch (error) {
+			loadingDiv.textContent = '❌ Ошибка: ' + error.message;
+			loadingDiv.style.color = '#ff6b6b';
+		}
+			}, 100);
+			
+		// Таблица по дням (от новых к старым)
+		dv.header(3, "История подходов");
+		const tableRows = [];
+		
+		for (const date of sortedDates.slice().reverse()) {
+			const sets = groupedByDate.get(date);
+			const setsText = sets.map((s, idx) => 
+				'• ' + s.weight + ' кг × ' + s.reps + ' раз'
+			).join("<br>");
+			
+			tableRows.push([
+				pageLinks.get(date),
+				setsText,
+				maxReps.get(date) + ' раз',
+				maxRepsWeight.get(date) + ' кг'
+			]);
+		}
 			
 			dv.table(
 				["Дата", "Подходы", "Макс повторений", "Вес при макс"],
@@ -117,37 +252,66 @@ if (!cache) {
 			
 			// Статистика за последнюю тренировку
 			if (exerciseData.lastWorkout) {
-				dv.header(3, "Последняя тренировка");
-				
-				const lastDate = exerciseData.lastWorkout.date;
-				const dateParts = lastDate.split('-');
-				const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
-				
-				dv.paragraph(`📅 **Дата:** ${displayDate}`);
-				
-				if (exerciseData.lastWorkout.maxActualWeight) {
-					const max = exerciseData.lastWorkout.maxActualWeight;
-					dv.paragraph(`💪 **Максимальный вес за тренировку:** ${max.weight} кг × ${max.reps} раз`);
-				}
-				
-				if (exerciseData.lastWorkout.maxActualWorkingSet) {
-					const working = exerciseData.lastWorkout.maxActualWorkingSet;
-					dv.paragraph(`🔥 **Максимальное количество повторений:** ${working.reps} раз с ${working.weight} кг`);
-				}
+			dv.header(3, "Последняя тренировка");
+			
+			const lastDate = exerciseData.lastWorkout.date;
+			const dateParts = lastDate.split('-');
+			const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
+			
+			// Создаём ссылку на лог
+			const logFiles = dv.pages('"{{workoutFolder}}/Logs"')
+				.filter(p => p.file.name.startsWith(lastDate));
+			const logLink = logFiles.length > 0 
+				? "[[" + logFiles[0].file.path + "|" + displayDate + "]]"
+				: displayDate;
+			
+			dv.paragraph("📅 **Дата:** " + logLink);
+			
+			if (exerciseData.lastWorkout.maxActualWeight) {
+				const max = exerciseData.lastWorkout.maxActualWeight;
+				dv.paragraph("💪 **Максимальный вес за тренировку:** " + max.weight + " кг × " + max.reps + " раз");
 			}
 			
-			// Рекорды за все время
+			if (exerciseData.lastWorkout.maxActualWorkingSet) {
+				const working = exerciseData.lastWorkout.maxActualWorkingSet;
+				dv.paragraph("🔥 **Максимальное количество повторений:** " + working.reps + " раз с " + working.weight + " кг");
+			}
+		}			// Рекорды за все время
 			dv.header(3, "Рекорды");
 			
+			// Максимальный вес
+			if (exerciseData.allTimeMaxWeight) {
+				const record = exerciseData.allTimeMaxWeight;
+				const dateParts = record.date.split('-');
+				const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
+				
+				// Ищем ссылку на лог
+				const logFiles = dv.pages('"{{workoutFolder}}/Logs"')
+					.filter(p => p.file.name.startsWith(record.date));
+				const logLink = logFiles.length > 0 
+					? "[[" + logFiles[0].file.path + "|" + displayDate + "]]"
+					: displayDate;
+				
+				dv.paragraph("💪 **Максимальный вес:** " + record.weight + " кг на " + record.reps + " раз (" + logLink + ")");
+			}
+			
+			// Максимум повторений
 			if (exerciseData.allTimeMaxReps) {
 				const record = exerciseData.allTimeMaxReps;
 				const dateParts = record.date.split('-');
 				const displayDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0];
 				
+				// Ищем ссылку на лог
+				const logFiles = dv.pages('"{{workoutFolder}}/Logs"')
+					.filter(p => p.file.name.startsWith(record.date));
+				const logLink = logFiles.length > 0 
+					? "[[" + logFiles[0].file.path + "|" + displayDate + "]]"
+					: displayDate;
+				
 				if (record.weight !== undefined) {
-					dv.paragraph(`🔥 **Максимум повторений:** ${record.reps} раз с ${record.weight} кг (${displayDate})`);
+					dv.paragraph("🔥 **Максимум повторений:** " + record.reps + " раз с " + record.weight + " кг (" + logLink + ")");
 				} else {
-					dv.paragraph(`🔥 **Максимум повторений:** ${record.reps} раз (${displayDate})`);
+					dv.paragraph("🔥 **Максимум повторений:** " + record.reps + " раз (" + logLink + ")");
 				}
 			}
 		}

@@ -12,39 +12,30 @@ export class FileManager {
 	) {}
 
 	private async getTemplate(key: TemplateKey): Promise<string> {
-		console.log(`[FileManager] getTemplate для ${key} - перечитываем templates.ts...`);
 		
 		try {
 			// Перечитываем файл templates.ts напрямую, чтобы получить актуальные значения
 			const templatesPath = path.join(this.pluginDir, 'src', 'templates.ts');
 			const content = await fs.readFile(templatesPath, 'utf-8');
 			
-			console.log(`[FileManager] Файл прочитан, размер: ${content.length}`);
 			
 			// Ищем нужный шаблон в файле - используем ту же регулярку что и в TemplateUpdater
 			const regex = new RegExp(`(\\s+${key}:\\s*)\`([\\s\\S]*?)\`(,?)`, 'm');
 			const match = content.match(regex);
 			
-			console.log(`[FileManager] Regex для ${key}: ${regex}`);
-			console.log(`[FileManager] Совпадение найдено: ${match ? 'ДА' : 'НЕТ'}`);
 			
 			if (match && match[2]) {
-				console.log(`[FileManager] ✅ Шаблон ${key} найден, длина: ${match[2].length}`);
-				console.log(`[FileManager] Первые 50 символов: ${match[2].substring(0, 50)}...`);
 				return match[2];
 			}
 			
-			console.log(`[FileManager] ⚠️ Шаблон ${key} не найден в файле`);
 			// Попробуем найти строку с ключом для отладки
 			const lines = content.split('\n');
 			const keyLine = lines.find(l => l.includes(key + ':'));
-			console.log(`[FileManager] Строка с ${key} в файле: ${keyLine}`);
 			
 			// Fallback на импорт (хотя он будет закеширован)
 			const { WORKOUT_TEMPLATES } = await import('../templates');
 			return WORKOUT_TEMPLATES[key];
 		} catch (error) {
-			console.error(`[FileManager] ❌ Ошибка чтения templates.ts:`, error);
 			// Fallback на импорт
 			const { WORKOUT_TEMPLATES } = await import('../templates');
 			return WORKOUT_TEMPLATES[key];
@@ -52,7 +43,6 @@ export class FileManager {
 	}
 
 	private async getExerciseTemplate(hasWeight: boolean = true): Promise<string> {
-		console.log(`[FileManager] getExerciseTemplate - читаем dataviewjs шаблон (hasWeight: ${hasWeight})...`);
 		
 		const settings = this.getSettings();
 		const chartMin = settings.chartRepsMin ?? 0;
@@ -83,10 +73,8 @@ ${dataviewjsCode}
 ## Заметки
 `;
 			
-			console.log(`[FileManager] ✅ Шаблон упражнения создан (${templateFileName}), длина: ${template.length}`);
 			return template;
 		} catch (error) {
-			console.error(`[FileManager] ❌ Ошибка чтения шаблона:`, error);
 			return EXERCISE_TEMPLATE;
 		}
 	}
@@ -121,7 +109,6 @@ ${dataviewjsCode}
 		const files = this.app.vault.getMarkdownFiles();
 		const logFiles = files.filter(f => f.path.startsWith(logsFolder));
 		
-		console.log(`[getExerciseStats] ${exerciseName} - hasWeight: ${hasWeight}, найдено логов: ${logFiles.length}`);
 		
 		const exerciseHeader = `### ${exerciseName}`;
 		const setRegex = /^Подход\s*(\d+):\s*(.+)$/i;
@@ -141,12 +128,10 @@ ${dataviewjsCode}
 			const content = await this.app.vault.read(file);
 			const lines = content.split('\n');
 			
-			console.log(`[getExerciseStats] Проверяем файл: ${file.name}`);
 			
 			let i = 0;
 			while (i < lines.length) {
 				if (lines[i].trim() === exerciseHeader) {
-					console.log(`[getExerciseStats] ✓ Нашли заголовок "${exerciseHeader}" в ${file.name} на строке ${i}`);
 					i++;
 					let processedLines = 0;
 					while (i < lines.length) {
@@ -154,11 +139,9 @@ ${dataviewjsCode}
 						processedLines++;
 						
 						if (processedLines <= 5) {
-							console.log(`[getExerciseStats]   Строка ${i}: "${line}"`);
 						}
 						
 						if (line.startsWith('###') || line.startsWith('##')) {
-							console.log(`[getExerciseStats] Достигли следующего заголовка: "${line}"`);
 							break;
 						}
 						
@@ -188,12 +171,10 @@ ${dataviewjsCode}
 						const setMatch = setRegex.exec(line);
 						
 						if (setMatch) {
-							console.log(`[getExerciseStats]   ✓ setMatch найден! details: "${setMatch[2]}"`);
 							const details = setMatch[2];
 							const weightMatch = weightRegex.exec(details);
 							const repsMatch = repsRegex.exec(details);
 							
-							console.log(`[getExerciseStats]   weightMatch: ${weightMatch ? weightMatch[1] : 'НЕТ'}, repsMatch: ${repsMatch ? repsMatch[1] : 'НЕТ'}`);
 							
 							if (repsMatch) {
 								const reps = Number(repsMatch[1]);
@@ -234,7 +215,6 @@ ${dataviewjsCode}
 		
 		let result = '';
 		if (hasWeight) {
-			console.log(`[getExerciseStats] ${exerciseName} - workingSet:`, workingSet, 'maxWeightSet:', maxWeightSet);
 			
 			// Если нет данных, выводим шаблон с нулями
 			if (!workingSet && !maxWeightSet) {
@@ -257,7 +237,6 @@ ${dataviewjsCode}
 			}
 		}
 		
-		console.log(`[getExerciseStats] ${exerciseName} - результат: "${result}"`);
 		
 		return result;
 	}
@@ -295,7 +274,6 @@ ${dataviewjsCode}
 
 			new Notice(`Файлы перенесены из ${oldPath} в ${newPath}`);
 		} catch (error) {
-			console.error('Ошибка при переносе файлов:', error);
 			new Notice('Ошибка при переносе файлов');
 		}
 	}
@@ -319,7 +297,6 @@ ${dataviewjsCode}
 			try {
 				await this.app.vault.delete(oldFolder);
 			} catch (error) {
-				console.warn(`Не удалось удалить папку ${oldFolder.path}:`, error);
 			}
 		}
 	}
@@ -339,7 +316,6 @@ ${dataviewjsCode}
 			try {
 				await this.app.vault.rename(file, candidatePath);
 			} catch (e) {
-				console.error(`Не удалось переместить файл ${file.path}:`, e);
 			}
 		}
 	}
@@ -399,6 +375,7 @@ ${dataviewjsCode}
 			.replace(/{{exerciseName}}/g, exerciseName)
 			.replace(/{{workoutFolder}}/g, workoutFolder);
 		
+		
 		const existing = this.app.vault.getAbstractFileByPath(filePath);
 
 		if (existing instanceof TFile) {
@@ -434,44 +411,28 @@ ${dataviewjsCode}
 	}
 
 	async createTemplateFiles(workoutFolder: string): Promise<void> {
-		console.log('[FileManager] ========== createTemplateFiles ==========');
 		const templatesPath = `${workoutFolder}/Templates`;
-		console.log(`[FileManager] Путь к шаблонам: ${templatesPath}`);
-		console.log(`[FileManager] Количество шаблонов для создания: ${Object.keys(TEMPLATE_FILES).length}`);
 		
 		for (const [key, fileName] of Object.entries(TEMPLATE_FILES) as [TemplateKey, string][]) {
 			const filePath = `${templatesPath}/${fileName}`;
-			console.log(`\n[FileManager] --- Обработка шаблона: ${key} (${fileName}) ---`);
 			
 			const templateContent = await this.getTemplate(key);
-			console.log(`[FileManager] Длина контента из WORKOUT_TEMPLATES: ${templateContent.length} символов`);
-			console.log(`[FileManager] Первые 50 символов: ${templateContent.substring(0, 50)}...`);
 			
 			const existing = this.app.vault.getAbstractFileByPath(filePath);
 			if (existing instanceof TFile) {
-				console.log(`[FileManager] Файл существует, проверяем содержимое...`);
 				try {
 					const currentContent = await this.app.vault.read(existing);
-					console.log(`[FileManager] Текущий контент файла: ${currentContent.length} символов`);
-					console.log(`[FileManager] Первые 50 символов файла: ${currentContent.substring(0, 50)}...`);
 					
 					if (currentContent !== templateContent) {
-						console.log(`[FileManager] ⚠️ Контент отличается! Обновляем файл...`);
 						await this.app.vault.modify(existing, templateContent);
-						console.log(`[FileManager] ✅ Файл обновлён`);
 					} else {
-						console.log(`[FileManager] ✓ Контент идентичен, пропускаем`);
 					}
 				} catch (error) {
-					console.error(`[FileManager] ❌ Не удалось обновить шаблон ${filePath}:`, error);
 				}
 			} else {
-				console.log(`[FileManager] Файл не существует, создаём...`);
 				await this.app.vault.create(filePath, templateContent);
-				console.log(`[FileManager] ✅ Файл создан`);
 			}
 		}
-		console.log('[FileManager] ========== КОНЕЦ createTemplateFiles ==========\n');
 	}
 
 	private async createExerciseFiles(workoutFolder: string, exerciseNames: ExerciseInfo[]): Promise<void> {
@@ -502,7 +463,6 @@ ${dataviewjsCode}
 						await this.app.vault.modify(existing, content);
 					}
 				} catch (error) {
-					console.error(`Не удалось обновить файл упражнения ${filePath}:`, error);
 				}
 			} else {
 				await this.app.vault.create(filePath, content);
@@ -591,11 +551,6 @@ ${dataviewjsCode}
 			content = content.replace(match[0], stats);
 		}
 
-		console.log(`[FileManager] createWorkoutLog - создаём файл ${fileName}`);
-		console.log(`[FileManager] Шаблон ${templateKey}, длина: ${template.length}`);
-		console.log(`[FileManager] Контент после замены, длина: ${content.length}`);
-		console.log(`[FileManager] Первые 200 символов контента:\n${content.substring(0, 200)}`);
-		console.log(`[FileManager] Есть ли ### в контенте: ${content.includes('###')}`);
 
 		const filePath = `${workoutFolder}/Logs/${fileName}`;
 		const file = await this.app.vault.create(filePath, content);
@@ -687,14 +642,12 @@ ${dataviewjsCode}
 			
 			new Notice(`Шаблон ${templateName} обновлен в коде`);
 		} catch (error) {
-			console.error('Ошибка при обновлении шаблона:', error);
 		}
 	}
 
 	private async updateTemplateConstant(templateKey: string, newContent: string): Promise<void> {
 		// Здесь можно реализовать логику обновления констант в файле templates.ts
 		// Для простоты выведем в консоль информацию об изменении
-		console.log(`Обновление шаблона ${templateKey}:`, newContent);
 		
 		// В реальной реализации здесь бы был код для обновления файла templates.ts
 		// Например, чтение файла, замена содержимого и перезапись

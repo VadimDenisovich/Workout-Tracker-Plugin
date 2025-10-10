@@ -1,7 +1,10 @@
 {
   "version": "1.0.0",
-  "lastUpdate": "2025-10-09T13:54:09.930Z",
+  "lastUpdate": "2025-10-10T07:32:43.821Z",
   "cachedFiles": [
+    "Workout/Logs/2025-10-09-Wednesday.md",
+    "Workout/Logs/2025-10-04-Wednesday.md",
+    "Workout/Logs/2025-10-03-Friday.md",
     "Workout/Logs/2025-10-04-Friday.md",
     "Workout/Logs/2025-10-09-Home.md",
     "Workout/Logs/2025-10-05-Friday.md",
@@ -9,12 +12,100 @@
     "Workout/Logs/2025-10-07-Home.md",
     "Workout/Logs/2025-10-06-Home.md",
     "Workout/Logs/2025-10-06-Friday.md",
-    "Workout/Logs/2025-10-05-Home.md",
-    "Workout/Logs/2025-10-03-Friday.md",
-    "Workout/Logs/2025-10-04-Wednesday.md",
-    "Workout/Logs/2025-10-09-Wednesday.md"
+    "Workout/Logs/2025-10-05-Home.md"
   ],
   "exercises": {
+    "Жим ног": {
+      "name": "Жим ног",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-10-09",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 15
+            },
+            {
+              "weight": 15,
+              "reps": 14
+            },
+            {
+              "weight": 12,
+              "reps": 13
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-04",
+          "sets": [
+            {
+              "weight": 12,
+              "reps": 12
+            },
+            {
+              "weight": 13,
+              "reps": 13
+            },
+            {
+              "weight": 14,
+              "reps": 14
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 14,
+            "reps": 14
+          },
+          "maxActualWorkingSet": {
+            "weight": 14,
+            "reps": 14
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-10-09",
+        "sets": [
+          {
+            "weight": 15,
+            "reps": 15
+          },
+          {
+            "weight": 15,
+            "reps": 14
+          },
+          {
+            "weight": 12,
+            "reps": 13
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 15,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 15,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 15,
+        "reps": 15,
+        "date": "2025-10-09"
+      },
+      "allTimeMaxWeight": {
+        "weight": 15,
+        "reps": 15,
+        "date": "2025-10-09"
+      }
+    },
     "Жим штанги лёжа узким хватом": {
       "name": "Жим штанги лёжа узким хватом",
       "hasWeight": true,
@@ -107,6 +198,11 @@
       "allTimeMaxReps": {
         "weight": 15,
         "reps": 13,
+        "date": "2025-10-04"
+      },
+      "allTimeMaxWeight": {
+        "weight": 16,
+        "reps": 12,
         "date": "2025-10-04"
       }
     },
@@ -464,6 +560,11 @@
         "weight": 20,
         "reps": 15,
         "date": "2025-10-05"
+      },
+      "allTimeMaxWeight": {
+        "weight": 27,
+        "reps": 11,
+        "date": "2025-10-06"
       }
     },
     "Тяга горизонтального блока к поясу": {
@@ -538,67 +639,11 @@
         "weight": 12,
         "reps": 13,
         "date": "2025-10-06"
-      }
-    },
-    "Жим ног": {
-      "name": "Жим ног",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 12
-            },
-            {
-              "weight": 13,
-              "reps": 13
-            },
-            {
-              "weight": 14,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 14,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 14
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-04",
-        "sets": [
-          {
-            "weight": 12,
-            "reps": 12
-          },
-          {
-            "weight": 13,
-            "reps": 13
-          },
-          {
-            "weight": 14,
-            "reps": 14
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 14,
-          "reps": 14
-        },
-        "maxActualWorkingSet": {
-          "weight": 14,
-          "reps": 14
-        }
       },
-      "allTimeMaxReps": {
-        "weight": 14,
-        "reps": 14,
-        "date": "2025-10-04"
+      "allTimeMaxWeight": {
+        "weight": 35,
+        "reps": 3,
+        "date": "2025-10-06"
       }
     }
   }

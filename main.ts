@@ -20,6 +20,9 @@ export default class WorkoutTrackerPlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 		
+		// Загружаем Chart.js глобально один раз при старте плагина
+		this.loadChartJS();
+		
 		// Получаем путь к директории плагина
 		const adapter = this.app.vault.adapter;
 		const pluginDir = (adapter as any).basePath + '/.obsidian/plugins/' + this.manifest.id;
@@ -351,6 +354,58 @@ export default class WorkoutTrackerPlugin extends Plugin {
 			return 'лога';
 		}
 		return 'логов';
+	}
+	
+	private loadChartJS() {
+		console.log('[Plugin] ═══════════════════════════════════');
+		console.log('[Plugin] 🚀 loadChartJS() вызван');
+		console.log('[Plugin] Текущее состояние window.Chart:', !!(window as any).Chart);
+		console.log('[Plugin] Текущее состояние window.chartJSLoading:', !!(window as any).chartJSLoading);
+		console.log('[Plugin] Текущее состояние window.chartJSLoaded:', !!(window as any).chartJSLoaded);
+		
+		// Проверяем, не загружен ли уже Chart.js
+		if ((window as any).Chart) {
+			console.log('[Plugin] ✅ Chart.js уже загружен, выходим');
+			console.log('[Plugin] ═══════════════════════════════════');
+			return;
+		}
+
+		// Проверяем, не идёт ли уже загрузка
+		if ((window as any).chartJSLoading) {
+			console.log('[Plugin] ⏳ Chart.js уже загружается, выходим');
+			console.log('[Plugin] ═══════════════════════════════════');
+			return;
+		}
+
+		console.log('[Plugin] 📥 Начинаем загрузку Chart.js с CDN...');
+		(window as any).chartJSLoading = true;
+
+		const script = document.createElement('script');
+		script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+		script.async = true;
+		
+		console.log('[Plugin] 📝 Script элемент создан, src:', script.src);
+		
+		script.onload = () => {
+			console.log('[Plugin] ✅✅✅ Chart.js успешно загружен глобально!');
+			console.log('[Plugin] window.Chart теперь:', !!(window as any).Chart);
+			console.log('[Plugin] typeof window.Chart:', typeof (window as any).Chart);
+			(window as any).chartJSLoading = false;
+			(window as any).chartJSLoaded = true;
+			console.log('[Plugin] ═══════════════════════════════════');
+		};
+		
+		script.onerror = (error) => {
+			console.error('[Plugin] ❌❌❌ Ошибка загрузки Chart.js!');
+			console.error('[Plugin] Error object:', error);
+			(window as any).chartJSLoading = false;
+			console.log('[Plugin] ═══════════════════════════════════');
+		};
+		
+		console.log('[Plugin] 🔗 Добавляем script в document.head...');
+		document.head.appendChild(script);
+		console.log('[Plugin] ✅ Script добавлен в DOM');
+		console.log('[Plugin] ═══════════════════════════════════');
 	}
 }
 

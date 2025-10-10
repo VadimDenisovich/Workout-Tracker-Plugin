@@ -24,6 +24,11 @@ export interface ExerciseData {
 		reps: number;
 		date: string;
 	} | null;
+	allTimeMaxWeight?: {
+		weight: number;
+		reps: number;
+		date: string;
+	} | null; // Только для упражнений с весом
 }
 
 export interface CacheData {
@@ -310,6 +315,25 @@ export class ExerciseCache {
 					reps: maxRepsSet.reps,
 					date: session.date
 				};
+			}
+		}
+
+		// Обновляем allTimeMaxWeight (максимальный вес за все время) - только для упражнений с весом
+		if (hasWeight) {
+			for (const session of exercise.history) {
+				const maxWeightSet = session.sets.reduce((max, set) => 
+					(set.weight !== undefined && (max.weight === undefined || set.weight > max.weight)) ? set : max
+				);
+				
+				if (maxWeightSet.weight !== undefined) {
+					if (!exercise.allTimeMaxWeight || maxWeightSet.weight > exercise.allTimeMaxWeight.weight) {
+						exercise.allTimeMaxWeight = {
+							weight: maxWeightSet.weight,
+							reps: maxWeightSet.reps,
+							date: session.date
+						};
+					}
+				}
 			}
 		}
 

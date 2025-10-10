@@ -1,0 +1,289 @@
+const exerciseName = "{{exerciseName}}";
+
+// Загружаем Chart.js, если еще не загружен
+async function loadChartJS() {
+	if (window.Chart) return;
+	
+	return new Promise((resolve, reject) => {
+		const script = document.createElement('script');
+		script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+		script.onload = resolve;
+		script.onerror = reject;
+		document.head.appendChild(script);
+	});
+}
+
+try {
+	await loadChartJS();
+	
+	// Читаем данные из кэша
+	const plugin = app.plugins.plugins['workout-tracker'];
+	const adapter = app.vault.adapter;
+	const cacheFilePath = '.obsidian/plugins/workout-tracker/exercise-cache.json';
+	
+	if (!await adapter.exists(cacheFilePath)) {
+		dv.paragraph("⚠️ Файл кэша не найден. Обновите кэш упражнений.");
+	} else {
+		const cacheData = JSON.parse(await adapter.read(cacheFilePath));
+		const exerciseData = cacheData.exercises[exerciseName];
+		
+		if (!exerciseData || exerciseData.history.length === 0) {
+			dv.paragraph("📊 Нет данных для построения графика.");
+		} else {
+			// Создаём контейнер для графика
+			const container = dv.el('div', '', { 
+				cls: 'chart-container',
+				attr: { style: 'position: relative; height: 400px; width: 100%; margin: 20px 0;' }
+			});
+			const canvas = container.createEl('canvas');
+			
+			// Подготавливаем данные
+			const hasWeight = exerciseData.hasWeight;
+			const dataPoints = [];
+			
+			// Собираем все подходы с датами
+			exerciseData.history.forEach(session => {
+				session.sets.forEach((set, idx) => {
+					dataPoints.push({
+						date: session.date,
+						setIndex: idx + 1,
+						weight: set.weight || 0,
+						reps: set.reps,
+						dateLabel: session.date.split('-').reverse().join('.')
+					});
+				});
+			});
+			
+			// Сортируем по дате
+			dataPoints.sort((a, b) => a.date.localeCompare(b.date));
+			
+			// Создаём метки для оси X
+			const labels = dataPoints.map((p, i) => `${p.dateLabel} (#${p.setIndex})`);
+			
+			// Тёмная тема Obsidian
+			const darkTheme = {
+				background: 'rgba(30, 30, 30, 0.8)',
+				grid: 'rgba(100, 100, 100, 0.2)',
+				text: 'rgba(200, 200, 200, 0.9)',
+				weightLine: 'rgba(100, 180, 255, 0.9)',
+				weightPoint: 'rgba(100, 180, 255, 1)',
+				repsLine: 'rgba(150, 255, 150, 0.9)',
+				repsPoint: 'rgba(150, 255, 150, 1)'
+			};
+			
+			// Конфигурация графика
+			let chartConfig;
+			
+			if (hasWeight) {
+				// График с весом и повторениями (две оси Y)
+				chartConfig = {
+					type: 'line',
+					data: {
+						labels: labels,
+						datasets: [
+							{
+								label: 'Вес (кг)',
+								data: dataPoints.map(p => p.weight),
+								borderColor: darkTheme.weightLine,
+								backgroundColor: darkTheme.weightPoint,
+								pointRadius: 5,
+								pointHoverRadius: 7,
+								borderWidth: 2,
+								yAxisID: 'y',
+								tension: 0.2
+							},
+							{
+								label: 'Повторения',
+								data: dataPoints.map(p => p.reps),
+								borderColor: darkTheme.repsLine,
+								backgroundColor: darkTheme.repsPoint,
+								pointRadius: 5,
+								pointHoverRadius: 7,
+								borderWidth: 2,
+								yAxisID: 'y1',
+								tension: 0.2
+							}
+						]
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						interaction: {
+							mode: 'index',
+							intersect: false,
+						},
+						plugins: {
+							title: {
+								display: true,
+								text: `Прогресс: ${exerciseName}`,
+								color: darkTheme.text,
+								font: { size: 16, weight: 'bold' }
+							},
+							legend: {
+								display: true,
+								labels: { color: darkTheme.text }
+							},
+							tooltip: {
+								backgroundColor: darkTheme.background,
+								titleColor: darkTheme.text,
+								bodyColor: darkTheme.text,
+								borderColor: darkTheme.grid,
+								borderWidth: 1,
+								callbacks: {
+									title: (items) => {
+										const idx = items[0].dataIndex;
+										return `${dataPoints[idx].dateLabel} | Подход ${dataPoints[idx].setIndex}`;
+									},
+									label: (context) => {
+										const idx = context.dataIndex;
+										const point = dataPoints[idx];
+										if (context.dataset.label === 'Вес (кг)') {
+											return `Вес: ${point.weight} кг`;
+										} else {
+											return `Повторения: ${point.reps} раз`;
+										}
+									}
+								}
+							}
+						},
+						scales: {
+							x: {
+								display: true,
+								title: {
+									display: true,
+									text: 'Дата и подход',
+									color: darkTheme.text
+								},
+								ticks: {
+									color: darkTheme.text,
+									maxRotation: 45,
+									minRotation: 45
+								},
+								grid: {
+									color: darkTheme.grid
+								}
+							},
+							y: {
+								type: 'linear',
+								display: true,
+								position: 'left',
+								title: {
+									display: true,
+									text: 'Вес (кг)',
+									color: darkTheme.weightLine
+								},
+								ticks: { color: darkTheme.text },
+								grid: { color: darkTheme.grid }
+							},
+							y1: {
+								type: 'linear',
+								display: true,
+								position: 'right',
+								title: {
+									display: true,
+									text: 'Повторения',
+									color: darkTheme.repsLine
+								},
+								ticks: { color: darkTheme.text },
+								grid: { drawOnChartArea: false }
+							}
+						}
+					}
+				};
+			} else {
+				// График только повторений (без веса)
+				chartConfig = {
+					type: 'line',
+					data: {
+						labels: labels,
+						datasets: [
+							{
+								label: 'Повторения',
+								data: dataPoints.map(p => p.reps),
+								borderColor: darkTheme.repsLine,
+								backgroundColor: darkTheme.repsPoint,
+								pointRadius: 5,
+								pointHoverRadius: 7,
+								borderWidth: 2,
+								tension: 0.2
+							}
+						]
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						interaction: {
+							mode: 'index',
+							intersect: false,
+						},
+						plugins: {
+							title: {
+								display: true,
+								text: `Прогресс: ${exerciseName}`,
+								color: darkTheme.text,
+								font: { size: 16, weight: 'bold' }
+							},
+							legend: {
+								display: true,
+								labels: { color: darkTheme.text }
+							},
+							tooltip: {
+								backgroundColor: darkTheme.background,
+								titleColor: darkTheme.text,
+								bodyColor: darkTheme.text,
+								borderColor: darkTheme.grid,
+								borderWidth: 1,
+								callbacks: {
+									title: (items) => {
+										const idx = items[0].dataIndex;
+										return `${dataPoints[idx].dateLabel} | Подход ${dataPoints[idx].setIndex}`;
+									},
+									label: (context) => {
+										const idx = context.dataIndex;
+										const point = dataPoints[idx];
+										return `Повторения: ${point.reps} раз`;
+									}
+								}
+							}
+						},
+						scales: {
+							x: {
+								display: true,
+								title: {
+									display: true,
+									text: 'Дата и подход',
+									color: darkTheme.text
+								},
+								ticks: {
+									color: darkTheme.text,
+									maxRotation: 45,
+									minRotation: 45
+								},
+								grid: {
+									color: darkTheme.grid
+								}
+							},
+							y: {
+								type: 'linear',
+								display: true,
+								title: {
+									display: true,
+									text: 'Повторения',
+									color: darkTheme.repsLine
+								},
+								ticks: { color: darkTheme.text },
+								grid: { color: darkTheme.grid }
+							}
+						}
+					}
+				};
+			}
+			
+			// Создаём график
+			new Chart(canvas, chartConfig);
+		}
+	}
+} catch (error) {
+	dv.paragraph("❌ Ошибка загрузки графика: " + error.message);
+	console.error('[Chart Error]', error);
+}
