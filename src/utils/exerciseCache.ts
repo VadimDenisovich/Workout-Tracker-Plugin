@@ -175,7 +175,17 @@ export class ExerciseCache {
 
 				// Находим заголовок упражнения
 				if (line.startsWith('###')) {
-					currentExercise = line.replace(/^###\s*/, '').trim();
+					// Извлекаем название упражнения, убирая ### и возможную ссылку [[название]]
+					let exerciseText = line.replace(/^###\s*/, '').trim();
+					
+					// Проверяем, есть ли ссылка в формате [[Exercises/Название|Название]] или [[Название]]
+					const linkMatch = exerciseText.match(/\[\[(?:Exercises\/)?([^\]|]+)(?:\|[^\]]+)?\]\]/);
+					if (linkMatch) {
+						currentExercise = linkMatch[1].trim();
+					} else {
+						// Если нет ссылки, используем текст как есть
+						currentExercise = exerciseText;
+					}
 					
 					// Определяем тип упражнения из метаданных
 					const metadataHasWeight = this.metadataManager.hasWeight(currentExercise);
