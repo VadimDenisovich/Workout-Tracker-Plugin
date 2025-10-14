@@ -1,6241 +1,140 @@
 {
   "version": "1.0.0",
-  "lastUpdate": "2025-10-10T09:59:42.338Z",
+  "lastUpdate": "2025-10-14T14:07:59.610Z",
   "cachedFiles": [
-    "Workout/Logs/2026-02-02-Monday.md",
-    "Workout/Logs/2026-01-26-Monday.md",
-    "Workout/Logs/2026-01-19-Monday.md",
-    "Workout/Logs/2025-10-18-Home.md",
-    "Workout/Logs/2025-10-17-Home.md",
-    "Workout/Logs/2026-01-14-Wednesday.md",
-    "Workout/Logs/2026-01-07-Wednesday.md",
-    "Workout/Logs/2026-01-12-Monday.md",
-    "Workout/Logs/2026-01-05-Monday.md",
-    "Workout/Logs/2026-01-09-Friday.md",
-    "Workout/Logs/2026-01-02-Friday.md",
-    "Workout/Logs/2025-12-26-Friday.md",
-    "Workout/Logs/2025-12-29-Monday.md",
-    "Workout/Logs/2025-12-22-Monday.md",
-    "Workout/Logs/2025-12-19-Friday.md",
-    "Workout/Logs/2025-12-17-Wednesday.md",
-    "Workout/Logs/2025-12-15-Monday.md",
-    "Workout/Logs/2025-12-10-Wednesday.md",
-    "Workout/Logs/2025-12-08-Monday.md",
-    "Workout/Logs/2025-12-04-Wednesday.md",
-    "Workout/Logs/2025-12-01-Monday.md",
-    "Workout/Logs/2025-11-27-Wednesday.md",
-    "Workout/Logs/2025-11-24-Monday.md",
-    "Workout/Logs/2025-11-20-Wednesday.md",
-    "Workout/Logs/2025-11-17-Monday.md",
-    "Workout/Logs/2025-11-14-Friday.md",
-    "Workout/Logs/2025-11-13-Wednesday.md",
-    "Workout/Logs/2025-11-10-Monday.md",
-    "Workout/Logs/2025-11-07-Friday.md",
-    "Workout/Logs/2025-11-06-Wednesday.md",
-    "Workout/Logs/2025-10-14-Home.md",
-    "Workout/Logs/2025-11-03-Monday.md",
-    "Workout/Logs/2025-10-31-Friday.md",
-    "Workout/Logs/2025-10-30-Wednesday.md",
-    "Workout/Logs/2025-10-27-Monday.md",
-    "Workout/Logs/2025-10-24-Friday.md",
-    "Workout/Logs/2025-10-23-Wednesday.md",
-    "Workout/Logs/2025-10-20-Monday.md",
-    "Workout/Logs/2025-10-17-Friday.md",
-    "Workout/Logs/2025-10-16-Wednesday.md",
-    "Workout/Logs/2025-10-16-Home.md",
-    "Workout/Logs/2025-10-15-Home.md",
-    "Workout/Logs/2025-10-13-Monday.md",
-    "Workout/Logs/2025-10-13-Home.md",
-    "Workout/Logs/2025-10-12-Home.md",
-    "Workout/Logs/2025-10-11-Home.md",
-    "Workout/Logs/2025-10-11-Friday.md",
-    "Workout/Logs/2025-10-10-Home.md",
-    "Workout/Logs/2025-10-10-Friday.md",
-    "Workout/Logs/2025-10-09-Wednesday.md",
-    "Workout/Logs/2025-10-09-Home.md",
-    "Workout/Logs/2025-10-08-Home.md",
-    "Workout/Logs/2025-10-07-Home.md",
-    "Workout/Logs/2025-10-06-Home.md",
-    "Workout/Logs/2025-10-06-Friday.md",
-    "Workout/Logs/2025-10-05-Home.md",
-    "Workout/Logs/2025-10-05-Friday.md",
-    "Workout/Logs/2025-10-04-Wednesday.md",
-    "Workout/Logs/2025-10-04-Friday.md",
-    "Workout/Logs/2025-10-03-Friday.md"
+    "Main/Training/Logs/2025-10-10-Friday.md",
+    "Main/Training/Logs/2025-10-09-Friday.md",
+    "Main/Training/Logs/2025-10-15-Wednesday.md",
+    "Main/Training/Logs/2025-10-13-Monday.md"
   ],
   "exercises": {
-    "Жим гантелей лежа": {
-      "name": "Жим гантелей лежа",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-02-02",
-          "sets": [
-            {
-              "weight": 34,
-              "reps": 12
-            },
-            {
-              "weight": 36,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 36,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 34,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-26",
-          "sets": [
-            {
-              "weight": 33,
-              "reps": 12
-            },
-            {
-              "weight": 35,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 33,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-19",
-          "sets": [
-            {
-              "weight": 32,
-              "reps": 12
-            },
-            {
-              "weight": 34,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 34,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 32,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-12",
-          "sets": [
-            {
-              "weight": 31,
-              "reps": 12
-            },
-            {
-              "weight": 33,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 33,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 31,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-05",
-          "sets": [
-            {
-              "weight": 30,
-              "reps": 12
-            },
-            {
-              "weight": 32,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 32,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 30,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-29",
-          "sets": [
-            {
-              "weight": 29,
-              "reps": 12
-            },
-            {
-              "weight": 31,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 31,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 29,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-22",
-          "sets": [
-            {
-              "weight": 28,
-              "reps": 12
-            },
-            {
-              "weight": 30,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 30,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 28,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-15",
-          "sets": [
-            {
-              "weight": 27,
-              "reps": 12
-            },
-            {
-              "weight": 29,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 29,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 27,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-08",
-          "sets": [
-            {
-              "weight": 26,
-              "reps": 12
-            },
-            {
-              "weight": 28,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 28,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 26,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-01",
-          "sets": [
-            {
-              "weight": 25,
-              "reps": 12
-            },
-            {
-              "weight": 27,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 27,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 25,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-24",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 12
-            },
-            {
-              "weight": 26,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-17",
-          "sets": [
-            {
-              "weight": 23,
-              "reps": 12
-            },
-            {
-              "weight": 25,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 25,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 23,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-10",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 12
-            },
-            {
-              "weight": 24,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 24,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-03",
-          "sets": [
-            {
-              "weight": 21,
-              "reps": 12
-            },
-            {
-              "weight": 23,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 23,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 21,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-27",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 12
-            },
-            {
-              "weight": 22,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 22,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-20",
-          "sets": [
-            {
-              "weight": 19,
-              "reps": 12
-            },
-            {
-              "weight": 21,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 21,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 19,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "weight": 18,
-              "reps": 12
-            },
-            {
-              "weight": 20,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 18,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-02-02",
-        "sets": [
-          {
-            "weight": 34,
-            "reps": 12
-          },
-          {
-            "weight": 36,
-            "reps": 10
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 36,
-          "reps": 10
-        },
-        "maxActualWorkingSet": {
-          "weight": 34,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 34,
-        "reps": 12,
-        "date": "2026-02-02"
-      },
-      "allTimeMaxWeight": {
-        "weight": 36,
-        "reps": 10,
-        "date": "2026-02-02"
-      }
-    },
-    "Румынская тяга с гантелями": {
-      "name": "Румынская тяга с гантелями",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-02-02",
-          "sets": [
-            {
-              "weight": 38,
-              "reps": 12
-            },
-            {
-              "weight": 42,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 42,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 38,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-26",
-          "sets": [
-            {
-              "weight": 37,
-              "reps": 12
-            },
-            {
-              "weight": 41,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 41,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 37,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-19",
-          "sets": [
-            {
-              "weight": 36,
-              "reps": 12
-            },
-            {
-              "weight": 40,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 40,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 36,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-12",
-          "sets": [
-            {
-              "weight": 35,
-              "reps": 12
-            },
-            {
-              "weight": 39,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 39,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 35,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-05",
-          "sets": [
-            {
-              "weight": 34,
-              "reps": 12
-            },
-            {
-              "weight": 38,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 38,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 34,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-29",
-          "sets": [
-            {
-              "weight": 33,
-              "reps": 12
-            },
-            {
-              "weight": 37,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 37,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 33,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-22",
-          "sets": [
-            {
-              "weight": 32,
-              "reps": 12
-            },
-            {
-              "weight": 36,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 36,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 32,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-15",
-          "sets": [
-            {
-              "weight": 31,
-              "reps": 12
-            },
-            {
-              "weight": 35,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 31,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-08",
-          "sets": [
-            {
-              "weight": 30,
-              "reps": 12
-            },
-            {
-              "weight": 34,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 34,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 30,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-01",
-          "sets": [
-            {
-              "weight": 29,
-              "reps": 12
-            },
-            {
-              "weight": 33,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 33,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 29,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-24",
-          "sets": [
-            {
-              "weight": 28,
-              "reps": 12
-            },
-            {
-              "weight": 32,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 32,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 28,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-17",
-          "sets": [
-            {
-              "weight": 27,
-              "reps": 12
-            },
-            {
-              "weight": 31,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 31,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 27,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-10",
-          "sets": [
-            {
-              "weight": 26,
-              "reps": 12
-            },
-            {
-              "weight": 30,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 30,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 26,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-03",
-          "sets": [
-            {
-              "weight": 25,
-              "reps": 12
-            },
-            {
-              "weight": 29,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 29,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 25,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-27",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 12
-            },
-            {
-              "weight": 28,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 28,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-20",
-          "sets": [
-            {
-              "weight": 23,
-              "reps": 12
-            },
-            {
-              "weight": 27,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 27,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 23,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 12
-            },
-            {
-              "weight": 26,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-02-02",
-        "sets": [
-          {
-            "weight": 38,
-            "reps": 12
-          },
-          {
-            "weight": 42,
-            "reps": 10
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 42,
-          "reps": 10
-        },
-        "maxActualWorkingSet": {
-          "weight": 38,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 38,
-        "reps": 12,
-        "date": "2026-02-02"
-      },
-      "allTimeMaxWeight": {
-        "weight": 42,
-        "reps": 10,
-        "date": "2026-02-02"
-      }
-    },
-    "Двойная верхняя тяга блока в груди": {
-      "name": "Двойная верхняя тяга блока в груди",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-02-02",
-          "sets": [
-            {
-              "weight": 30,
-              "reps": 12
-            },
-            {
-              "weight": 32,
-              "reps": 10
-            },
-            {
-              "weight": 34,
-              "reps": 8
-            },
-            {
-              "weight": 36,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 36,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 30,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-26",
-          "sets": [
-            {
-              "weight": 29,
-              "reps": 12
-            },
-            {
-              "weight": 31,
-              "reps": 10
-            },
-            {
-              "weight": 33,
-              "reps": 8
-            },
-            {
-              "weight": 35,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 29,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-19",
-          "sets": [
-            {
-              "weight": 28,
-              "reps": 12
-            },
-            {
-              "weight": 30,
-              "reps": 10
-            },
-            {
-              "weight": 32,
-              "reps": 8
-            },
-            {
-              "weight": 34,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 34,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 28,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-12",
-          "sets": [
-            {
-              "weight": 27,
-              "reps": 12
-            },
-            {
-              "weight": 29,
-              "reps": 10
-            },
-            {
-              "weight": 31,
-              "reps": 8
-            },
-            {
-              "weight": 33,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 33,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 27,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-05",
-          "sets": [
-            {
-              "weight": 26,
-              "reps": 12
-            },
-            {
-              "weight": 28,
-              "reps": 10
-            },
-            {
-              "weight": 30,
-              "reps": 8
-            },
-            {
-              "weight": 32,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 32,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 26,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-29",
-          "sets": [
-            {
-              "weight": 25,
-              "reps": 12
-            },
-            {
-              "weight": 27,
-              "reps": 10
-            },
-            {
-              "weight": 29,
-              "reps": 8
-            },
-            {
-              "weight": 31,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 31,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 25,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-22",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 12
-            },
-            {
-              "weight": 26,
-              "reps": 10
-            },
-            {
-              "weight": 28,
-              "reps": 8
-            },
-            {
-              "weight": 30,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 30,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-15",
-          "sets": [
-            {
-              "weight": 23,
-              "reps": 12
-            },
-            {
-              "weight": 25,
-              "reps": 10
-            },
-            {
-              "weight": 27,
-              "reps": 8
-            },
-            {
-              "weight": 29,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 29,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 23,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-08",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 12
-            },
-            {
-              "weight": 24,
-              "reps": 10
-            },
-            {
-              "weight": 26,
-              "reps": 8
-            },
-            {
-              "weight": 28,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 28,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-01",
-          "sets": [
-            {
-              "weight": 21,
-              "reps": 12
-            },
-            {
-              "weight": 23,
-              "reps": 10
-            },
-            {
-              "weight": 25,
-              "reps": 8
-            },
-            {
-              "weight": 27,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 27,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 21,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-24",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 12
-            },
-            {
-              "weight": 22,
-              "reps": 10
-            },
-            {
-              "weight": 24,
-              "reps": 8
-            },
-            {
-              "weight": 26,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-17",
-          "sets": [
-            {
-              "weight": 19,
-              "reps": 12
-            },
-            {
-              "weight": 21,
-              "reps": 10
-            },
-            {
-              "weight": 23,
-              "reps": 8
-            },
-            {
-              "weight": 25,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 25,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 19,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-10",
-          "sets": [
-            {
-              "weight": 18,
-              "reps": 12
-            },
-            {
-              "weight": 20,
-              "reps": 10
-            },
-            {
-              "weight": 22,
-              "reps": 8
-            },
-            {
-              "weight": 24,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 24,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 18,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-03",
-          "sets": [
-            {
-              "weight": 17,
-              "reps": 12
-            },
-            {
-              "weight": 19,
-              "reps": 10
-            },
-            {
-              "weight": 21,
-              "reps": 8
-            },
-            {
-              "weight": 23,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 23,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 17,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-27",
-          "sets": [
-            {
-              "weight": 16,
-              "reps": 12
-            },
-            {
-              "weight": 18,
-              "reps": 10
-            },
-            {
-              "weight": 20,
-              "reps": 8
-            },
-            {
-              "weight": 22,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 22,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 16,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-20",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 12
-            },
-            {
-              "weight": 17,
-              "reps": 10
-            },
-            {
-              "weight": 19,
-              "reps": 8
-            },
-            {
-              "weight": 21,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 21,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 12
-            },
-            {
-              "weight": 16,
-              "reps": 10
-            },
-            {
-              "weight": 18,
-              "reps": 8
-            },
-            {
-              "weight": 20,
-              "reps": 6
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 6
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-02-02",
-        "sets": [
-          {
-            "weight": 30,
-            "reps": 12
-          },
-          {
-            "weight": 32,
-            "reps": 10
-          },
-          {
-            "weight": 34,
-            "reps": 8
-          },
-          {
-            "weight": 36,
-            "reps": 6
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 36,
-          "reps": 6
-        },
-        "maxActualWorkingSet": {
-          "weight": 30,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 30,
-        "reps": 12,
-        "date": "2026-02-02"
-      },
-      "allTimeMaxWeight": {
-        "weight": 36,
-        "reps": 6,
-        "date": "2026-02-02"
-      }
-    },
-    "Подъемы с гантелями": {
-      "name": "Подъемы с гантелями",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-02-02",
-          "sets": [
-            {
-              "weight": 19,
-              "reps": 12
-            },
-            {
-              "weight": 21,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 21,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 19,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-26",
-          "sets": [
-            {
-              "weight": 18,
-              "reps": 13
-            },
-            {
-              "weight": 20,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 18,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2026-01-19",
-          "sets": [
-            {
-              "weight": 18,
-              "reps": 12
-            },
-            {
-              "weight": 20,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 18,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-12",
-          "sets": [
-            {
-              "weight": 17,
-              "reps": 13
-            },
-            {
-              "weight": 19,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 19,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 17,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2026-01-05",
-          "sets": [
-            {
-              "weight": 17,
-              "reps": 12
-            },
-            {
-              "weight": 19,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 19,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 17,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-29",
-          "sets": [
-            {
-              "weight": 16,
-              "reps": 13
-            },
-            {
-              "weight": 18,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 18,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 16,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-12-22",
-          "sets": [
-            {
-              "weight": 16,
-              "reps": 12
-            },
-            {
-              "weight": 18,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 18,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 16,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-15",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 12
-            },
-            {
-              "weight": 17,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 17,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-08",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 13
-            },
-            {
-              "weight": 16,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-12-01",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 12
-            },
-            {
-              "weight": 16,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-24",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 13
-            },
-            {
-              "weight": 15,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-11-17",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 12
-            },
-            {
-              "weight": 15,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-10",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 13
-            },
-            {
-              "weight": 14,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 14,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-11-03",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 12
-            },
-            {
-              "weight": 14,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 14,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-27",
-          "sets": [
-            {
-              "weight": 11,
-              "reps": 13
-            },
-            {
-              "weight": 13,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 13,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 11,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-10-20",
-          "sets": [
-            {
-              "weight": 11,
-              "reps": 12
-            },
-            {
-              "weight": 13,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 13,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 11,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 12
-            },
-            {
-              "weight": 12,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-02-02",
-        "sets": [
-          {
-            "weight": 19,
-            "reps": 12
-          },
-          {
-            "weight": 21,
-            "reps": 10
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 21,
-          "reps": 10
-        },
-        "maxActualWorkingSet": {
-          "weight": 19,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 18,
-        "reps": 13,
-        "date": "2026-01-26"
-      },
-      "allTimeMaxWeight": {
-        "weight": 21,
-        "reps": 10,
-        "date": "2026-02-02"
-      }
-    },
-    "Французский жим с нижнего блока": {
-      "name": "Французский жим с нижнего блока",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-02-02",
-          "sets": [
-            {
-              "weight": 32,
-              "reps": 12
-            },
-            {
-              "weight": 34,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 34,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 32,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-26",
-          "sets": [
-            {
-              "weight": 31,
-              "reps": 12
-            },
-            {
-              "weight": 33,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 33,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 31,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-19",
-          "sets": [
-            {
-              "weight": 30,
-              "reps": 12
-            },
-            {
-              "weight": 32,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 32,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 30,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-12",
-          "sets": [
-            {
-              "weight": 29,
-              "reps": 12
-            },
-            {
-              "weight": 31,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 31,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 29,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-05",
-          "sets": [
-            {
-              "weight": 28,
-              "reps": 12
-            },
-            {
-              "weight": 30,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 30,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 28,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-29",
-          "sets": [
-            {
-              "weight": 27,
-              "reps": 12
-            },
-            {
-              "weight": 29,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 29,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 27,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-22",
-          "sets": [
-            {
-              "weight": 26,
-              "reps": 12
-            },
-            {
-              "weight": 28,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 28,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 26,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-15",
-          "sets": [
-            {
-              "weight": 25,
-              "reps": 12
-            },
-            {
-              "weight": 27,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 27,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 25,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-08",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 12
-            },
-            {
-              "weight": 26,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-01",
-          "sets": [
-            {
-              "weight": 23,
-              "reps": 12
-            },
-            {
-              "weight": 25,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 25,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 23,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-24",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 12
-            },
-            {
-              "weight": 24,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 24,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-17",
-          "sets": [
-            {
-              "weight": 21,
-              "reps": 12
-            },
-            {
-              "weight": 23,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 23,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 21,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-10",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 12
-            },
-            {
-              "weight": 22,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 22,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-03",
-          "sets": [
-            {
-              "weight": 19,
-              "reps": 12
-            },
-            {
-              "weight": 21,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 21,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 19,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-27",
-          "sets": [
-            {
-              "weight": 18,
-              "reps": 12
-            },
-            {
-              "weight": 20,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 18,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-20",
-          "sets": [
-            {
-              "weight": 17,
-              "reps": 12
-            },
-            {
-              "weight": 19,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 19,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 17,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "weight": 16,
-              "reps": 12
-            },
-            {
-              "weight": 18,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 18,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 16,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-02-02",
-        "sets": [
-          {
-            "weight": 32,
-            "reps": 12
-          },
-          {
-            "weight": 34,
-            "reps": 10
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 34,
-          "reps": 10
-        },
-        "maxActualWorkingSet": {
-          "weight": 32,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 32,
-        "reps": 12,
-        "date": "2026-02-02"
-      },
-      "allTimeMaxWeight": {
-        "weight": 34,
-        "reps": 10,
-        "date": "2026-02-02"
-      }
-    },
     "Подъем гантелей на дельты": {
       "name": "Подъем гантелей на дельты",
       "hasWeight": true,
       "history": [
         {
-          "date": "2026-02-02",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 15
-            },
-            {
-              "weight": 13,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 13,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-26",
-          "sets": [
-            {
-              "weight": 11,
-              "reps": 16
-            },
-            {
-              "weight": 12,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 11,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2026-01-19",
-          "sets": [
-            {
-              "weight": 11,
-              "reps": 15
-            },
-            {
-              "weight": 12,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 11,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-12",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 16
-            },
-            {
-              "weight": 11,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 11,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2026-01-09",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 13
-            },
-            {
-              "weight": 11,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 11,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2026-01-05",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 15
-            },
-            {
-              "weight": 11,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 11,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-02",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 12
-            },
-            {
-              "weight": 11,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 11,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-29",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 16
-            },
-            {
-              "weight": 10,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-12-26",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 13
-            },
-            {
-              "weight": 10,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-12-22",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 15
-            },
-            {
-              "weight": 10,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-19",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 12
-            },
-            {
-              "weight": 10,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-15",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 16
-            },
-            {
-              "weight": 9,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 9,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-12-08",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 15
-            },
-            {
-              "weight": 9,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 9,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-01",
-          "sets": [
-            {
-              "weight": 7,
-              "reps": 17
-            },
-            {
-              "weight": 8,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 8,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 7,
-            "reps": 17
-          }
-        },
-        {
-          "date": "2025-11-24",
-          "sets": [
-            {
-              "weight": 7,
-              "reps": 16
-            },
-            {
-              "weight": 8,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 8,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 7,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-11-17",
-          "sets": [
-            {
-              "weight": 7,
-              "reps": 16
-            },
-            {
-              "weight": 8,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 8,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 7,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-11-14",
-          "sets": [
-            {
-              "weight": 6,
-              "reps": 16
-            },
-            {
-              "weight": 7,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 7,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 6,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-11-10",
-          "sets": [
-            {
-              "weight": 7,
-              "reps": 15
-            },
-            {
-              "weight": 8,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 8,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 7,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-07",
-          "sets": [
-            {
-              "weight": 6,
-              "reps": 16
-            },
-            {
-              "weight": 7,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 7,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 6,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-11-03",
-          "sets": [
-            {
-              "weight": 6,
-              "reps": 16
-            },
-            {
-              "weight": 7,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 7,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 6,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "weight": 6,
-              "reps": 15
-            },
-            {
-              "weight": 7,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 7,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 6,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-27",
-          "sets": [
-            {
-              "weight": 6,
-              "reps": 15
-            },
-            {
-              "weight": 7,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 7,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 6,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 5,
-              "reps": 16
-            },
-            {
-              "weight": 6,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 6,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 5,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-10-20",
-          "sets": [
-            {
-              "weight": 5,
-              "reps": 16
-            },
-            {
-              "weight": 6,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 6,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 5,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 5,
-              "reps": 16
-            },
-            {
-              "weight": 6,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 6,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 5,
-            "reps": 16
-          }
-        },
-        {
           "date": "2025-10-13",
           "sets": [
             {
-              "weight": 5,
+              "weight": 7,
+              "reps": 15
+            },
+            {
+              "weight": 7,
+              "reps": 16
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 7,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 7,
+            "reps": 16
+          }
+        },
+        {
+          "date": "2025-10-10",
+          "sets": [
+            {
+              "weight": 6,
               "reps": 15
             },
             {
               "weight": 6,
-              "reps": 12
+              "reps": 15
             }
           ],
           "maxActualWeight": {
             "weight": 6,
-            "reps": 12
+            "reps": 15
           },
           "maxActualWorkingSet": {
-            "weight": 5,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "weight": 5,
-              "reps": 15
-            },
-            {
-              "weight": 6,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
             "weight": 6,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 5,
             "reps": 15
           }
         },
         {
-          "date": "2025-10-05",
+          "date": "2025-10-09",
           "sets": [
             {
-              "weight": 4,
-              "reps": 15
+              "weight": 7,
+              "reps": 8
             },
             {
               "weight": 5,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 5,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 4,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 4,
               "reps": 15
-            },
-            {
-              "weight": 5,
-              "reps": 12
             }
           ],
           "maxActualWeight": {
-            "weight": 5,
-            "reps": 12
+            "weight": 7,
+            "reps": 8
           },
           "maxActualWorkingSet": {
-            "weight": 4,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-03",
-          "sets": [
-            {
-              "weight": 4,
-              "reps": 15
-            },
-            {
-              "weight": 5,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
             "weight": 5,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 4,
             "reps": 15
           }
         }
       ],
       "lastWorkout": {
-        "date": "2026-02-02",
+        "date": "2025-10-13",
         "sets": [
           {
-            "weight": 12,
+            "weight": 7,
             "reps": 15
           },
           {
-            "weight": 13,
-            "reps": 12
+            "weight": 7,
+            "reps": 16
           }
         ],
         "maxActualWeight": {
-          "weight": 13,
-          "reps": 12
-        },
-        "maxActualWorkingSet": {
-          "weight": 12,
+          "weight": 7,
           "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 7,
-        "reps": 17,
-        "date": "2025-12-01"
-      },
-      "allTimeMaxWeight": {
-        "weight": 13,
-        "reps": 12,
-        "date": "2026-02-02"
-      }
-    },
-    "Жим ногами на носки": {
-      "name": "Жим ногами на носки",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-02-02",
-          "sets": [
-            {
-              "weight": 40,
-              "reps": 15
-            },
-            {
-              "weight": 42,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 42,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 40,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-26",
-          "sets": [
-            {
-              "weight": 39,
-              "reps": 15
-            },
-            {
-              "weight": 41,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 41,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 39,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-19",
-          "sets": [
-            {
-              "weight": 38,
-              "reps": 15
-            },
-            {
-              "weight": 40,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 40,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 38,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-12",
-          "sets": [
-            {
-              "weight": 37,
-              "reps": 15
-            },
-            {
-              "weight": 39,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 39,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 37,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-05",
-          "sets": [
-            {
-              "weight": 36,
-              "reps": 15
-            },
-            {
-              "weight": 38,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 38,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 36,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-29",
-          "sets": [
-            {
-              "weight": 35,
-              "reps": 15
-            },
-            {
-              "weight": 37,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 37,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 35,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-22",
-          "sets": [
-            {
-              "weight": 34,
-              "reps": 15
-            },
-            {
-              "weight": 36,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 36,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 34,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-15",
-          "sets": [
-            {
-              "weight": 33,
-              "reps": 15
-            },
-            {
-              "weight": 35,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 33,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-08",
-          "sets": [
-            {
-              "weight": 32,
-              "reps": 15
-            },
-            {
-              "weight": 34,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 34,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 32,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-01",
-          "sets": [
-            {
-              "weight": 31,
-              "reps": 15
-            },
-            {
-              "weight": 33,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 33,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 31,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-24",
-          "sets": [
-            {
-              "weight": 30,
-              "reps": 15
-            },
-            {
-              "weight": 32,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 32,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 30,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-17",
-          "sets": [
-            {
-              "weight": 29,
-              "reps": 15
-            },
-            {
-              "weight": 31,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 31,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 29,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-10",
-          "sets": [
-            {
-              "weight": 28,
-              "reps": 15
-            },
-            {
-              "weight": 30,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 30,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 28,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-03",
-          "sets": [
-            {
-              "weight": 27,
-              "reps": 15
-            },
-            {
-              "weight": 29,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 29,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 27,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-27",
-          "sets": [
-            {
-              "weight": 26,
-              "reps": 15
-            },
-            {
-              "weight": 28,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 28,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 26,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-20",
-          "sets": [
-            {
-              "weight": 25,
-              "reps": 15
-            },
-            {
-              "weight": 27,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 27,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 25,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 15
-            },
-            {
-              "weight": 26,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-02-02",
-        "sets": [
-          {
-            "weight": 40,
-            "reps": 15
-          },
-          {
-            "weight": 42,
-            "reps": 12
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 42,
-          "reps": 12
         },
         "maxActualWorkingSet": {
-          "weight": 40,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 40,
-        "reps": 15,
-        "date": "2026-02-02"
-      },
-      "allTimeMaxWeight": {
-        "weight": 42,
-        "reps": 12,
-        "date": "2026-02-02"
-      }
-    },
-    "Тверк": {
-      "name": "Тверк",
-      "hasWeight": false,
-      "history": [
-        {
-          "date": "2026-02-02",
-          "sets": [
-            {
-              "reps": 32
-            },
-            {
-              "reps": 34
-            }
-          ]
-        },
-        {
-          "date": "2026-01-26",
-          "sets": [
-            {
-              "reps": 30
-            },
-            {
-              "reps": 32
-            }
-          ]
-        },
-        {
-          "date": "2026-01-19",
-          "sets": [
-            {
-              "reps": 28
-            },
-            {
-              "reps": 30
-            }
-          ]
-        },
-        {
-          "date": "2026-01-14",
-          "sets": [
-            {
-              "reps": 26
-            },
-            {
-              "reps": 28
-            }
-          ]
-        },
-        {
-          "date": "2026-01-12",
-          "sets": [
-            {
-              "reps": 26
-            },
-            {
-              "reps": 28
-            }
-          ]
-        },
-        {
-          "date": "2026-01-09",
-          "sets": [
-            {
-              "reps": 26
-            },
-            {
-              "reps": 28
-            }
-          ]
-        },
-        {
-          "date": "2026-01-07",
-          "sets": [
-            {
-              "reps": 24
-            },
-            {
-              "reps": 26
-            }
-          ]
-        },
-        {
-          "date": "2026-01-05",
-          "sets": [
-            {
-              "reps": 24
-            },
-            {
-              "reps": 26
-            }
-          ]
-        },
-        {
-          "date": "2026-01-02",
-          "sets": [
-            {
-              "reps": 24
-            },
-            {
-              "reps": 26
-            }
-          ]
-        },
-        {
-          "date": "2025-12-29",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 24
-            }
-          ]
-        },
-        {
-          "date": "2025-12-26",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 24
-            }
-          ]
-        },
-        {
-          "date": "2025-12-22",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 22
-            }
-          ]
-        },
-        {
-          "date": "2025-12-19",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 22
-            }
-          ]
-        },
-        {
-          "date": "2025-12-17",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 24
-            }
-          ]
-        },
-        {
-          "date": "2025-12-10",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 22
-            }
-          ]
-        },
-        {
-          "date": "2025-10-18",
-          "sets": [
-            {
-              "reps": 23
-            },
-            {
-              "reps": 24
-            },
-            {
-              "reps": 25
-            }
-          ]
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 23
-            },
-            {
-              "reps": 24
-            }
-          ]
-        },
-        {
-          "date": "2025-10-16",
-          "sets": [
-            {
-              "reps": 21
-            },
-            {
-              "reps": 22
-            },
-            {
-              "reps": 23
-            }
-          ]
-        },
-        {
-          "date": "2025-10-15",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 21
-            },
-            {
-              "reps": 22
-            }
-          ]
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-02-02",
-        "sets": [
-          {
-            "reps": 32
-          },
-          {
-            "reps": 34
-          }
-        ]
-      },
-      "allTimeMaxReps": {
-        "reps": 34,
-        "date": "2026-02-02"
-      },
-      "allTimeMaxWeight": null
-    },
-    "Пилатес": {
-      "name": "Пилатес",
-      "hasWeight": false,
-      "history": [
-        {
-          "date": "2026-02-02",
-          "sets": [
-            {
-              "reps": 28
-            },
-            {
-              "reps": 30
-            }
-          ]
-        },
-        {
-          "date": "2026-01-26",
-          "sets": [
-            {
-              "reps": 26
-            },
-            {
-              "reps": 28
-            }
-          ]
-        },
-        {
-          "date": "2026-01-19",
-          "sets": [
-            {
-              "reps": 24
-            },
-            {
-              "reps": 26
-            }
-          ]
-        },
-        {
-          "date": "2026-01-14",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 24
-            }
-          ]
-        },
-        {
-          "date": "2026-01-12",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 24
-            }
-          ]
-        },
-        {
-          "date": "2026-01-09",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 24
-            }
-          ]
-        },
-        {
-          "date": "2026-01-07",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 22
-            }
-          ]
-        },
-        {
-          "date": "2026-01-05",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 22
-            }
-          ]
-        },
-        {
-          "date": "2026-01-02",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 22
-            }
-          ]
-        },
-        {
-          "date": "2025-10-18",
-          "sets": [
-            {
-              "reps": 21
-            },
-            {
-              "reps": 22
-            },
-            {
-              "reps": 23
-            }
-          ]
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 21
-            },
-            {
-              "reps": 22
-            }
-          ]
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-02-02",
-        "sets": [
-          {
-            "reps": 28
-          },
-          {
-            "reps": 30
-          }
-        ]
-      },
-      "allTimeMaxReps": {
-        "reps": 30,
-        "date": "2026-02-02"
-      },
-      "allTimeMaxWeight": null
-    },
-    "Гоблет-присед с гантелью": {
-      "name": "Гоблет-присед с гантелью",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-02-02",
-          "sets": [
-            {
-              "weight": 26,
-              "reps": 12
-            },
-            {
-              "weight": 28,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 28,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 26,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-26",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 12
-            },
-            {
-              "weight": 26,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-19",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 12
-            },
-            {
-              "weight": 24,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 24,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-02-02",
-        "sets": [
-          {
-            "weight": 26,
-            "reps": 12
-          },
-          {
-            "weight": 28,
-            "reps": 10
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 28,
-          "reps": 10
-        },
-        "maxActualWorkingSet": {
-          "weight": 26,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 26,
-        "reps": 12,
-        "date": "2026-02-02"
-      },
-      "allTimeMaxWeight": {
-        "weight": 28,
-        "reps": 10,
-        "date": "2026-02-02"
-      }
-    },
-    "Отжимания": {
-      "name": "Отжимания",
-      "hasWeight": false,
-      "history": [
-        {
-          "date": "2025-10-18",
-          "sets": [
-            {
-              "reps": 23
-            },
-            {
-              "reps": 24
-            },
-            {
-              "reps": 25
-            }
-          ]
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 23
-            },
-            {
-              "reps": 24
-            }
-          ]
-        },
-        {
-          "date": "2025-10-16",
-          "sets": [
-            {
-              "reps": 21
-            },
-            {
-              "reps": 22
-            },
-            {
-              "reps": 23
-            }
-          ]
-        },
-        {
-          "date": "2025-10-15",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 21
-            },
-            {
-              "reps": 22
-            }
-          ]
-        },
-        {
-          "date": "2025-10-14",
-          "sets": [
-            {
-              "reps": 19
-            },
-            {
-              "reps": 20
-            },
-            {
-              "reps": 21
-            }
-          ]
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "reps": 18
-            },
-            {
-              "reps": 19
-            },
-            {
-              "reps": 20
-            }
-          ]
-        },
-        {
-          "date": "2025-10-12",
-          "sets": [
-            {
-              "reps": 17
-            },
-            {
-              "reps": 18
-            },
-            {
-              "reps": 19
-            }
-          ]
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "reps": 16
-            },
-            {
-              "reps": 17
-            },
-            {
-              "reps": 18
-            }
-          ]
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "reps": 54
-            },
-            {
-              "reps": 57
-            },
-            {
-              "reps": 61
-            }
-          ]
-        },
-        {
-          "date": "2025-10-08",
-          "sets": [
-            {
-              "reps": 45
-            },
-            {
-              "reps": 44
-            },
-            {
-              "reps": 14
-            }
-          ]
-        },
-        {
-          "date": "2025-10-07",
-          "sets": [
-            {
-              "reps": 44
-            },
-            {
-              "reps": 33
-            },
-            {
-              "reps": 14
-            }
-          ]
-        },
-        {
-          "date": "2025-10-06",
-          "sets": [
-            {
-              "reps": 14
-            },
-            {
-              "reps": 16
-            },
-            {
-              "reps": 16
-            }
-          ]
-        },
-        {
-          "date": "2025-10-05",
-          "sets": [
-            {
-              "reps": 12
-            },
-            {
-              "reps": 13
-            },
-            {
-              "reps": 14
-            }
-          ]
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-18",
-        "sets": [
-          {
-            "reps": 23
-          },
-          {
-            "reps": 24
-          },
-          {
-            "reps": 25
-          }
-        ]
-      },
-      "allTimeMaxReps": {
-        "reps": 61,
-        "date": "2025-10-09"
-      },
-      "allTimeMaxWeight": null
-    },
-    "Приседания": {
-      "name": "Приседания",
-      "hasWeight": false,
-      "history": [
-        {
-          "date": "2025-10-18",
-          "sets": [
-            {
-              "reps": 23
-            },
-            {
-              "reps": 24
-            },
-            {
-              "reps": 25
-            }
-          ]
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 23
-            },
-            {
-              "reps": 24
-            }
-          ]
-        },
-        {
-          "date": "2025-10-16",
-          "sets": [
-            {
-              "reps": 21
-            },
-            {
-              "reps": 22
-            },
-            {
-              "reps": 23
-            }
-          ]
-        },
-        {
-          "date": "2025-10-15",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 21
-            },
-            {
-              "reps": 22
-            }
-          ]
-        },
-        {
-          "date": "2025-10-14",
-          "sets": [
-            {
-              "reps": 19
-            },
-            {
-              "reps": 20
-            },
-            {
-              "reps": 21
-            }
-          ]
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "reps": 18
-            },
-            {
-              "reps": 19
-            },
-            {
-              "reps": 20
-            }
-          ]
-        },
-        {
-          "date": "2025-10-12",
-          "sets": [
-            {
-              "reps": 17
-            },
-            {
-              "reps": 18
-            },
-            {
-              "reps": 19
-            }
-          ]
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "reps": 16
-            },
-            {
-              "reps": 17
-            },
-            {
-              "reps": 18
-            }
-          ]
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "reps": 55
-            },
-            {
-              "reps": 58
-            },
-            {
-              "reps": 62
-            }
-          ]
-        },
-        {
-          "date": "2025-10-08",
-          "sets": [
-            {
-              "reps": 12
-            },
-            {
-              "reps": 13
-            },
-            {
-              "reps": 14
-            }
-          ]
-        },
-        {
-          "date": "2025-10-07",
-          "sets": [
-            {
-              "reps": 12
-            },
-            {
-              "reps": 13
-            },
-            {
-              "reps": 14
-            }
-          ]
-        },
-        {
-          "date": "2025-10-06",
-          "sets": [
-            {
-              "reps": 15
-            },
-            {
-              "reps": 16
-            },
-            {
-              "reps": 16
-            }
-          ]
-        },
-        {
-          "date": "2025-10-05",
-          "sets": [
-            {
-              "reps": 12
-            },
-            {
-              "reps": 13
-            },
-            {
-              "reps": 14
-            }
-          ]
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-18",
-        "sets": [
-          {
-            "reps": 23
-          },
-          {
-            "reps": 24
-          },
-          {
-            "reps": 25
-          }
-        ]
-      },
-      "allTimeMaxReps": {
-        "reps": 62,
-        "date": "2025-10-09"
-      },
-      "allTimeMaxWeight": null
-    },
-    "Пресс": {
-      "name": "Пресс",
-      "hasWeight": false,
-      "history": [
-        {
-          "date": "2025-10-18",
-          "sets": [
-            {
-              "reps": 23
-            },
-            {
-              "reps": 24
-            },
-            {
-              "reps": 25
-            }
-          ]
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 23
-            },
-            {
-              "reps": 24
-            }
-          ]
-        },
-        {
-          "date": "2025-10-16",
-          "sets": [
-            {
-              "reps": 21
-            },
-            {
-              "reps": 22
-            },
-            {
-              "reps": 23
-            }
-          ]
-        },
-        {
-          "date": "2025-10-15",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 21
-            },
-            {
-              "reps": 22
-            }
-          ]
-        },
-        {
-          "date": "2025-10-14",
-          "sets": [
-            {
-              "reps": 19
-            },
-            {
-              "reps": 20
-            },
-            {
-              "reps": 21
-            }
-          ]
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "reps": 18
-            },
-            {
-              "reps": 19
-            },
-            {
-              "reps": 20
-            }
-          ]
-        },
-        {
-          "date": "2025-10-12",
-          "sets": [
-            {
-              "reps": 17
-            },
-            {
-              "reps": 18
-            },
-            {
-              "reps": 19
-            }
-          ]
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "reps": 16
-            },
-            {
-              "reps": 17
-            },
-            {
-              "reps": 18
-            }
-          ]
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "reps": 56
-            },
-            {
-              "reps": 59
-            },
-            {
-              "reps": 63
-            }
-          ]
-        },
-        {
-          "date": "2025-10-08",
-          "sets": [
-            {
-              "reps": 12
-            },
-            {
-              "reps": 13
-            },
-            {
-              "reps": 14
-            }
-          ]
-        },
-        {
-          "date": "2025-10-07",
-          "sets": [
-            {
-              "reps": 12
-            },
-            {
-              "reps": 13
-            },
-            {
-              "reps": 14
-            }
-          ]
-        },
-        {
-          "date": "2025-10-06",
-          "sets": [
-            {
-              "reps": 15
-            },
-            {
-              "reps": 16
-            },
-            {
-              "reps": 16
-            }
-          ]
-        },
-        {
-          "date": "2025-10-05",
-          "sets": [
-            {
-              "reps": 12
-            },
-            {
-              "reps": 13
-            },
-            {
-              "reps": 14
-            }
-          ]
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-18",
-        "sets": [
-          {
-            "reps": 23
-          },
-          {
-            "reps": 24
-          },
-          {
-            "reps": 25
-          }
-        ]
-      },
-      "allTimeMaxReps": {
-        "reps": 63,
-        "date": "2025-10-09"
-      },
-      "allTimeMaxWeight": null
-    },
-    "Жим ног": {
-      "name": "Жим ног",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-01-14",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 12
-            },
-            {
-              "weight": 25,
-              "reps": 13
-            },
-            {
-              "weight": 26,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 26,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2026-01-07",
-          "sets": [
-            {
-              "weight": 23,
-              "reps": 12
-            },
-            {
-              "weight": 24,
-              "reps": 13
-            },
-            {
-              "weight": 25,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 25,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 25,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-12-17",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 12
-            },
-            {
-              "weight": 23,
-              "reps": 13
-            },
-            {
-              "weight": 24,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 24,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-12-10",
-          "sets": [
-            {
-              "weight": 21,
-              "reps": 12
-            },
-            {
-              "weight": 22,
-              "reps": 13
-            },
-            {
-              "weight": 23,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 23,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 23,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-12-04",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 12
-            },
-            {
-              "weight": 21,
-              "reps": 13
-            },
-            {
-              "weight": 22,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 22,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-11-27",
-          "sets": [
-            {
-              "weight": 19,
-              "reps": 12
-            },
-            {
-              "weight": 20,
-              "reps": 13
-            },
-            {
-              "weight": 21,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 21,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 21,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-11-20",
-          "sets": [
-            {
-              "weight": 18,
-              "reps": 12
-            },
-            {
-              "weight": 19,
-              "reps": 13
-            },
-            {
-              "weight": 20,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-11-13",
-          "sets": [
-            {
-              "weight": 17,
-              "reps": 12
-            },
-            {
-              "weight": 18,
-              "reps": 13
-            },
-            {
-              "weight": 19,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 19,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 19,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-11-06",
-          "sets": [
-            {
-              "weight": 16,
-              "reps": 12
-            },
-            {
-              "weight": 17,
-              "reps": 13
-            },
-            {
-              "weight": 18,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 18,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 18,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-10-30",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 12
-            },
-            {
-              "weight": 16,
-              "reps": 13
-            },
-            {
-              "weight": 17,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 17,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 17,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-10-23",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 12
-            },
-            {
-              "weight": 15,
-              "reps": 13
-            },
-            {
-              "weight": 16,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 16,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-10-16",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 12
-            },
-            {
-              "weight": 14,
-              "reps": 13
-            },
-            {
-              "weight": 15,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 15
-            },
-            {
-              "weight": 15,
-              "reps": 14
-            },
-            {
-              "weight": 12,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 12
-            },
-            {
-              "weight": 13,
-              "reps": 13
-            },
-            {
-              "weight": 14,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 14,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 14
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-01-14",
-        "sets": [
-          {
-            "weight": 24,
-            "reps": 12
-          },
-          {
-            "weight": 25,
-            "reps": 13
-          },
-          {
-            "weight": 26,
-            "reps": 14
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 26,
-          "reps": 14
-        },
-        "maxActualWorkingSet": {
-          "weight": 26,
-          "reps": 14
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 15,
-        "reps": 15,
-        "date": "2025-10-09"
-      },
-      "allTimeMaxWeight": {
-        "weight": 26,
-        "reps": 14,
-        "date": "2026-01-14"
-      }
-    },
-    "Жим от груди в Смите": {
-      "name": "Жим от груди в Смите",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-01-14",
-          "sets": [
-            {
-              "weight": 32,
-              "reps": 12
-            },
-            {
-              "weight": 36,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 36,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 32,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-07",
-          "sets": [
-            {
-              "weight": 31,
-              "reps": 12
-            },
-            {
-              "weight": 35,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 31,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-17",
-          "sets": [
-            {
-              "weight": 30,
-              "reps": 12
-            },
-            {
-              "weight": 34,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 34,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 30,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-10",
-          "sets": [
-            {
-              "weight": 29,
-              "reps": 12
-            },
-            {
-              "weight": 33,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 33,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 29,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-04",
-          "sets": [
-            {
-              "weight": 28,
-              "reps": 12
-            },
-            {
-              "weight": 32,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 32,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 28,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-27",
-          "sets": [
-            {
-              "weight": 27,
-              "reps": 12
-            },
-            {
-              "weight": 31,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 31,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 27,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-20",
-          "sets": [
-            {
-              "weight": 26,
-              "reps": 12
-            },
-            {
-              "weight": 30,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 30,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 26,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-13",
-          "sets": [
-            {
-              "weight": 25,
-              "reps": 12
-            },
-            {
-              "weight": 29,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 29,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 25,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-06",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 12
-            },
-            {
-              "weight": 28,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 28,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-30",
-          "sets": [
-            {
-              "weight": 23,
-              "reps": 12
-            },
-            {
-              "weight": 27,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 27,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 23,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-23",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 12
-            },
-            {
-              "weight": 26,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-16",
-          "sets": [
-            {
-              "weight": 21,
-              "reps": 12
-            },
-            {
-              "weight": 25,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 25,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 21,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 12
-            },
-            {
-              "weight": 26,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 12
-            },
-            {
-              "weight": 24,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 24,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-01-14",
-        "sets": [
-          {
-            "weight": 32,
-            "reps": 12
-          },
-          {
-            "weight": 36,
-            "reps": 10
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 36,
-          "reps": 10
-        },
-        "maxActualWorkingSet": {
-          "weight": 32,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 32,
-        "reps": 12,
-        "date": "2026-01-14"
-      },
-      "allTimeMaxWeight": {
-        "weight": 36,
-        "reps": 10,
-        "date": "2026-01-14"
-      }
-    },
-    "Подъём гантелей на дельты лежа": {
-      "name": "Подъём гантелей на дельты лежа",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-01-14",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 16
-            },
-            {
-              "weight": 11,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 11,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2026-01-07",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 15
-            },
-            {
-              "weight": 11,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 11,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-17",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 16
-            },
-            {
-              "weight": 10,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-12-10",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 15
-            },
-            {
-              "weight": 10,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-04",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 16
-            },
-            {
-              "weight": 9,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 9,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-11-27",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 15
-            },
-            {
-              "weight": 9,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 9,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-20",
-          "sets": [
-            {
-              "weight": 7,
-              "reps": 16
-            },
-            {
-              "weight": 8,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 8,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 7,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-11-13",
-          "sets": [
-            {
-              "weight": 7,
-              "reps": 15
-            },
-            {
-              "weight": 8,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 8,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 7,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-06",
-          "sets": [
-            {
-              "weight": 6,
-              "reps": 16
-            },
-            {
-              "weight": 7,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 7,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 6,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-10-30",
-          "sets": [
-            {
-              "weight": 6,
-              "reps": 15
-            },
-            {
-              "weight": 7,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 7,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 6,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-23",
-          "sets": [
-            {
-              "weight": 5,
-              "reps": 16
-            },
-            {
-              "weight": 6,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 6,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 5,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-10-16",
-          "sets": [
-            {
-              "weight": 5,
-              "reps": 15
-            },
-            {
-              "weight": 6,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 6,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 5,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 5,
-              "reps": 15
-            },
-            {
-              "weight": 6,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 6,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 5,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 4,
-              "reps": 15
-            },
-            {
-              "weight": 5,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 5,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 4,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-01-14",
-        "sets": [
-          {
-            "weight": 10,
-            "reps": 16
-          },
-          {
-            "weight": 11,
-            "reps": 13
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 11,
-          "reps": 13
-        },
-        "maxActualWorkingSet": {
-          "weight": 10,
+          "weight": 7,
           "reps": 16
         }
       },
       "allTimeMaxReps": {
-        "weight": 10,
+        "weight": 7,
         "reps": 16,
-        "date": "2026-01-14"
+        "date": "2025-10-13"
       },
       "allTimeMaxWeight": {
-        "weight": 11,
-        "reps": 13,
-        "date": "2026-01-14"
+        "weight": 7,
+        "reps": 8,
+        "date": "2025-10-09"
       }
     },
-    "Разгибание ног в тренажере": {
-      "name": "Разгибание ног в тренажере",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-01-14",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 15
-            },
-            {
-              "weight": 26,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-07",
-          "sets": [
-            {
-              "weight": 23,
-              "reps": 15
-            },
-            {
-              "weight": 25,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 25,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 23,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-17",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 15
-            },
-            {
-              "weight": 24,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 24,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-10",
-          "sets": [
-            {
-              "weight": 21,
-              "reps": 15
-            },
-            {
-              "weight": 23,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 23,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 21,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-04",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 15
-            },
-            {
-              "weight": 22,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 22,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-27",
-          "sets": [
-            {
-              "weight": 19,
-              "reps": 15
-            },
-            {
-              "weight": 21,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 21,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 19,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-20",
-          "sets": [
-            {
-              "weight": 18,
-              "reps": 15
-            },
-            {
-              "weight": 20,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 18,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-13",
-          "sets": [
-            {
-              "weight": 17,
-              "reps": 15
-            },
-            {
-              "weight": 19,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 19,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 17,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-06",
-          "sets": [
-            {
-              "weight": 16,
-              "reps": 15
-            },
-            {
-              "weight": 18,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 18,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 16,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-30",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 15
-            },
-            {
-              "weight": 17,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 17,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-23",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 15
-            },
-            {
-              "weight": 16,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-16",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 15
-            },
-            {
-              "weight": 15,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 15
-            },
-            {
-              "weight": 16,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 15
-            },
-            {
-              "weight": 14,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 14,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-01-14",
-        "sets": [
-          {
-            "weight": 24,
-            "reps": 15
-          },
-          {
-            "weight": 26,
-            "reps": 12
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 26,
-          "reps": 12
-        },
-        "maxActualWorkingSet": {
-          "weight": 24,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 24,
-        "reps": 15,
-        "date": "2026-01-14"
-      },
-      "allTimeMaxWeight": {
-        "weight": 26,
-        "reps": 12,
-        "date": "2026-01-14"
-      }
-    },
-    "Подъем EZ-штанги на бицепс стоя": {
-      "name": "Подъем EZ-штанги на бицепс стоя",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2026-01-14",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 12
-            },
-            {
-              "weight": 26,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-07",
-          "sets": [
-            {
-              "weight": 23,
-              "reps": 12
-            },
-            {
-              "weight": 25,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 25,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 23,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-17",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 12
-            },
-            {
-              "weight": 24,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 24,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-10",
-          "sets": [
-            {
-              "weight": 21,
-              "reps": 12
-            },
-            {
-              "weight": 23,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 23,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 21,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-04",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 12
-            },
-            {
-              "weight": 22,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 22,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-27",
-          "sets": [
-            {
-              "weight": 19,
-              "reps": 12
-            },
-            {
-              "weight": 21,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 21,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 19,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-20",
-          "sets": [
-            {
-              "weight": 18,
-              "reps": 12
-            },
-            {
-              "weight": 20,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 18,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-13",
-          "sets": [
-            {
-              "weight": 17,
-              "reps": 12
-            },
-            {
-              "weight": 19,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 19,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 17,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-06",
-          "sets": [
-            {
-              "weight": 16,
-              "reps": 12
-            },
-            {
-              "weight": 18,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 18,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 16,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-30",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 12
-            },
-            {
-              "weight": 17,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 17,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-23",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 12
-            },
-            {
-              "weight": 16,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-16",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 12
-            },
-            {
-              "weight": 15,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 12
-            },
-            {
-              "weight": 16,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 12
-            },
-            {
-              "weight": 14,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 14,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2026-01-14",
-        "sets": [
-          {
-            "weight": 24,
-            "reps": 12
-          },
-          {
-            "weight": 26,
-            "reps": 10
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 26,
-          "reps": 10
-        },
-        "maxActualWorkingSet": {
-          "weight": 24,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 24,
-        "reps": 12,
-        "date": "2026-01-14"
-      },
-      "allTimeMaxWeight": {
-        "weight": 26,
-        "reps": 10,
-        "date": "2026-01-14"
-      }
-    },
-    "Скручивание на пресс на скамье": {
-      "name": "Скручивание на пресс на скамье",
+    "Гиперэкстензия": {
+      "name": "Гиперэкстензия",
       "hasWeight": false,
       "history": [
         {
-          "date": "2026-01-14",
+          "date": "2025-10-13",
           "sets": [
             {
-              "reps": 31
+              "weight": 0,
+              "reps": 12
             },
             {
-              "reps": 33
-            },
-            {
-              "reps": 35
+              "weight": 0,
+              "reps": 15
             }
           ]
         },
         {
-          "date": "2026-01-07",
+          "date": "2025-10-10",
           "sets": [
             {
-              "reps": 30
+              "weight": 0,
+              "reps": 15
             },
             {
-              "reps": 32
-            },
-            {
-              "reps": 34
-            }
-          ]
-        },
-        {
-          "date": "2025-12-17",
-          "sets": [
-            {
-              "reps": 29
-            },
-            {
-              "reps": 31
-            },
-            {
-              "reps": 33
-            }
-          ]
-        },
-        {
-          "date": "2025-12-10",
-          "sets": [
-            {
-              "reps": 28
-            },
-            {
-              "reps": 30
-            },
-            {
-              "reps": 32
-            }
-          ]
-        },
-        {
-          "date": "2025-12-04",
-          "sets": [
-            {
-              "reps": 27
-            },
-            {
-              "reps": 29
-            },
-            {
-              "reps": 31
-            }
-          ]
-        },
-        {
-          "date": "2025-11-27",
-          "sets": [
-            {
-              "reps": 26
-            },
-            {
-              "reps": 28
-            },
-            {
-              "reps": 30
-            }
-          ]
-        },
-        {
-          "date": "2025-11-20",
-          "sets": [
-            {
-              "reps": 25
-            },
-            {
-              "reps": 27
-            },
-            {
-              "reps": 29
-            }
-          ]
-        },
-        {
-          "date": "2025-11-13",
-          "sets": [
-            {
-              "reps": 24
-            },
-            {
-              "reps": 26
-            },
-            {
-              "reps": 28
-            }
-          ]
-        },
-        {
-          "date": "2025-11-06",
-          "sets": [
-            {
-              "reps": 23
-            },
-            {
-              "reps": 25
-            },
-            {
-              "reps": 27
-            }
-          ]
-        },
-        {
-          "date": "2025-10-30",
-          "sets": [
-            {
-              "reps": 22
-            },
-            {
-              "reps": 24
-            },
-            {
-              "reps": 26
-            }
-          ]
-        },
-        {
-          "date": "2025-10-23",
-          "sets": [
-            {
-              "reps": 21
-            },
-            {
-              "reps": 23
-            },
-            {
-              "reps": 25
-            }
-          ]
-        },
-        {
-          "date": "2025-10-16",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 22
-            },
-            {
-              "reps": 24
+              "weight": 0,
+              "reps": 15
             }
           ]
         },
@@ -6243,48 +142,32 @@
           "date": "2025-10-09",
           "sets": [
             {
-              "reps": 22
+              "weight": 0,
+              "reps": 12
             },
             {
-              "reps": 24
-            },
-            {
-              "reps": 26
-            }
-          ]
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 22
-            },
-            {
-              "reps": 24
+              "weight": 0,
+              "reps": 12
             }
           ]
         }
       ],
       "lastWorkout": {
-        "date": "2026-01-14",
+        "date": "2025-10-13",
         "sets": [
           {
-            "reps": 31
+            "weight": 0,
+            "reps": 12
           },
           {
-            "reps": 33
-          },
-          {
-            "reps": 35
+            "weight": 0,
+            "reps": 15
           }
         ]
       },
       "allTimeMaxReps": {
-        "reps": 35,
-        "date": "2026-01-14"
+        "reps": 15,
+        "date": "2025-10-10"
       },
       "allTimeMaxWeight": null
     },
@@ -6293,330 +176,78 @@
       "hasWeight": true,
       "history": [
         {
-          "date": "2026-01-09",
+          "date": "2025-10-10",
           "sets": [
             {
-              "weight": 23,
-              "reps": 12
+              "weight": 0,
+              "reps": 15
             },
-            {
-              "weight": 25,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 25,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 23,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-02",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 12
-            },
-            {
-              "weight": 24,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 24,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-26",
-          "sets": [
-            {
-              "weight": 21,
-              "reps": 12
-            },
-            {
-              "weight": 23,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 23,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 21,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-19",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 12
-            },
-            {
-              "weight": 22,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 22,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-14",
-          "sets": [
-            {
-              "weight": 19,
-              "reps": 12
-            },
-            {
-              "weight": 21,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 21,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 19,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-07",
-          "sets": [
-            {
-              "weight": 18,
-              "reps": 12
-            },
-            {
-              "weight": 20,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 18,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "weight": 17,
-              "reps": 12
-            },
-            {
-              "weight": 19,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 19,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 17,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 16,
-              "reps": 12
-            },
-            {
-              "weight": 18,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 18,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 16,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 12
-            },
-            {
-              "weight": 17,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 17,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 12
-            },
-            {
-              "weight": 16,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-06",
-          "sets": [
             {
               "weight": 10,
               "reps": 12
-            },
-            {
-              "weight": 15,
-              "reps": 7
             }
           ],
           "maxActualWeight": {
-            "weight": 15,
-            "reps": 7
-          },
-          "maxActualWorkingSet": {
             "weight": 10,
             "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-05",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 12
-            },
-            {
-              "weight": 13,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 13,
-            "reps": 13
           },
           "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 13
+            "weight": 0,
+            "reps": 15
           }
         },
         {
-          "date": "2025-10-04",
+          "date": "2025-10-09",
           "sets": [
             {
-              "weight": 15,
-              "reps": 13
+              "weight": 0,
+              "reps": 12
             },
             {
-              "weight": 16,
-              "reps": 12
+              "weight": 0,
+              "reps": 15
             }
           ],
           "maxActualWeight": {
-            "weight": 16,
+            "weight": 0,
             "reps": 12
           },
           "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-10-03",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 12
-            },
-            {
-              "weight": 14,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 14,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 12
+            "weight": 0,
+            "reps": 15
           }
         }
       ],
       "lastWorkout": {
-        "date": "2026-01-09",
+        "date": "2025-10-10",
         "sets": [
           {
-            "weight": 23,
-            "reps": 12
+            "weight": 0,
+            "reps": 15
           },
           {
-            "weight": 25,
-            "reps": 10
+            "weight": 10,
+            "reps": 12
           }
         ],
         "maxActualWeight": {
-          "weight": 25,
-          "reps": 10
+          "weight": 10,
+          "reps": 12
         },
         "maxActualWorkingSet": {
-          "weight": 23,
-          "reps": 12
+          "weight": 0,
+          "reps": 15
         }
       },
       "allTimeMaxReps": {
-        "weight": 13,
-        "reps": 13,
-        "date": "2025-10-05"
+        "weight": 0,
+        "reps": 15,
+        "date": "2025-10-10"
       },
       "allTimeMaxWeight": {
-        "weight": 25,
-        "reps": 10,
-        "date": "2026-01-09"
+        "weight": 10,
+        "reps": 12,
+        "date": "2025-10-10"
       }
     },
     "Становая тяга классика (средний вес)": {
@@ -6624,330 +255,78 @@
       "hasWeight": true,
       "history": [
         {
-          "date": "2026-01-09",
+          "date": "2025-10-10",
           "sets": [
             {
-              "weight": 31,
-              "reps": 15
-            },
-            {
-              "weight": 35,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 31,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-02",
-          "sets": [
-            {
-              "weight": 30,
-              "reps": 15
-            },
-            {
-              "weight": 34,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 34,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 30,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-26",
-          "sets": [
-            {
-              "weight": 29,
-              "reps": 15
-            },
-            {
-              "weight": 33,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 33,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 29,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-19",
-          "sets": [
-            {
-              "weight": 28,
-              "reps": 15
-            },
-            {
-              "weight": 32,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 32,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 28,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-14",
-          "sets": [
-            {
-              "weight": 27,
-              "reps": 15
-            },
-            {
-              "weight": 31,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 31,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 27,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-07",
-          "sets": [
-            {
-              "weight": 26,
-              "reps": 15
-            },
-            {
-              "weight": 30,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 30,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 26,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "weight": 25,
-              "reps": 15
-            },
-            {
-              "weight": 29,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 29,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 25,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 24,
-              "reps": 15
-            },
-            {
-              "weight": 28,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 28,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 24,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 23,
-              "reps": 15
-            },
-            {
-              "weight": 27,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 27,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 23,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 15
-            },
-            {
-              "weight": 26,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-06",
-          "sets": [
-            {
-              "weight": 22,
-              "reps": 10
-            },
-            {
-              "weight": 27,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 27,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 27,
-            "reps": 11
-          }
-        },
-        {
-          "date": "2025-10-05",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 15
-            },
-            {
-              "weight": 25,
+              "weight": 0,
               "reps": 13
+            },
+            {
+              "weight": 0,
+              "reps": 15
             }
           ],
           "maxActualWeight": {
-            "weight": 25,
+            "weight": 0,
             "reps": 13
           },
           "maxActualWorkingSet": {
-            "weight": 20,
+            "weight": 0,
             "reps": 15
           }
         },
         {
-          "date": "2025-10-04",
+          "date": "2025-10-09",
           "sets": [
             {
-              "weight": 22,
+              "weight": 0,
               "reps": 12
             },
             {
-              "weight": 26,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 26,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 22,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-03",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 15
-            },
-            {
-              "weight": 24,
+              "weight": 0,
               "reps": 12
             }
           ],
           "maxActualWeight": {
-            "weight": 24,
+            "weight": 0,
             "reps": 12
           },
           "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 15
+            "weight": 0,
+            "reps": 12
           }
         }
       ],
       "lastWorkout": {
-        "date": "2026-01-09",
+        "date": "2025-10-10",
         "sets": [
           {
-            "weight": 31,
-            "reps": 15
+            "weight": 0,
+            "reps": 13
           },
           {
-            "weight": 35,
-            "reps": 12
+            "weight": 0,
+            "reps": 15
           }
         ],
         "maxActualWeight": {
-          "weight": 35,
-          "reps": 12
+          "weight": 0,
+          "reps": 13
         },
         "maxActualWorkingSet": {
-          "weight": 31,
+          "weight": 0,
           "reps": 15
         }
       },
       "allTimeMaxReps": {
-        "weight": 31,
+        "weight": 0,
         "reps": 15,
-        "date": "2026-01-09"
+        "date": "2025-10-10"
       },
       "allTimeMaxWeight": {
-        "weight": 35,
-        "reps": 12,
-        "date": "2026-01-09"
+        "weight": 0,
+        "reps": 13,
+        "date": "2025-10-10"
       }
     },
     "Тяга горизонтального блока к поясу": {
@@ -6955,330 +334,78 @@
       "hasWeight": true,
       "history": [
         {
-          "date": "2026-01-09",
+          "date": "2025-10-10",
           "sets": [
             {
-              "weight": 19,
+              "weight": 35,
               "reps": 14
             },
             {
-              "weight": 41,
-              "reps": 4
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 41,
-            "reps": 4
-          },
-          "maxActualWorkingSet": {
-            "weight": 19,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2026-01-02",
-          "sets": [
-            {
-              "weight": 18,
-              "reps": 14
-            },
-            {
-              "weight": 40,
-              "reps": 4
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 40,
-            "reps": 4
-          },
-          "maxActualWorkingSet": {
-            "weight": 18,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-12-26",
-          "sets": [
-            {
-              "weight": 17,
-              "reps": 14
-            },
-            {
-              "weight": 39,
-              "reps": 4
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 39,
-            "reps": 4
-          },
-          "maxActualWorkingSet": {
-            "weight": 17,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-12-19",
-          "sets": [
-            {
-              "weight": 16,
-              "reps": 14
-            },
-            {
-              "weight": 38,
-              "reps": 4
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 38,
-            "reps": 4
-          },
-          "maxActualWorkingSet": {
-            "weight": 16,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-11-14",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 14
-            },
-            {
-              "weight": 37,
-              "reps": 4
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 37,
-            "reps": 4
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-11-07",
-          "sets": [
-            {
-              "weight": 14,
+              "weight": 30,
               "reps": 15
-            },
-            {
-              "weight": 36,
-              "reps": 4
             }
           ],
           "maxActualWeight": {
-            "weight": 36,
-            "reps": 4
+            "weight": 35,
+            "reps": 14
           },
           "maxActualWorkingSet": {
-            "weight": 14,
+            "weight": 30,
             "reps": 15
           }
         },
         {
-          "date": "2025-10-31",
+          "date": "2025-10-09",
           "sets": [
             {
-              "weight": 14,
-              "reps": 14
-            },
-            {
-              "weight": 35,
-              "reps": 4
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 4
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 14
-            },
-            {
-              "weight": 34,
-              "reps": 4
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 34,
-            "reps": 4
-          },
-          "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 13
-            },
-            {
-              "weight": 33,
-              "reps": 4
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 33,
-            "reps": 4
-          },
-          "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 13
-            },
-            {
-              "weight": 32,
-              "reps": 4
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 32,
-            "reps": 4
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-10-06",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 13
-            },
-            {
-              "weight": 35,
-              "reps": 3
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 3
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-10-05",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 11
-            },
-            {
-              "weight": 32,
-              "reps": 4
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 32,
-            "reps": 4
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 11
-          }
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 12
-            },
-            {
-              "weight": 34,
-              "reps": 3
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 34,
-            "reps": 3
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-03",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 12
+              "weight": 20,
+              "reps": 15
             },
             {
               "weight": 30,
-              "reps": 5
+              "reps": 15
             }
           ],
           "maxActualWeight": {
             "weight": 30,
-            "reps": 5
+            "reps": 15
           },
           "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 12
+            "weight": 20,
+            "reps": 15
           }
         }
       ],
       "lastWorkout": {
-        "date": "2026-01-09",
+        "date": "2025-10-10",
         "sets": [
           {
-            "weight": 19,
+            "weight": 35,
             "reps": 14
           },
           {
-            "weight": 41,
-            "reps": 4
+            "weight": 30,
+            "reps": 15
           }
         ],
         "maxActualWeight": {
-          "weight": 41,
-          "reps": 4
+          "weight": 35,
+          "reps": 14
         },
         "maxActualWorkingSet": {
-          "weight": 19,
-          "reps": 14
+          "weight": 30,
+          "reps": 15
         }
       },
       "allTimeMaxReps": {
-        "weight": 14,
+        "weight": 30,
         "reps": 15,
-        "date": "2025-11-07"
+        "date": "2025-10-10"
       },
       "allTimeMaxWeight": {
-        "weight": 41,
-        "reps": 4,
-        "date": "2026-01-09"
+        "weight": 35,
+        "reps": 14,
+        "date": "2025-10-10"
       }
     },
     "Жим гантелей на наклонной скамье (45°)": {
@@ -7286,309 +413,78 @@
       "hasWeight": true,
       "history": [
         {
-          "date": "2026-01-09",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 12
-            },
-            {
-              "weight": 17,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 17,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2026-01-02",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 12
-            },
-            {
-              "weight": 16,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-26",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 12
-            },
-            {
-              "weight": 15,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-12-19",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 12
-            },
-            {
-              "weight": 14,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 14,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-11-14",
-          "sets": [
-            {
-              "weight": 11,
-              "reps": 13
-            },
-            {
-              "weight": 13,
-              "reps": 11
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 13,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
-            "weight": 11,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-11-07",
-          "sets": [
-            {
-              "weight": 11,
-              "reps": 12
-            },
-            {
-              "weight": 13,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 13,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 11,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-31",
+          "date": "2025-10-10",
           "sets": [
             {
               "weight": 10,
               "reps": 13
             },
             {
-              "weight": 12,
-              "reps": 11
+              "weight": 10,
+              "reps": 14
             }
           ],
           "maxActualWeight": {
-            "weight": 12,
-            "reps": 11
-          },
-          "maxActualWorkingSet": {
             "weight": 10,
             "reps": 13
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 12
-            },
-            {
-              "weight": 12,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12,
-            "reps": 10
           },
           "maxActualWorkingSet": {
             "weight": 10,
-            "reps": 12
+            "reps": 14
           }
         },
         {
-          "date": "2025-10-17",
+          "date": "2025-10-09",
           "sets": [
             {
-              "weight": 9,
+              "weight": 12.5,
+              "reps": 8
+            },
+            {
+              "weight": 10,
               "reps": 13
-            },
-            {
-              "weight": 11,
-              "reps": 11
             }
           ],
           "maxActualWeight": {
-            "weight": 11,
-            "reps": 11
+            "weight": 12.5,
+            "reps": 8
           },
           "maxActualWorkingSet": {
-            "weight": 9,
+            "weight": 10,
             "reps": 13
-          }
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 12
-            },
-            {
-              "weight": 11,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 11,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-05",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 12
-            },
-            {
-              "weight": 10,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 12
-            },
-            {
-              "weight": 10,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-03",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 12
-            },
-            {
-              "weight": 10,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 12
           }
         }
       ],
       "lastWorkout": {
-        "date": "2026-01-09",
+        "date": "2025-10-10",
         "sets": [
           {
-            "weight": 15,
-            "reps": 12
+            "weight": 10,
+            "reps": 13
           },
           {
-            "weight": 17,
-            "reps": 10
+            "weight": 10,
+            "reps": 14
           }
         ],
         "maxActualWeight": {
-          "weight": 17,
-          "reps": 10
+          "weight": 10,
+          "reps": 13
         },
         "maxActualWorkingSet": {
-          "weight": 15,
-          "reps": 12
+          "weight": 10,
+          "reps": 14
         }
       },
       "allTimeMaxReps": {
-        "weight": 11,
-        "reps": 13,
-        "date": "2025-11-14"
+        "weight": 10,
+        "reps": 14,
+        "date": "2025-10-10"
       },
       "allTimeMaxWeight": {
-        "weight": 17,
-        "reps": 10,
-        "date": "2026-01-09"
+        "weight": 12.5,
+        "reps": 8,
+        "date": "2025-10-09"
       }
     },
     "Разгибания рук с гантелью из-за головы (французский жим сидя)": {
@@ -7596,167 +492,20 @@
       "hasWeight": true,
       "history": [
         {
-          "date": "2026-01-09",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 15
-            },
-            {
-              "weight": 17,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 17,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-02",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 15
-            },
-            {
-              "weight": 16,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-26",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 15
-            },
-            {
-              "weight": 15,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-12-19",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 15
-            },
-            {
-              "weight": 14,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 14,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-14",
-          "sets": [
-            {
-              "weight": 11,
-              "reps": 16
-            },
-            {
-              "weight": 13,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 13,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 11,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-11-07",
-          "sets": [
-            {
-              "weight": 11,
-              "reps": 15
-            },
-            {
-              "weight": 13,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 13,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 11,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-31",
+          "date": "2025-10-10",
           "sets": [
             {
               "weight": 10,
-              "reps": 16
+              "reps": 15
             },
             {
-              "weight": 12,
-              "reps": 13
+              "weight": 10,
+              "reps": 10
             }
           ],
           "maxActualWeight": {
-            "weight": 12,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
             "weight": 10,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 15
-            },
-            {
-              "weight": 12,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12,
-            "reps": 12
+            "reps": 15
           },
           "maxActualWorkingSet": {
             "weight": 10,
@@ -7764,141 +513,57 @@
           }
         },
         {
-          "date": "2025-10-17",
+          "date": "2025-10-09",
           "sets": [
             {
-              "weight": 9,
-              "reps": 16
-            },
-            {
-              "weight": 11,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 11,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 16
-          }
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 15
-            },
-            {
-              "weight": 11,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 11,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-05",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 15
+              "weight": 10,
+              "reps": 10
             },
             {
               "weight": 10,
-              "reps": 12
+              "reps": 9
             }
           ],
           "maxActualWeight": {
             "weight": 10,
-            "reps": 12
+            "reps": 10
           },
           "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 15
-            },
-            {
-              "weight": 10,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
             "weight": 10,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-03",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 15
-            },
-            {
-              "weight": 10,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 15
+            "reps": 10
           }
         }
       ],
       "lastWorkout": {
-        "date": "2026-01-09",
+        "date": "2025-10-10",
         "sets": [
           {
-            "weight": 15,
+            "weight": 10,
             "reps": 15
           },
           {
-            "weight": 17,
-            "reps": 12
+            "weight": 10,
+            "reps": 10
           }
         ],
         "maxActualWeight": {
-          "weight": 17,
-          "reps": 12
+          "weight": 10,
+          "reps": 15
         },
         "maxActualWorkingSet": {
-          "weight": 15,
+          "weight": 10,
           "reps": 15
         }
       },
       "allTimeMaxReps": {
-        "weight": 11,
-        "reps": 16,
-        "date": "2025-11-14"
+        "weight": 10,
+        "reps": 15,
+        "date": "2025-10-10"
       },
       "allTimeMaxWeight": {
-        "weight": 17,
-        "reps": 12,
-        "date": "2026-01-09"
+        "weight": 10,
+        "reps": 15,
+        "date": "2025-10-10"
       }
     },
     "Подъёмы ног в висе": {
@@ -7906,445 +571,122 @@
       "hasWeight": false,
       "history": [
         {
-          "date": "2026-01-09",
-          "sets": [
-            {
-              "reps": 17
-            },
-            {
-              "reps": 18
-            }
-          ]
-        },
-        {
-          "date": "2026-01-02",
-          "sets": [
-            {
-              "reps": 17
-            },
-            {
-              "reps": 17
-            }
-          ]
-        },
-        {
-          "date": "2025-12-26",
-          "sets": [
-            {
-              "reps": 16
-            },
-            {
-              "reps": 17
-            }
-          ]
-        },
-        {
-          "date": "2025-12-19",
-          "sets": [
-            {
-              "reps": 16
-            },
-            {
-              "reps": 16
-            }
-          ]
-        },
-        {
-          "date": "2025-11-14",
-          "sets": [
-            {
-              "reps": 15
-            },
-            {
-              "reps": 16
-            }
-          ]
-        },
-        {
-          "date": "2025-11-07",
-          "sets": [
-            {
-              "reps": 15
-            },
-            {
-              "reps": 15
-            }
-          ]
-        },
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "reps": 14
-            },
-            {
-              "reps": 15
-            }
-          ]
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "reps": 14
-            },
-            {
-              "reps": 14
-            }
-          ]
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "reps": 13
-            },
-            {
-              "reps": 14
-            }
-          ]
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "reps": 13
-            },
-            {
-              "reps": 13
-            }
-          ]
-        },
-        {
           "date": "2025-10-10",
           "sets": [
             {
-              "reps": 15
+              "reps": 7
+            },
+            {
+              "reps": 6
             }
           ]
         },
         {
-          "date": "2025-10-05",
+          "date": "2025-10-09",
           "sets": [
             {
-              "reps": 12
+              "reps": 5
             },
             {
-              "reps": 12
-            }
-          ]
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "reps": 12
-            },
-            {
-              "reps": 12
-            }
-          ]
-        },
-        {
-          "date": "2025-10-03",
-          "sets": [
-            {
-              "reps": 12
-            },
-            {
-              "reps": 12
+              "reps": 7
             }
           ]
         }
       ],
       "lastWorkout": {
-        "date": "2026-01-09",
+        "date": "2025-10-10",
         "sets": [
           {
-            "reps": 17
+            "reps": 7
           },
           {
-            "reps": 18
+            "reps": 6
           }
         ]
       },
       "allTimeMaxReps": {
-        "reps": 18,
-        "date": "2026-01-09"
+        "reps": 7,
+        "date": "2025-10-10"
       },
       "allTimeMaxWeight": null
     },
-    "Гиперэкстензия (икры)": {
-      "name": "Гиперэкстензия (икры)",
+    "Жим гантелей лежа": {
+      "name": "Жим гантелей лежа",
       "hasWeight": true,
       "history": [
         {
-          "date": "2026-01-09",
+          "date": "2025-10-13",
           "sets": [
             {
-              "weight": 19,
+              "weight": 12.5,
               "reps": 15
             },
             {
-              "weight": 21,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 21,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 19,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2026-01-02",
-          "sets": [
-            {
-              "weight": 18,
+              "weight": 12.5,
               "reps": 15
-            },
-            {
-              "weight": 20,
-              "reps": 12
             }
           ],
           "maxActualWeight": {
-            "weight": 20,
-            "reps": 12
+            "weight": 12.5,
+            "reps": 15
           },
           "maxActualWorkingSet": {
-            "weight": 18,
+            "weight": 12.5,
             "reps": 15
           }
-        },
-        {
-          "date": "2025-12-26",
-          "sets": [
-            {
-              "weight": 17,
-              "reps": 15
-            },
-            {
-              "weight": 19,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 19,
-            "reps": 12
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-10-13",
+        "sets": [
+          {
+            "weight": 12.5,
+            "reps": 15
           },
-          "maxActualWorkingSet": {
-            "weight": 17,
+          {
+            "weight": 12.5,
             "reps": 15
           }
+        ],
+        "maxActualWeight": {
+          "weight": 12.5,
+          "reps": 15
         },
+        "maxActualWorkingSet": {
+          "weight": 12.5,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 12.5,
+        "reps": 15,
+        "date": "2025-10-13"
+      },
+      "allTimeMaxWeight": {
+        "weight": 12.5,
+        "reps": 15,
+        "date": "2025-10-13"
+      }
+    },
+    "Румынская тяга с гантелями": {
+      "name": "Румынская тяга с гантелями",
+      "hasWeight": true,
+      "history": [
         {
-          "date": "2025-12-19",
-          "sets": [
-            {
-              "weight": 16,
-              "reps": 15
-            },
-            {
-              "weight": 18,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 18,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 16,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-14",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 15
-            },
-            {
-              "weight": 17,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 17,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-11-07",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 15
-            },
-            {
-              "weight": 16,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "weight": 14,
-              "reps": 15
-            },
-            {
-              "weight": 16,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 16,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 14,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 15
-            },
-            {
-              "weight": 15,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 13,
-              "reps": 15
-            },
-            {
-              "weight": 15,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 13,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-11",
-          "sets": [
-            {
-              "weight": 12,
-              "reps": 15
-            },
-            {
-              "weight": 14,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 14,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 12,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-05",
+          "date": "2025-10-13",
           "sets": [
             {
               "weight": 10,
               "reps": 15
             },
             {
-              "weight": 12,
-              "reps": 12
+              "weight": 10,
+              "reps": 15
             }
           ],
           "maxActualWeight": {
-            "weight": 12,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
             "weight": 10,
             "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-04",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 15
-            },
-            {
-              "weight": 12,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-03",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 15
-            },
-            {
-              "weight": 12,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12,
-            "reps": 12
           },
           "maxActualWorkingSet": {
             "weight": 10,
@@ -8353,35 +695,283 @@
         }
       ],
       "lastWorkout": {
-        "date": "2026-01-09",
+        "date": "2025-10-13",
         "sets": [
           {
-            "weight": 19,
+            "weight": 10,
             "reps": 15
           },
           {
-            "weight": 21,
-            "reps": 12
+            "weight": 10,
+            "reps": 15
           }
         ],
         "maxActualWeight": {
-          "weight": 21,
-          "reps": 12
+          "weight": 10,
+          "reps": 15
         },
         "maxActualWorkingSet": {
-          "weight": 19,
+          "weight": 10,
           "reps": 15
         }
       },
       "allTimeMaxReps": {
-        "weight": 19,
+        "weight": 10,
         "reps": 15,
-        "date": "2026-01-09"
+        "date": "2025-10-13"
       },
       "allTimeMaxWeight": {
-        "weight": 21,
+        "weight": 10,
+        "reps": 15,
+        "date": "2025-10-13"
+      }
+    },
+    "Верхняя тяга блока к груди": {
+      "name": "Верхняя тяга блока к груди",
+      "hasWeight": false,
+      "history": [
+        {
+          "date": "2025-10-13",
+          "sets": [
+            {
+              "weight": 25,
+              "reps": 15
+            },
+            {
+              "weight": 35,
+              "reps": 12
+            }
+          ]
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-10-13",
+        "sets": [
+          {
+            "weight": 25,
+            "reps": 15
+          },
+          {
+            "weight": 35,
+            "reps": 12
+          }
+        ]
+      },
+      "allTimeMaxReps": {
+        "reps": 15,
+        "date": "2025-10-13"
+      },
+      "allTimeMaxWeight": null
+    },
+    "Верхняя тяга блока на бицепс": {
+      "name": "Верхняя тяга блока на бицепс",
+      "hasWeight": false,
+      "history": [
+        {
+          "date": "2025-10-13",
+          "sets": [
+            {
+              "weight": 20,
+              "reps": 12
+            },
+            {
+              "weight": 15,
+              "reps": 15
+            }
+          ]
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-10-13",
+        "sets": [
+          {
+            "weight": 20,
+            "reps": 12
+          },
+          {
+            "weight": 15,
+            "reps": 15
+          }
+        ]
+      },
+      "allTimeMaxReps": {
+        "reps": 15,
+        "date": "2025-10-13"
+      },
+      "allTimeMaxWeight": null
+    },
+    "Подъемы с гантелями": {
+      "name": "Подъемы с гантелями",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-10-13",
+          "sets": [
+            {
+              "weight": 6,
+              "reps": 8
+            },
+            {
+              "weight": 6,
+              "reps": 10
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 6,
+            "reps": 8
+          },
+          "maxActualWorkingSet": {
+            "weight": 6,
+            "reps": 10
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-10-13",
+        "sets": [
+          {
+            "weight": 6,
+            "reps": 8
+          },
+          {
+            "weight": 6,
+            "reps": 10
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 6,
+          "reps": 8
+        },
+        "maxActualWorkingSet": {
+          "weight": 6,
+          "reps": 10
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 6,
+        "reps": 10,
+        "date": "2025-10-13"
+      },
+      "allTimeMaxWeight": {
+        "weight": 6,
+        "reps": 8,
+        "date": "2025-10-13"
+      }
+    },
+    "Французский жим с нижнего блока": {
+      "name": "Французский жим с нижнего блока",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-10-13",
+          "sets": [
+            {
+              "weight": 20,
+              "reps": 15
+            },
+            {
+              "weight": 25,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 25,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 20,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-10-13",
+        "sets": [
+          {
+            "weight": 20,
+            "reps": 15
+          },
+          {
+            "weight": 25,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 25,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 20,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 20,
+        "reps": 15,
+        "date": "2025-10-13"
+      },
+      "allTimeMaxWeight": {
+        "weight": 25,
+        "reps": 15,
+        "date": "2025-10-13"
+      }
+    },
+    "Жим ногами на носки": {
+      "name": "Жим ногами на носки",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-10-13",
+          "sets": [
+            {
+              "weight": 7,
+              "reps": 12
+            },
+            {
+              "weight": 7,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 7,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 7,
+            "reps": 12
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-10-13",
+        "sets": [
+          {
+            "weight": 7,
+            "reps": 12
+          },
+          {
+            "weight": 7,
+            "reps": 12
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 7,
+          "reps": 12
+        },
+        "maxActualWorkingSet": {
+          "weight": 7,
+          "reps": 12
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 7,
         "reps": 12,
-        "date": "2026-01-09"
+        "date": "2025-10-13"
+      },
+      "allTimeMaxWeight": {
+        "weight": 7,
+        "reps": 12,
+        "date": "2025-10-13"
       }
     }
   }
