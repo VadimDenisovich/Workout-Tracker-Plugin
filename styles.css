@@ -1,6 +1,10 @@
 /* Workout Tracker Plugin Styles */
 
 /* Exercise Modal Styles */
+.exercise-modal-content {
+    padding-top: 20px;
+}
+
 .exercise-modal-header {
     display: flex;
     justify-content: space-between;
@@ -15,28 +19,42 @@
 }
 
 .exercise-add-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
     width: 40px;
     height: 40px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.35);
-    background-color: rgba(0, 0, 0, 0.04);
-    color: #000;
-    font-size: 24px;
-    font-weight: 700;
+    background-color: #333;
+    border: none;
     cursor: pointer;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-    transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.2s;
+}
+
+.exercise-add-button::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 12px;
+    background-color: #ccc;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.exercise-add-button::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background-color: #ccc;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .exercise-add-button:hover,
 .exercise-add-button:focus {
-    background-color: rgba(0, 0, 0, 0.12);
-    color: #000;
-    transform: translateY(-1px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
 .exercise-search {

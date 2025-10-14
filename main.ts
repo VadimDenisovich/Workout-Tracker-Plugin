@@ -33,34 +33,81 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		});
 
 		// Инициализируем менеджер метаданных упражнений
-		this.exerciseMetadata = new ExerciseMetadataManager(this.app, pluginDir);
-		await this.exerciseMetadata.load();
-		
-		// Синхронизируем метаданные с реестром упражнений
-		await this.exerciseMetadata.syncFromRegistry(this.settings.exerciseRegistry);
+		try {
+			this.exerciseMetadata = new ExerciseMetadataManager(this.app, pluginDir);
+			await this.exerciseMetadata.load();
+			
+			// Синхронизируем метаданные с реестром упражнений
+			await this.exerciseMetadata.syncFromRegistry(this.settings.exerciseRegistry);
+		} catch (error) {
+			console.error('[Main] Ошибка инициализации метаданных:', error);
+			// Создаем пустой объект метаданных для продолжения работы
+			this.exerciseMetadata = new ExerciseMetadataManager(this.app, pluginDir);
+		}
 
 		// Инициализируем кэш упражнений
 		this.exerciseCache = new ExerciseCache(this.app, pluginDir, this.exerciseMetadata);
 		await this.exerciseCache.load();
 		
-		// Обновляем кэш при запуске плагина
-		const logsFolder = `${this.settings.workoutFolder}/Logs`;
-		const newCachedCount = await this.exerciseCache.rebuildCache(logsFolder);
-		if (newCachedCount > 0) {
-			new Notice(`✅ Закэшировано ${newCachedCount} ${this.pluralizeLogCount(newCachedCount)}!`);
-			console.log(`[Main] Кэшировано новых логов при запуске: ${newCachedCount}`);
+		// Создаем структуру папок ТОЛЬКО при первом запуске или при смене папки
+		const needsStructureCreation = !this.settings.previousWorkoutFolder || 
+			this.settings.previousWorkoutFolder !== this.settings.workoutFolder;
+		
+		if (needsStructureCreation) {
+			console.log('[Main] 📁 Первый запуск или смена папки, создаём структуру...');
+			try {
+				await this.fileManager.createWorkoutStructure(
+					this.settings.workoutFolder,
+					this.settings.previousWorkoutFolder,
+					this.settings.exerciseRegistry
+				);
+				// Обновляем previousWorkoutFolder после успешного создания
+				this.settings.previousWorkoutFolder = this.settings.workoutFolder;
+				await this.persistSettings();
+			} catch (error) {
+				// Игнорируем ошибку "Folder already exists" - это нормально
+				if (error?.message?.includes('Folder already exists') || error?.message?.includes('already exists')) {
+					console.log('[Main] ✅ Структура папок уже существует');
+					this.settings.previousWorkoutFolder = this.settings.workoutFolder;
+					await this.persistSettings();
+				} else {
+					console.error('[Main] Ошибка создания структуры папок:', error);
+					new Notice('⚠️ Ошибка создания структуры папок. Проверьте консоль.');
+				}
+			}
+		} else {
+			console.log('[Main] ✅ Структура папок уже настроена, пропускаем создание');
 		}
 
-		// Создаем структуру папок при первом запуске
-		await this.fileManager.createWorkoutStructure(
-			this.settings.workoutFolder,
-			this.settings.previousWorkoutFolder,
-			this.settings.exerciseRegistry
-		);
+		// Синхронизируем шаблоны с файлами (НЕОБЯЗАТЕЛЬНАЯ операция)
+		try {
+			await this.templateUpdater.syncTemplatesWithFiles(this.settings.workoutFolder);
+			console.log('[Main] ✅ Синхронизация шаблонов завершена');
+		} catch (error) {
+			console.error('[Main] ⚠️ Ошибка синхронизации шаблонов (не критично):', error);
+		}
+		
+		// Регистрируем UI элементы и команды (КРИТИЧНО - должно выполниться)
+		console.log('[Main] 📋 Регистрация UI элементов и команд...');
+		this.registerUIAndCommands();
+		
+		// Обновляем кэш ПОСЛЕ того, как хранилище будет готово (НЕКРИТИЧНО)
+		this.app.workspace.onLayoutReady(async () => {
+			try {
+				console.log('[Main] 🔄 Хранилище готово, обновляем кэш...');
+				const logsFolder = `${this.settings.workoutFolder}/Logs`;
+				const newCachedCount = await this.exerciseCache.rebuildCache(logsFolder);
+				if (newCachedCount > 0) {
+					new Notice(`✅ Закэшировано ${newCachedCount} ${this.pluralizeLogCount(newCachedCount)}!`);
+					console.log(`[Main] Кэшировано новых логов при запуске: ${newCachedCount}`);
+				}
+			} catch (error) {
+				console.error('[Main] Ошибка обновления кэша:', error);
+			}
+		});
+	}
 
-		// Синхронизируем шаблоны с файлами
-		await this.templateUpdater.syncTemplatesWithFiles(this.settings.workoutFolder);
-
+	private registerUIAndCommands(): void {
 		// Мониторинг изменений файлов (шаблоны и логи)
 		this.registerEvent(
 			this.app.vault.on('modify', async (file) => {
@@ -152,16 +199,21 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		);
 
 		// Кнопка создания лога тренировки
-		this.addRibbonIcon('calendar-plus', 'Создать лог тренировки', async () => {
+		console.log('[Main] 📅 Добавление ribbon icon для создания лога...');
+		const ribbonIconLog = this.addRibbonIcon('calendar-days', 'Создать лог тренировки', async () => {
 			await this.createWorkoutLog();
 		});
+		console.log('[Main] 📅 Ribbon icon создан:', ribbonIconLog ? 'успешно' : 'не удалось');
 
 		// Кнопка открытия упражнений
-		this.addRibbonIcon('dumbbell', 'Упражнения', async () => {
+		console.log('[Main] 💪 Добавление ribbon icon для упражнений...');
+		const ribbonIconExercises = this.addRibbonIcon('dumbbell', 'Упражнения', async () => {
 			await this.openExerciseModal();
 		});
+		console.log('[Main] 💪 Ribbon icon создан:', ribbonIconExercises ? 'успешно' : 'не удалось');
 
 		// Команды
+		console.log('[Main] 🎯 Регистрация команд...');
 		this.addCommand({
 			id: 'create-workout-log',
 			name: 'Создать лог тренировки',
@@ -169,6 +221,7 @@ export default class WorkoutTrackerPlugin extends Plugin {
 				await this.createWorkoutLog();
 			}
 		});
+		console.log('[Main] ✅ Команда "Создать лог тренировки" зарегистрирована');
 
 		this.addCommand({
 			id: 'open-exercise-modal',
@@ -177,6 +230,7 @@ export default class WorkoutTrackerPlugin extends Plugin {
 				await this.openExerciseModal();
 			}
 		});
+		console.log('[Main] ✅ Команда "Открыть упражнения" зарегистрирована');
 
 		this.addCommand({
 			id: 'rebuild-cache',
@@ -211,6 +265,8 @@ export default class WorkoutTrackerPlugin extends Plugin {
 
 		// Настройки
 		this.addSettingTab(new WorkoutTrackerSettingTab(this.app, this));
+		
+		console.log('[Main] ✅ Все UI элементы и команды зарегистрированы');
 	}
 
 	async createWorkoutLog() {

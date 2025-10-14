@@ -100,13 +100,28 @@ export class ExerciseCache {
 
 	async rebuildCache(logsFolder: string): Promise<number> {
 		console.log('[ExerciseCache] Начинаем rebuild кэша...');
+		console.log('[ExerciseCache] Папка логов:', logsFolder);
 		
-		const logsPath = `${logsFolder}`;
+		const logsPath = logsFolder.endsWith('/') ? logsFolder : `${logsFolder}/`;
+		console.log('[ExerciseCache] Нормализованный путь:', logsPath);
+		
 		const allFiles = this.app.vault.getMarkdownFiles()
 			.filter(file => file.path.startsWith(logsPath) && file.path.endsWith('.md'));
 
 		console.log('[ExerciseCache] Найдено файлов логов:', allFiles.length);
 		console.log('[ExerciseCache] Уже закэшировано файлов:', this.cache.cachedFiles.length);
+		
+		// Отладка: показываем первые несколько путей файлов
+		if (allFiles.length > 0) {
+			console.log('[ExerciseCache] Примеры найденных файлов:', allFiles.slice(0, 3).map(f => f.path).join(', '));
+		} else {
+			// Показываем все markdown файлы для отладки
+			const allMd = this.app.vault.getMarkdownFiles();
+			console.log('[ExerciseCache] ⚠️ Не найдено файлов! Всего MD файлов в хранилище:', allMd.length);
+			if (allMd.length > 0) {
+				console.log('[ExerciseCache] Примеры путей MD файлов:', allMd.slice(0, 5).map(f => f.path).join(', '));
+			}
+		}
 
 		// Проверяем и удаляем несуществующие файлы из кэша
 		const existingFilePaths = new Set(allFiles.map(f => f.path));

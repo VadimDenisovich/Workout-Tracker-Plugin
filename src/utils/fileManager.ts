@@ -421,14 +421,20 @@ ${dataviewjsCode}
 				try {
 					const currentContent = await this.app.vault.read(existing);
 					
+					// Обновляем ТОЛЬКО если содержимое отличается
 					if (currentContent !== templateContent) {
 						await this.app.vault.modify(existing, templateContent);
+						console.log(`[FileManager] ✅ Обновлён шаблон: ${fileName}`);
 					} else {
+						console.log(`[FileManager] ⏭️ Шаблон не изменился, пропускаем: ${fileName}`);
 					}
 				} catch (error) {
+					console.error(`[FileManager] Ошибка обновления шаблона ${fileName}:`, error);
 				}
 			} else {
+				// Создаём новый шаблон
 				await this.app.vault.create(filePath, templateContent);
+				console.log(`[FileManager] ✅ Создан новый шаблон: ${fileName}`);
 			}
 		}
 	}
@@ -448,22 +454,19 @@ ${dataviewjsCode}
 
 		for (const exercise of uniqueExercises) {
 			const filePath = `${exercisesPath}/${exercise.name}.md`;
-			const template = await this.getExerciseTemplate(exercise.hasWeight);
-			const content = template
-				.replace(/{{exerciseName}}/g, exercise.name)
-				.replace(/{{workoutFolder}}/g, workoutFolder);
 			const existing = this.app.vault.getAbstractFileByPath(filePath);
 
-			if (existing instanceof TFile) {
-				try {
-					const currentContent = await this.app.vault.read(existing);
-					if (currentContent !== content && this.shouldUpdateExerciseFile(currentContent, exercise.name)) {
-						await this.app.vault.modify(existing, content);
-					}
-				} catch (error) {
-				}
-			} else {
+			// СОЗДАЁМ файл ТОЛЬКО если его нет
+			if (!existing) {
+				const template = await this.getExerciseTemplate(exercise.hasWeight);
+				const content = template
+					.replace(/{{exerciseName}}/g, exercise.name)
+					.replace(/{{workoutFolder}}/g, workoutFolder);
+				
 				await this.app.vault.create(filePath, content);
+				console.log(`[FileManager] ✅ Создан новый файл упражнения: ${exercise.name}`);
+			} else {
+				console.log(`[FileManager] ⏭️ Файл упражнения уже существует, пропускаем: ${exercise.name}`);
 			}
 		}
 	}

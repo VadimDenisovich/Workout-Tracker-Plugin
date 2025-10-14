@@ -23,12 +23,12 @@ export class ExerciseListModal extends Modal {
 	async renderExerciseList() {
 		const { contentEl } = this;
 		contentEl.empty();
+		contentEl.addClass('exercise-modal-content');
 
 		const header = contentEl.createEl('div', { cls: 'exercise-modal-header' });
 		header.createEl('h2', { text: 'Упражнения' });
 
 		const addButton = header.createEl('button', {
-			text: '+',
 			cls: 'exercise-add-button'
 		});
 		addButton.setAttribute('aria-label', 'Добавить упражнение');
