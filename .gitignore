@@ -24,3 +24,4 @@ data.json
 # Local plugin cache and metadata
 exercise-cache.json
 exercise-metadata.json
+templates.ts
