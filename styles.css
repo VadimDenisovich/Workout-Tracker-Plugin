@@ -1,5 +1,45 @@
 /* Workout Tracker Plugin Styles */
 
+/* Training Days Selector */
+.training-days-selector {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.day-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--interactive-accent);
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-normal);
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.day-circle:hover {
+    background-color: var(--interactive-accent-hover);
+    transform: scale(1.05);
+}
+
+.day-circle.selected {
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+.day-circle.selected:hover {
+    background-color: var(--interactive-accent-hover);
+}
+
 /* Exercise Modal Styles */
 .exercise-modal-content {
     padding-top: 20px;

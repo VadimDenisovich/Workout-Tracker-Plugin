@@ -1,4 +1,4 @@
-import { WorkoutTrackerSettings, TemplateKey, TemplateOverrides, ExerciseInfo, CustomTemplate } from './types';
+import { WorkoutTrackerSettings, TemplateKey, TemplateOverrides, ExerciseInfo, CustomTemplate, WorkoutDay } from './types';
 
 export const DEFAULT_EXERCISES: ExerciseInfo[] = [
 	{ name: 'Жим гантелей лежа', hasWeight: true },
@@ -32,15 +32,42 @@ export const DEFAULT_SETTINGS: WorkoutTrackerSettings = {
 	exerciseRegistry: [...DEFAULT_EXERCISES],
 	customTemplates: [],
 	chartRepsMin: 0,
-	chartRepsMax: 15
+	chartRepsMax: 15,
+	trainingDays: [WorkoutDay.MONDAY, WorkoutDay.WEDNESDAY, WorkoutDay.FRIDAY] // По умолчанию Пн, Ср, Пт
 };
 
-export const TEMPLATE_KEYS: TemplateKey[] = ['MONDAY', 'WEDNESDAY', 'FRIDAY', 'HOME'];
+// Mapping day enum to Russian names
+export const DAY_NAMES_RU: Record<WorkoutDay, string> = {
+	[WorkoutDay.MONDAY]: 'Понедельник',
+	[WorkoutDay.TUESDAY]: 'Вторник',
+	[WorkoutDay.WEDNESDAY]: 'Среда',
+	[WorkoutDay.THURSDAY]: 'Четверг',
+	[WorkoutDay.FRIDAY]: 'Пятница',
+	[WorkoutDay.SATURDAY]: 'Суббота',
+	[WorkoutDay.SUNDAY]: 'Воскресенье'
+};
+
+// Mapping day enum to short abbreviations
+export const DAY_ABBR: Record<WorkoutDay, string> = {
+	[WorkoutDay.MONDAY]: 'ПН',
+	[WorkoutDay.TUESDAY]: 'ВТ',
+	[WorkoutDay.WEDNESDAY]: 'СР',
+	[WorkoutDay.THURSDAY]: 'ЧТ',
+	[WorkoutDay.FRIDAY]: 'ПТ',
+	[WorkoutDay.SATURDAY]: 'СБ',
+	[WorkoutDay.SUNDAY]: 'ВС'
+};
+
+export const TEMPLATE_KEYS: TemplateKey[] = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY', 'HOME'];
 
 export const TEMPLATE_FILES: Record<TemplateKey, string> = {
 	MONDAY: 'Monday.md',
+	TUESDAY: 'Tuesday.md',
 	WEDNESDAY: 'Wednesday.md',
+	THURSDAY: 'Thursday.md',
 	FRIDAY: 'Friday.md',
+	SATURDAY: 'Saturday.md',
+	SUNDAY: 'Sunday.md',
 	HOME: 'Home.md'
 };
 
@@ -235,6 +262,62 @@ export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
 
 {{exercise:Гиперэкстензия (икры)}}
 
+
+## Заметки
+`,
+
+	TUESDAY: `# Тренировка - Вторник
+
+**Дата:** {{date}}
+**Место:** {{location}}
+
+## Упражнения
+
+### Танцы
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+## Заметки
+`,
+
+	THURSDAY: `# Тренировка - Четверг
+
+**Дата:** {{date}}
+**Место:** {{location}}
+
+## Упражнения
+
+### Секс
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+## Заметки
+`,
+
+	SATURDAY: `# Тренировка - Суббота
+
+**Дата:** {{date}}
+**Место:** {{location}}
+
+## Упражнения
+
+### Тверк
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+## Заметки
+`,
+
+	SUNDAY: `# Тренировка - Воскресенье
+
+**Дата:** {{date}}
+**Место:** {{location}}
+
+## Упражнения
+
+### Пилатес
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
 
 ## Заметки
 `,

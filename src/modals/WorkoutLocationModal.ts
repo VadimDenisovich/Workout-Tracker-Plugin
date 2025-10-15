@@ -1,6 +1,7 @@
 import { App, Modal, Setting, Notice, TFile } from 'obsidian';
 import { WorkoutLocation, WorkoutDay, CustomTemplate } from '../types';
 import { TemplateNameModal } from './TemplateNameModal';
+import { DAY_NAMES_RU } from '../templates';
 
 export class WorkoutLocationModal extends Modal {
 	private resolve: (value: { location: WorkoutLocation; templateType?: WorkoutDay; customTemplate?: CustomTemplate }) => void;
@@ -74,13 +75,36 @@ export class WorkoutLocationModal extends Modal {
 
 		contentEl.createEl('h2', { text: 'Выберите шаблон тренировки' });
 
-		const templates = [
-			{ day: WorkoutDay.MONDAY, name: 'Понедельник' },
-			{ day: WorkoutDay.WEDNESDAY, name: 'Среда' },
-			{ day: WorkoutDay.FRIDAY, name: 'Пятница' }
+		// Get selected training days from settings
+		const trainingDays = this.plugin.settings.trainingDays || [
+			WorkoutDay.MONDAY,
+			WorkoutDay.WEDNESDAY,
+			WorkoutDay.FRIDAY
 		];
 
-		templates.forEach(template => {
+		// Define order of days
+		const dayOrder = [
+			WorkoutDay.MONDAY,
+			WorkoutDay.TUESDAY,
+			WorkoutDay.WEDNESDAY,
+			WorkoutDay.THURSDAY,
+			WorkoutDay.FRIDAY,
+			WorkoutDay.SATURDAY,
+			WorkoutDay.SUNDAY
+		];
+
+		// Sort training days by week order
+		const sortedDays = trainingDays.sort((a: WorkoutDay, b: WorkoutDay) => {
+			return dayOrder.indexOf(a) - dayOrder.indexOf(b);
+		});
+
+		// Build templates list from sorted training days
+		const templates = sortedDays.map((day: WorkoutDay) => ({
+			day: day,
+			name: DAY_NAMES_RU[day]
+		}));
+
+		templates.forEach((template: { day: WorkoutDay; name: string }) => {
 			new Setting(contentEl)
 				.setName(template.name)
 				.addButton(button => button

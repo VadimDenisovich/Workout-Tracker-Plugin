@@ -58,8 +58,12 @@ export class TemplateUpdater {
 	private getTemplateKey(templateName: string): TemplateKey | null {
 		const mapping: Record<string, TemplateKey> = {
 			'Monday': 'MONDAY',
+			'Tuesday': 'TUESDAY',
 			'Wednesday': 'WEDNESDAY',
+			'Thursday': 'THURSDAY',
 			'Friday': 'FRIDAY',
+			'Saturday': 'SATURDAY',
+			'Sunday': 'SUNDAY',
 			'Home': 'HOME'
 		};
 

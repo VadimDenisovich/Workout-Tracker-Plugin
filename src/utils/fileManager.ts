@@ -489,10 +489,18 @@ if (!cache) {
 		switch (day) {
 			case WorkoutDay.MONDAY:
 				return 'MONDAY';
+			case WorkoutDay.TUESDAY:
+				return 'TUESDAY';
 			case WorkoutDay.WEDNESDAY:
 				return 'WEDNESDAY';
+			case WorkoutDay.THURSDAY:
+				return 'THURSDAY';
 			case WorkoutDay.FRIDAY:
 				return 'FRIDAY';
+			case WorkoutDay.SATURDAY:
+				return 'SATURDAY';
+			case WorkoutDay.SUNDAY:
+				return 'SUNDAY';
 			default:
 				return 'MONDAY';
 		}
@@ -933,11 +941,18 @@ if (!cache) {
 			if (templateType) {
 				day = templateType;
 			} else {
+				// Fallback: определяем день недели по текущей дате
 				const dayOfWeek = moment().day();
-				if (dayOfWeek === 1) day = WorkoutDay.MONDAY;
-				else if (dayOfWeek === 3) day = WorkoutDay.WEDNESDAY;
-				else if (dayOfWeek === 5) day = WorkoutDay.FRIDAY;
-				else day = WorkoutDay.MONDAY;
+				const dayMapping: { [key: number]: WorkoutDay } = {
+					0: WorkoutDay.SUNDAY,
+					1: WorkoutDay.MONDAY,
+					2: WorkoutDay.TUESDAY,
+					3: WorkoutDay.WEDNESDAY,
+					4: WorkoutDay.THURSDAY,
+					5: WorkoutDay.FRIDAY,
+					6: WorkoutDay.SATURDAY
+				};
+				day = dayMapping[dayOfWeek] || WorkoutDay.MONDAY;
 			}
 
 			templateKey = this.getTemplateKeyFromDay(day);

@@ -1,6 +1,6 @@
 import { App, Plugin, PluginSettingTab, Setting, Notice, moment, TFile } from 'obsidian';
-import { WorkoutTrackerSettings, TemplateOverrides, ExerciseInfo } from './src/types';
-import { DEFAULT_SETTINGS, DEFAULT_EXERCISES } from './src/templates';
+import { WorkoutTrackerSettings, TemplateOverrides, ExerciseInfo, WorkoutDay } from './src/types';
+import { DEFAULT_SETTINGS, DEFAULT_EXERCISES, DAY_NAMES_RU, DAY_ABBR } from './src/templates';
 import { FileManager } from './src/utils/fileManager';
 import { TemplateUpdater } from './src/utils/templateUpdater';
 import { ExerciseCache } from './src/utils/exerciseCache';
@@ -8,7 +8,7 @@ import { ExerciseMetadataManager } from './src/utils/exerciseMetadata';
 import { WorkoutLocationModal } from './src/modals/WorkoutLocationModal';
 import { FolderSelectorModal } from './src/modals/FolderSelectorModal';
 import { ExerciseListModal } from './src/modals/ExerciseListModal';
-import { WorkoutLocation, WorkoutDay } from './src/types';
+import { WorkoutLocation } from './src/types';
 
 export default class WorkoutTrackerPlugin extends Plugin {
 	settings: WorkoutTrackerSettings;
@@ -272,8 +272,23 @@ export default class WorkoutTrackerPlugin extends Plugin {
 	async createWorkoutLog() {
 		try {
 			const today = moment();
-			const dayOfWeek = today.day();
-			const isTrainingDay = dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5; // Пн, Ср, Пт
+			const dayOfWeek = today.day(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+			
+			// Map moment.js day numbers to WorkoutDay enum
+			const dayMapping: { [key: number]: WorkoutDay } = {
+				0: WorkoutDay.SUNDAY,
+				1: WorkoutDay.MONDAY,
+				2: WorkoutDay.TUESDAY,
+				3: WorkoutDay.WEDNESDAY,
+				4: WorkoutDay.THURSDAY,
+				5: WorkoutDay.FRIDAY,
+				6: WorkoutDay.SATURDAY
+			};
+			
+			const currentDay = dayMapping[dayOfWeek];
+			
+			// Check if current day is in selected training days
+			const isTrainingDay = this.settings.trainingDays.includes(currentDay);
 
 			const modal = new WorkoutLocationModal(this.app, this, !isTrainingDay);
 			const result = await modal.show();
@@ -331,6 +346,11 @@ export default class WorkoutTrackerPlugin extends Plugin {
 
 		const { registry, changed } = this.mergeExerciseRegistry(this.settings.exerciseRegistry);
 		this.settings.exerciseRegistry = registry;
+
+		// Migrate old settings: if trainingDays is missing, use default
+		if (!this.settings.trainingDays || this.settings.trainingDays.length === 0) {
+			this.settings.trainingDays = [WorkoutDay.MONDAY, WorkoutDay.WEDNESDAY, WorkoutDay.FRIDAY];
+		}
 
 		// Синхронизируем пользовательские шаблоны с файлами
 		await this.syncCustomTemplates();
@@ -557,6 +577,52 @@ class WorkoutTrackerSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		containerEl.createEl('h2', { text: 'Настройки Workout Tracker' });
+
+		// Training Days Selector
+		const trainingDaysSetting = new Setting(containerEl)
+			.setName('Дни тренировок')
+			.setDesc('Выберите дни недели, когда вы тренируетесь');
+
+		const daysContainer = trainingDaysSetting.controlEl.createDiv({ cls: 'training-days-selector' });
+
+		// All days of the week in order
+		const allDays = [
+			WorkoutDay.MONDAY,
+			WorkoutDay.TUESDAY,
+			WorkoutDay.WEDNESDAY,
+			WorkoutDay.THURSDAY,
+			WorkoutDay.FRIDAY,
+			WorkoutDay.SATURDAY,
+			WorkoutDay.SUNDAY
+		];
+
+		allDays.forEach(day => {
+			const dayCircle = daysContainer.createDiv({ cls: 'day-circle' });
+			dayCircle.textContent = DAY_ABBR[day];
+			dayCircle.setAttribute('title', DAY_NAMES_RU[day]);
+
+			// Set initial state
+			if (this.plugin.settings.trainingDays.includes(day)) {
+				dayCircle.addClass('selected');
+			}
+
+			// Click handler
+			dayCircle.addEventListener('click', async () => {
+				const isSelected = dayCircle.hasClass('selected');
+
+				if (isSelected) {
+					// Deselect
+					dayCircle.removeClass('selected');
+					this.plugin.settings.trainingDays = this.plugin.settings.trainingDays.filter(d => d !== day);
+				} else {
+					// Select
+					dayCircle.addClass('selected');
+					this.plugin.settings.trainingDays.push(day);
+				}
+
+				await this.plugin.saveSettings();
+			});
+		});
 
 		new Setting(containerEl)
 			.setName('Папка тренировок')
