@@ -7,10 +7,18 @@ export interface ExerciseInfo {
 	hasWeight: boolean;
 }
 
+export interface CustomTemplate {
+	name: string;
+	fileName: string;
+	content: string;
+	type: 'workout' | 'experiment';
+}
+
 export interface WorkoutTrackerSettings {
 	workoutFolder: string;
 	previousWorkoutFolder?: string;
 	exerciseRegistry: ExerciseInfo[];
+	customTemplates: CustomTemplate[];
 	chartRepsMin: number;
 	chartRepsMax: number;
 }

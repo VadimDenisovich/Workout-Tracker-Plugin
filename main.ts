@@ -275,14 +275,30 @@ export default class WorkoutTrackerPlugin extends Plugin {
 			const dayOfWeek = today.day();
 			const isTrainingDay = dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5; // Пн, Ср, Пт
 
-			const modal = new WorkoutLocationModal(this.app, !isTrainingDay);
+			const modal = new WorkoutLocationModal(this.app, this, !isTrainingDay);
 			const result = await modal.show();
 
-			const { file, existed } = await this.fileManager.createWorkoutLog(
-				this.settings.workoutFolder,
-				result.location,
-				result.templateType
-			);
+			let file: TFile;
+			let existed: boolean;
+
+			// Если выбран пользовательский шаблон
+			if (result.customTemplate) {
+				const logResult = await this.fileManager.createWorkoutLogFromCustomTemplate(
+					this.settings.workoutFolder,
+					result.location,
+					result.customTemplate
+				);
+				file = logResult.file;
+				existed = logResult.existed;
+			} else {
+				const logResult = await this.fileManager.createWorkoutLog(
+					this.settings.workoutFolder,
+					result.location,
+					result.templateType
+				);
+				file = logResult.file;
+				existed = logResult.existed;
+			}
 
 			// Обновляем кэш после создания лога
 			const logsFolder = `${this.settings.workoutFolder}/Logs`;
@@ -316,8 +332,45 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		const { registry, changed } = this.mergeExerciseRegistry(this.settings.exerciseRegistry);
 		this.settings.exerciseRegistry = registry;
 
+		// Синхронизируем пользовательские шаблоны с файлами
+		await this.syncCustomTemplates();
+
 		if (changed) {
 			await this.persistSettings();
+		}
+	}
+
+	async syncCustomTemplates() {
+		if (!this.settings.customTemplates || this.settings.customTemplates.length === 0) {
+			return;
+		}
+
+		const templatesPath = `${this.settings.workoutFolder}/Templates`;
+		const templatesFolder = this.app.vault.getAbstractFileByPath(templatesPath);
+		
+		if (!templatesFolder) {
+			return;
+		}
+
+		const validTemplates = [];
+		let removedCount = 0;
+
+		for (const template of this.settings.customTemplates) {
+			const filePath = `${templatesPath}/${template.fileName}`;
+			const file = this.app.vault.getAbstractFileByPath(filePath);
+			
+			if (file) {
+				validTemplates.push(template);
+			} else {
+				removedCount++;
+				console.log(`[Main] Template file not found, removing: ${template.name}`);
+			}
+		}
+
+		if (removedCount > 0) {
+			this.settings.customTemplates = validTemplates;
+			await this.persistSettings();
+			console.log(`[Main] Removed ${removedCount} missing custom templates`);
 		}
 	}
 

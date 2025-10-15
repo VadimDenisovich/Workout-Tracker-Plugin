@@ -1,4 +1,4 @@
-import { WorkoutTrackerSettings, TemplateKey, TemplateOverrides, ExerciseInfo } from './types';
+import { WorkoutTrackerSettings, TemplateKey, TemplateOverrides, ExerciseInfo, CustomTemplate } from './types';
 
 export const DEFAULT_EXERCISES: ExerciseInfo[] = [
 	{ name: 'Жим гантелей лежа', hasWeight: true },
@@ -30,6 +30,7 @@ export const DEFAULT_SETTINGS: WorkoutTrackerSettings = {
 	workoutFolder: 'Workout',
 	previousWorkoutFolder: undefined,
 	exerciseRegistry: [...DEFAULT_EXERCISES],
+	customTemplates: [],
 	chartRepsMin: 0,
 	chartRepsMax: 15
 };
