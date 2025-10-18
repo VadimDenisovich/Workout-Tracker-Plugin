@@ -1,4 +1,4 @@
-export type TemplateKey = 'MONDAY' | 'WEDNESDAY' | 'FRIDAY' | 'HOME';
+export type TemplateKey = 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY' | 'HOME';
 
 export type TemplateOverrides = Partial<Record<TemplateKey, string>>;
 
@@ -7,12 +7,21 @@ export interface ExerciseInfo {
 	hasWeight: boolean;
 }
 
+export interface CustomTemplate {
+	name: string;
+	fileName: string;
+	content: string;
+	type: 'workout' | 'experiment';
+}
+
 export interface WorkoutTrackerSettings {
 	workoutFolder: string;
 	previousWorkoutFolder?: string;
 	exerciseRegistry: ExerciseInfo[];
+	customTemplates: CustomTemplate[];
 	chartRepsMin: number;
 	chartRepsMax: number;
+	trainingDays: WorkoutDay[]; // Дни недели, когда пользователь тренируется
 }
 
 export interface Exercise {
@@ -22,8 +31,12 @@ export interface Exercise {
 
 export enum WorkoutDay {
 	MONDAY = 'Monday',
-	WEDNESDAY = 'Wednesday', 
-	FRIDAY = 'Friday'
+	TUESDAY = 'Tuesday',
+	WEDNESDAY = 'Wednesday',
+	THURSDAY = 'Thursday',
+	FRIDAY = 'Friday',
+	SATURDAY = 'Saturday',
+	SUNDAY = 'Sunday'
 }
 
 export enum WorkoutLocation {

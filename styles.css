@@ -1,5 +1,45 @@
 /* Workout Tracker Plugin Styles */
 
+/* Training Days Selector */
+.training-days-selector {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.day-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--interactive-accent);
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-normal);
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.day-circle:hover {
+    background-color: var(--interactive-accent-hover);
+    transform: scale(1.05);
+}
+
+.day-circle.selected {
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+.day-circle.selected:hover {
+    background-color: var(--interactive-accent-hover);
+}
+
 /* Exercise Modal Styles */
 .exercise-modal-content {
     padding-top: 20px;
@@ -249,4 +289,103 @@
     outline: none;
     border-color: var(--interactive-accent);
     box-shadow: 0 0 5px var(--interactive-accent-hover);
+}
+
+/* Template Action Buttons */
+.template-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.template-action-button {
+    min-width: 120px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.template-action-button:not(.mod-cta) {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    color: var(--text-normal);
+}
+
+.template-action-button:not(.mod-cta):hover {
+    background-color: var(--background-modifier-hover);
+    border-color: var(--interactive-accent);
+}
+
+/* Centered Button Container */
+.centered-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.centered-create-button {
+    min-width: 120px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Experiment Templates Modal */
+.experiment-templates-modal {
+    min-width: 500px;
+}
+
+.experiment-templates-modal .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+}
+
+.experiment-templates-modal .empty-state-text {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.experiment-templates-modal .empty-state-subtext {
+    font-size: 14px;
+    color: var(--text-faint);
+}
+
+.experiment-templates-modal .template-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.experiment-templates-modal .template-item {
+    padding: 12px;
+    margin-bottom: 8px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    background-color: var(--background-secondary);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.experiment-templates-modal .template-item:hover {
+    background-color: var(--background-modifier-hover);
+}
+
+/* Template Delete Button in Settings */
+.template-delete-button-small {
+    background-color: transparent !important;
+    color: var(--text-error) !important;
+    font-size: 16px !important;
+    padding: 4px 8px !important;
+    min-width: auto !important;
+}
+
+.template-delete-button-small:hover {
+    background-color: var(--background-modifier-error) !important;
+    color: var(--text-on-accent) !important;
 }

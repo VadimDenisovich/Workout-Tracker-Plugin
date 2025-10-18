@@ -1,5 +1,5 @@
 import { App, TFolder, TFile, moment, Notice, TAbstractFile } from 'obsidian';
-import { WorkoutLocation, WorkoutDay, TemplateKey, ExerciseInfo, WorkoutTrackerSettings } from '../types';
+import { WorkoutLocation, WorkoutDay, TemplateKey, ExerciseInfo, WorkoutTrackerSettings, CustomTemplate } from '../types';
 import { TEMPLATE_FILES, DEFAULT_EXERCISES, EXERCISE_TEMPLATE } from '../templates';
 import * as fs from 'fs/promises';
 import * as path from 'path';
@@ -489,10 +489,18 @@ if (!cache) {
 		switch (day) {
 			case WorkoutDay.MONDAY:
 				return 'MONDAY';
+			case WorkoutDay.TUESDAY:
+				return 'TUESDAY';
 			case WorkoutDay.WEDNESDAY:
 				return 'WEDNESDAY';
+			case WorkoutDay.THURSDAY:
+				return 'THURSDAY';
 			case WorkoutDay.FRIDAY:
 				return 'FRIDAY';
+			case WorkoutDay.SATURDAY:
+				return 'SATURDAY';
+			case WorkoutDay.SUNDAY:
+				return 'SUNDAY';
 			default:
 				return 'MONDAY';
 		}
@@ -933,11 +941,18 @@ if (!cache) {
 			if (templateType) {
 				day = templateType;
 			} else {
+				// Fallback: определяем день недели по текущей дате
 				const dayOfWeek = moment().day();
-				if (dayOfWeek === 1) day = WorkoutDay.MONDAY;
-				else if (dayOfWeek === 3) day = WorkoutDay.WEDNESDAY;
-				else if (dayOfWeek === 5) day = WorkoutDay.FRIDAY;
-				else day = WorkoutDay.MONDAY;
+				const dayMapping: { [key: number]: WorkoutDay } = {
+					0: WorkoutDay.SUNDAY,
+					1: WorkoutDay.MONDAY,
+					2: WorkoutDay.TUESDAY,
+					3: WorkoutDay.WEDNESDAY,
+					4: WorkoutDay.THURSDAY,
+					5: WorkoutDay.FRIDAY,
+					6: WorkoutDay.SATURDAY
+				};
+				day = dayMapping[dayOfWeek] || WorkoutDay.MONDAY;
 			}
 
 			templateKey = this.getTemplateKeyFromDay(day);
@@ -959,6 +974,64 @@ if (!cache) {
 			content = content.replace(match[0], stats);
 		}
 
+
+		const filePath = `${workoutFolder}/Logs/${fileName}`;
+		const file = await this.app.vault.create(filePath, content);
+		return { file, existed: false };
+	}
+
+	async createWorkoutLogFromCustomTemplate(
+		workoutFolder: string,
+		location: WorkoutLocation,
+		customTemplate: CustomTemplate
+	): Promise<{ file: TFile; existed: boolean }> {
+		const today = moment().format('YYYY-MM-DD');
+		const todayDisplay = moment().format('DD.MM.YYYY');
+		
+		// Проверяем существующий лог
+		// Для экспериментальных шаблонов проверяем только логи из спортзала
+		let existingLog: TFile | null = null;
+		
+		if (customTemplate.type === 'experiment') {
+			// Для эксперимента проверяем только логи из спортзала (не содержащие "Home" в имени)
+			const logsFolder = `${workoutFolder}/Logs`;
+			const files = this.app.vault.getFiles();
+			
+			for (const file of files) {
+				if (file.path.startsWith(logsFolder) && 
+					file.name.includes(today) && 
+					!file.name.includes('Home')) {
+					existingLog = file;
+					break;
+				}
+			}
+		} else {
+			// Для обычных шаблонов проверяем все логи
+			existingLog = await this.getExistingWorkoutLog(workoutFolder, today);
+		}
+		
+		if (existingLog) {
+			new Notice('Переношу вас в созданный файл тренировки');
+			return { file: existingLog, existed: true };
+		}
+
+		// Формируем имя файла на основе названия шаблона
+		const fileName = `${today}-${customTemplate.name}.md`;
+		
+		// Используем контент из шаблона
+		let content = customTemplate.content
+			.replace(/{{date}}/g, todayDisplay)
+			.replace(/{{location}}/g, location === WorkoutLocation.HOME ? 'Дома' : 'Спортзал');
+
+		// Заменяем плейсхолдеры упражнений, если есть
+		const exercisePlaceholderRegex = /{{exercise:([^}]+)}}/g;
+		const matches = [...content.matchAll(exercisePlaceholderRegex)];
+		
+		for (const match of matches) {
+			const exerciseName = match[1];
+			const stats = await this.getExerciseStats(exerciseName, workoutFolder);
+			content = content.replace(match[0], stats);
+		}
 
 		const filePath = `${workoutFolder}/Logs/${fileName}`;
 		const file = await this.app.vault.create(filePath, content);

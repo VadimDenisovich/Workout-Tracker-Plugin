@@ -22,6 +22,6 @@ data.json
 .DS_Store
 
 # Local plugin cache and metadata
-# exercise-cache.json
-# exercise-metadata.json
-# templates.ts
+exercise-cache.json
+exercise-metadata.json
+data.json
