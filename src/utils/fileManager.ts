@@ -1,8 +1,6 @@
 import { App, TFolder, TFile, moment, Notice, TAbstractFile } from 'obsidian';
 import { WorkoutLocation, WorkoutDay, TemplateKey, ExerciseInfo, WorkoutTrackerSettings, CustomTemplate } from '../types';
 import { TEMPLATE_FILES, DEFAULT_EXERCISES, EXERCISE_TEMPLATE } from '../templates';
-import * as fs from 'fs/promises';
-import * as path from 'path';
 
 export class FileManager {
 	constructor(
@@ -21,30 +19,23 @@ export class FileManager {
 		}
 		
 		try {
-			// Пытаемся перечитать файл templates.ts напрямую (работает только на десктопе)
-			const templatesPath = path.join(this.pluginDir, 'src', 'templates.ts');
-			const content = await fs.readFile(templatesPath, 'utf-8');
-			
+			// Используем Obsidian API для чтения файла (работает на всех платформах)
+			const templatesPath = `${this.pluginDir}/src/templates.ts`;
+			const content = await this.app.vault.adapter.read(templatesPath);
 			
 			// Ищем нужный шаблон в файле - используем ту же регулярку что и в TemplateUpdater
 			const regex = new RegExp(`(\\s+${key}:\\s*)\`([\\s\\S]*?)\`(,?)`, 'm');
 			const match = content.match(regex);
 			
-			
 			if (match && match[2]) {
 				return match[2];
 			}
 			
-			// Попробуем найти строку с ключом для отладки
-			const lines = content.split('\n');
-			const keyLine = lines.find(l => l.includes(key + ':'));
-			
-			// Fallback на импорт (хотя он будет закеширован)
-			const { WORKOUT_TEMPLATES } = await import('../templates');
-			return WORKOUT_TEMPLATES[key];
+			// Если не нашли в файле, падаем в fallback
+			throw new Error(`Template ${key} not found in templates.ts`);
 		} catch (error) {
-			// Fallback на импорт для мобильных устройств
-			console.log('[FileManager] Не удалось загрузить шаблон из ФС, используем импорт (мобильное устройство?)');
+			// Fallback на импорт (используется при ошибках чтения файла)
+			console.log('[FileManager] Не удалось загрузить шаблон из файла, используем импорт:', error);
 			const { WORKOUT_TEMPLATES } = await import('../templates');
 			return WORKOUT_TEMPLATES[key];
 		}
@@ -56,13 +47,13 @@ export class FileManager {
 		const chartMax = settings.chartRepsMax ?? 15;
 		
 		try {
-			// Пытаемся загрузить шаблон из файловой системы (работает только на десктопе)
+			// Используем Obsidian API для чтения файла (работает на всех платформах)
 			const templateFileName = hasWeight 
 				? 'exercise-stats-with-weight-cached.dataviewjs'
 				: 'exercise-stats-no-weight-cached.dataviewjs';
 			
-			const dataviewjsPath = path.join(this.pluginDir, 'src', 'templates', templateFileName);
-			let dataviewjsCode = await fs.readFile(dataviewjsPath, 'utf-8');
+			const dataviewjsPath = `${this.pluginDir}/src/templates/${templateFileName}`;
+			let dataviewjsCode = await this.app.vault.adapter.read(dataviewjsPath);
 			
 			// Заменяем плейсхолдеры для диапазона графика
 			dataviewjsCode = dataviewjsCode.replace(/{{chartRepsMin}}/g, String(chartMin));
@@ -82,8 +73,8 @@ ${dataviewjsCode}
 			
 			return template;
 		} catch (error) {
-			// Fallback для мобильных устройств - используем встроенные шаблоны
-			console.log('[FileManager] Не удалось загрузить шаблон из ФС, используем встроенный (мобильное устройство?)');
+			// Fallback для случаев, когда файл не найден
+			console.log('[FileManager] Не удалось загрузить шаблон из файла, используем встроенный:', error);
 			return this.getEmbeddedExerciseTemplate(hasWeight, chartMin, chartMax);
 		}
 	}

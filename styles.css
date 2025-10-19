@@ -21,23 +21,28 @@
     font-size: 12px;
     font-weight: 600;
     color: var(--text-normal);
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
-.day-circle:hover {
-    background-color: var(--interactive-accent-hover);
-    transform: scale(1.05);
+/* Hover effect only on desktop */
+@media (hover: hover) and (pointer: fine) {
+    .day-circle:hover {
+        background-color: var(--interactive-accent-hover);
+        transform: scale(1.05);
+    }
+    
+    .day-circle.selected:hover {
+        background-color: var(--interactive-accent-hover);
+    }
 }
 
 .day-circle.selected {
     background-color: var(--interactive-accent);
     color: var(--text-on-accent);
     border-color: var(--interactive-accent);
-}
-
-.day-circle.selected:hover {
-    background-color: var(--interactive-accent-hover);
 }
 
 /* Exercise Modal Styles */
