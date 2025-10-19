@@ -1,7 +1,7 @@
 import { App, TFile, FileSystemAdapter } from 'obsidian';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import { TemplateKey } from '../types';
+import { TemplateKey, WorkoutTrackerSettings } from '../types';
 import { TEMPLATE_FILES, TEMPLATE_KEYS } from '../templates';
 
 export class TemplateUpdater {
@@ -10,7 +10,8 @@ export class TemplateUpdater {
 	constructor(
 		private app: App,
 		private pluginId: string,
-		private onOverridesChange: (() => Promise<void> | void) | null = null
+		private getSettings: () => WorkoutTrackerSettings,
+		private saveSettings: () => Promise<void>
 	) {
 		const adapter = this.app.vault.adapter;
 		if (adapter instanceof FileSystemAdapter) {
@@ -26,13 +27,23 @@ export class TemplateUpdater {
 		const templateKey = this.getTemplateKey(templateName);
 		if (!templateKey) {
 			console.log(`[TemplateUpdater] ❌ Не найден ключ для шаблона "${templateName}"`);
+			// Это может быть кастомный шаблон, не стандартный день недели
 			return;
 		}
 		
 		console.log(`[TemplateUpdater] Ключ шаблона: ${templateKey}`);
 		console.log(`[TemplateUpdater] Путь к templates.ts: ${this.templateSourcePath}`);
 
-		// Сразу обновляем исходный код templates.ts
+		// Сохраняем переопределение в настройки (для синхронизации между устройствами)
+		const settings = this.getSettings();
+		if (!settings.templateOverrides) {
+			settings.templateOverrides = {};
+		}
+		settings.templateOverrides[templateKey] = newContent;
+		await this.saveSettings();
+		console.log(`[TemplateUpdater] ✅ Переопределение шаблона сохранено в настройки`);
+
+		// Обновляем исходный код templates.ts (работает только на десктопе)
 		await this.updateTemplateSource(templateKey, newContent);
 		console.log(`[TemplateUpdater] ✅ Шаблон обновлён в исходном коде`);
 	}

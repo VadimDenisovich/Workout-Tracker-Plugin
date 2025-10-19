@@ -12,6 +12,13 @@ export class FileManager {
 	) {}
 
 	private async getTemplate(key: TemplateKey): Promise<string> {
+		const settings = this.getSettings();
+		
+		// Сначала проверяем переопределения из настроек (для синхронизации между устройствами)
+		if (settings.templateOverrides && settings.templateOverrides[key]) {
+			console.log(`[FileManager] Используем переопределение из настроек для ${key}`);
+			return settings.templateOverrides[key]!; // Уверены, что не undefined
+		}
 		
 		try {
 			// Пытаемся перечитать файл templates.ts напрямую (работает только на десктопе)

@@ -1,0 +1,114 @@
+{
+  "workoutFolder": "Main/Training",
+  "previousWorkoutFolder": "Main/Training",
+  "exerciseRegistry": [
+    {
+      "name": "Жим гантелей лежа",
+      "hasWeight": true
+    },
+    {
+      "name": "Румынская тяга с гантелями",
+      "hasWeight": true
+    },
+    {
+      "name": "Двойная верхняя тяга блока в груди",
+      "hasWeight": true
+    },
+    {
+      "name": "Подъемы с гантелями",
+      "hasWeight": true
+    },
+    {
+      "name": "Французский жим с нижнего блока",
+      "hasWeight": true
+    },
+    {
+      "name": "Подъем гантелей на дельты",
+      "hasWeight": true
+    },
+    {
+      "name": "Жим ногами на носки",
+      "hasWeight": true
+    },
+    {
+      "name": "Жим ног",
+      "hasWeight": true
+    },
+    {
+      "name": "Жим от груди в Смите",
+      "hasWeight": true
+    },
+    {
+      "name": "Подъём гантелей на дельты лежа",
+      "hasWeight": true
+    },
+    {
+      "name": "Разгибание ног в тренажере",
+      "hasWeight": true
+    },
+    {
+      "name": "Подъем EZ-штанги на бицепс стоя",
+      "hasWeight": true
+    },
+    {
+      "name": "Скручивание на пресс на скамье",
+      "hasWeight": false
+    },
+    {
+      "name": "Жим штанги лёжа узким хватом",
+      "hasWeight": true
+    },
+    {
+      "name": "Становая тяга классика (средний вес)",
+      "hasWeight": true
+    },
+    {
+      "name": "Тяга горизонтального блока к поясу",
+      "hasWeight": true
+    },
+    {
+      "name": "Жим гантелей на наклонной скамье (45°)",
+      "hasWeight": true
+    },
+    {
+      "name": "Разгибания рук с гантелью из-за головы (французский жим сидя)",
+      "hasWeight": true
+    },
+    {
+      "name": "Подъёмы ног в висе",
+      "hasWeight": false
+    },
+    {
+      "name": "Гиперэкстензия (икры)",
+      "hasWeight": true
+    },
+    {
+      "name": "Отжимания",
+      "hasWeight": false
+    },
+    {
+      "name": "Приседания",
+      "hasWeight": false
+    },
+    {
+      "name": "Пресс",
+      "hasWeight": false
+    }
+  ],
+  "customTemplates": [
+    {
+      "name": "Проба",
+      "fileName": "Проба.md",
+      "content": "# Эксперимент - Проба\n\n**Дата:** {{date}}\n**Место:** {{location}}\n\n## Описание\n\nДобавьте описание вашего эксперимента здесь.\n\n## Упражнения\n\n### Упражнение 1\nПодход 1: _ кг x _ раз\nПодход 2: _ кг x _ раз\n\n## Заметки\n\n",
+      "type": "experiment"
+    }
+  ],
+  "chartRepsMin": 0,
+  "chartRepsMax": 15,
+  "trainingDays": [
+    "Monday",
+    "Wednesday",
+    "Friday",
+    "Sunday"
+  ]
+}

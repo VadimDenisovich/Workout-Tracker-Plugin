@@ -19,6 +19,7 @@ export interface WorkoutTrackerSettings {
 	previousWorkoutFolder?: string;
 	exerciseRegistry: ExerciseInfo[];
 	customTemplates: CustomTemplate[];
+	templateOverrides: TemplateOverrides; // Переопределения стандартных шаблонов
 	chartRepsMin: number;
 	chartRepsMax: number;
 	trainingDays: WorkoutDay[]; // Дни недели, когда пользователь тренируется

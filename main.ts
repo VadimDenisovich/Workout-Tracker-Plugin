@@ -28,9 +28,12 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		const pluginDir = (adapter as any).basePath + '/.obsidian/plugins/' + this.manifest.id;
 		
 		this.fileManager = new FileManager(this.app, pluginDir, () => this.settings);
-		this.templateUpdater = new TemplateUpdater(this.app, this.manifest.id, async () => {
-			// Callback больше не нужен, так как изменения сразу пишутся в templates.ts
-		});
+		this.templateUpdater = new TemplateUpdater(
+			this.app, 
+			this.manifest.id, 
+			() => this.settings,
+			async () => await this.persistSettings()
+		);
 
 		// Инициализируем менеджер метаданных упражнений
 		try {
@@ -135,7 +138,21 @@ export default class WorkoutTrackerPlugin extends Plugin {
 					const templateName = file.basename;
 					const content = await this.app.vault.read(file);
 					
+					// Обновляем стандартный шаблон (если это день недели или Home)
 					await this.templateUpdater.updateTemplateInCode(templateName, content);
+					
+					// Проверяем, является ли это кастомным шаблоном
+					const customTemplate = this.settings.customTemplates.find(
+						t => t.fileName === file.name
+					);
+					
+					if (customTemplate) {
+						// Обновляем содержимое кастомного шаблона в настройках
+						customTemplate.content = content;
+						await this.persistSettings();
+						console.log(`[Main] ✅ Кастомный шаблон "${customTemplate.name}" обновлён в настройках`);
+					}
+					
 					new Notice(`Шаблон "${templateName}" обновлен`);
 					return;
 				}
@@ -350,6 +367,11 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		// Migrate old settings: if trainingDays is missing, use default
 		if (!this.settings.trainingDays || this.settings.trainingDays.length === 0) {
 			this.settings.trainingDays = [WorkoutDay.MONDAY, WorkoutDay.WEDNESDAY, WorkoutDay.FRIDAY];
+		}
+
+		// Migrate old settings: if templateOverrides is missing, initialize empty
+		if (!this.settings.templateOverrides) {
+			this.settings.templateOverrides = {};
 		}
 
 		// Синхронизируем пользовательские шаблоны с файлами
