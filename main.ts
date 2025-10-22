@@ -336,7 +336,8 @@ export default class WorkoutTrackerPlugin extends Plugin {
 			const logsFolder = `${this.settings.workoutFolder}/Logs`;
 			const newCachedCount = await this.exerciseCache.rebuildCache(logsFolder);
 
-			await this.app.workspace.getLeaf().openFile(file);
+			// Открываем файл в новой вкладке
+			await this.app.workspace.getLeaf('tab').openFile(file);
 			if (!existed) {
 				new Notice('Лог тренировки создан');
 			}
@@ -430,7 +431,7 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		await this.persistSettings();
 	}
 
-	private async persistSettings(): Promise<void> {
+	async persistSettings(): Promise<void> {
 		await this.saveData(this.settings);
 	}
 
@@ -623,26 +624,37 @@ class WorkoutTrackerSettingTab extends PluginSettingTab {
 			dayCircle.textContent = DAY_ABBR[day];
 			dayCircle.setAttribute('title', DAY_NAMES_RU[day]);
 
+			// Function to update visual state
+			const updateVisualState = (selected: boolean) => {
+				if (selected) {
+					dayCircle.addClass('selected');
+				} else {
+					dayCircle.removeClass('selected');
+				}
+				// Force repaint on iOS
+				void dayCircle.offsetHeight;
+			};
+
 			// Set initial state
-			if (this.plugin.settings.trainingDays.includes(day)) {
-				dayCircle.addClass('selected');
-			}
+			updateVisualState(this.plugin.settings.trainingDays.includes(day));
 
 			// Click handler
 			dayCircle.addEventListener('click', async () => {
-				const isSelected = dayCircle.hasClass('selected');
+				// Check state from settings array, not from CSS class
+				const isSelected = this.plugin.settings.trainingDays.includes(day);
 
 				if (isSelected) {
 					// Deselect
-					dayCircle.removeClass('selected');
 					this.plugin.settings.trainingDays = this.plugin.settings.trainingDays.filter(d => d !== day);
+					updateVisualState(false);
 				} else {
 					// Select
-					dayCircle.addClass('selected');
 					this.plugin.settings.trainingDays.push(day);
+					updateVisualState(true);
 				}
 
-				await this.plugin.saveSettings();
+				// Сохраняем настройки БЕЗ обновления файловой системы
+				await this.plugin.persistSettings();
 			});
 		});
 

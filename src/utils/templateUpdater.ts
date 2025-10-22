@@ -1,11 +1,9 @@
-import { App, TFile, FileSystemAdapter } from 'obsidian';
-import { promises as fs } from 'fs';
-import { join } from 'path';
+import { App, TFile } from 'obsidian';
 import { TemplateKey, WorkoutTrackerSettings } from '../types';
 import { TEMPLATE_FILES, TEMPLATE_KEYS } from '../templates';
 
 export class TemplateUpdater {
- 	private templateSourcePath: string | null = null;
+ 	private pluginDir: string | null = null;
 
 	constructor(
 		private app: App,
@@ -13,11 +11,10 @@ export class TemplateUpdater {
 		private getSettings: () => WorkoutTrackerSettings,
 		private saveSettings: () => Promise<void>
 	) {
+		// Получаем путь к директории плагина
 		const adapter = this.app.vault.adapter;
-		if (adapter instanceof FileSystemAdapter) {
-			const basePath = adapter.getBasePath();
-			this.templateSourcePath = join(basePath, '.obsidian', 'plugins', this.pluginId, 'src', 'templates.ts');
-		}
+		const basePath = (adapter as any).basePath || '';
+		this.pluginDir = `${basePath}/.obsidian/plugins/${this.pluginId}`;
 	}
 
 	async updateTemplateInCode(templateName: string, newContent: string): Promise<void> {
@@ -32,7 +29,7 @@ export class TemplateUpdater {
 		}
 		
 		console.log(`[TemplateUpdater] Ключ шаблона: ${templateKey}`);
-		console.log(`[TemplateUpdater] Путь к templates.ts: ${this.templateSourcePath}`);
+		console.log(`[TemplateUpdater] Путь к плагину: ${this.pluginDir}`);
 
 		// Сохраняем переопределение в настройки (для синхронизации между устройствами)
 		const settings = this.getSettings();
@@ -84,14 +81,15 @@ export class TemplateUpdater {
 	private async updateTemplateSource(key: TemplateKey, content: string): Promise<void> {
 		console.log(`[updateTemplateSource] Начало обновления для ключа: ${key}`);
 		
-		if (!this.templateSourcePath) {
-			console.log(`[updateTemplateSource] ❌ templateSourcePath не установлен!`);
+		if (!this.pluginDir) {
+			console.log(`[updateTemplateSource] ❌ pluginDir не установлен!`);
 			return;
 		}
 
 		try {
-			console.log(`[updateTemplateSource] Чтение файла: ${this.templateSourcePath}`);
-			const fileContent = await fs.readFile(this.templateSourcePath, 'utf8');
+			const templateSourcePath = `${this.pluginDir}/src/templates.ts`;
+			console.log(`[updateTemplateSource] Чтение файла: ${templateSourcePath}`);
+			const fileContent = await this.app.vault.adapter.read(templateSourcePath);
 			console.log(`[updateTemplateSource] Файл прочитан, размер: ${fileContent.length} символов`);
 			
 			const sanitized = this.escapeTemplateLiteral(content);
@@ -108,7 +106,7 @@ export class TemplateUpdater {
 				console.log(`[updateTemplateSource] ❌ Regex не нашёл паттерн в файле!`);
 				// Попробуем найти что есть в файле
 				const lines = fileContent.split('\n');
-				const keyLine = lines.find(l => l.includes(key + ':'));
+				const keyLine = lines.find((l: string) => l.includes(key + ':'));
 				console.log(`[updateTemplateSource] Строка с ключом в файле: ${keyLine}`);
 				
 				// Попробуем найти начало объекта WORKOUT_TEMPLATES
@@ -120,7 +118,7 @@ export class TemplateUpdater {
 				return;
 			}
 
-			const updated = fileContent.replace(regex, (match, prefix, oldContent, comma) => {
+			const updated = fileContent.replace(regex, (match: string, prefix: string, oldContent: string, comma: string) => {
 				console.log(`[updateTemplateSource] ✅ Найдено совпадение!`);
 				console.log(`[updateTemplateSource] Префикс: "${prefix}"`);
 				console.log(`[updateTemplateSource] Старый контент (первые 50 символов): ${oldContent.substring(0, 50)}...`);
@@ -135,7 +133,7 @@ export class TemplateUpdater {
 			console.log(`[updateTemplateSource] Контент заменён, изменился: ${updated !== fileContent}`);
 			
 			if (updated !== fileContent) {
-				await fs.writeFile(this.templateSourcePath, updated, 'utf8');
+				await this.app.vault.adapter.write(templateSourcePath, updated);
 				console.log(`[updateTemplateSource] ✅ Файл успешно записан на диск`);
 			} else {
 				console.log(`[updateTemplateSource] ⚠️ Контент не изменился, запись пропущена`);
