@@ -31,17 +31,23 @@ export class ExerciseMetadataManager {
 	async load(): Promise<void> {
 		try {
 			const adapter = this.app.vault.adapter;
-			const relativePath = this.metadataFilePath.replace(/^.*\.obsidian/, '.obsidian');
+			// metadataFilePath уже относительный путь (начинается с .obsidian)
+			const filePath = this.metadataFilePath;
 			
-			if (await adapter.exists(relativePath)) {
-				const data = await adapter.read(relativePath);
+			console.log('[ExerciseMetadata] 📂 Попытка загрузить:', filePath);
+			
+			if (await adapter.exists(filePath)) {
+				console.log('[ExerciseMetadata] ✅ Файл существует');
+				const data = await adapter.read(filePath);
+				console.log('[ExerciseMetadata] 📄 Размер данных:', data.length, 'байт');
 				this.metadata = JSON.parse(data);
-				console.log('[ExerciseMetadata] Метаданные загружены, упражнений:', Object.keys(this.metadata.exercises).length);
+				console.log('[ExerciseMetadata] ✅ Метаданные загружены, упражнений:', Object.keys(this.metadata.exercises).length);
+				console.log('[ExerciseMetadata] 📋 Список упражнений:', Object.keys(this.metadata.exercises).slice(0, 10).join(', '), '...');
 			} else {
-				console.log('[ExerciseMetadata] Файл метаданных не найден, создаём новый');
+				console.log('[ExerciseMetadata] ⚠️ Файл метаданных не найден, создаём новый');
 			}
 		} catch (error) {
-			console.error('[ExerciseMetadata] Ошибка загрузки метаданных:', error);
+			console.error('[ExerciseMetadata] ❌ Ошибка загрузки метаданных:', error);
 			this.metadata = this.getDefaultMetadata();
 		}
 	}
@@ -49,9 +55,10 @@ export class ExerciseMetadataManager {
 	async save(): Promise<void> {
 		try {
 			const adapter = this.app.vault.adapter;
-			const relativePath = this.metadataFilePath.replace(/^.*\.obsidian/, '.obsidian');
+			// metadataFilePath уже относительный путь
+			const filePath = this.metadataFilePath;
 			
-			await adapter.write(relativePath, JSON.stringify(this.metadata, null, 2));
+			await adapter.write(filePath, JSON.stringify(this.metadata, null, 2));
 			console.log('[ExerciseMetadata] Метаданные сохранены');
 		} catch (error) {
 			console.error('[ExerciseMetadata] Ошибка сохранения метаданных:', error);
@@ -73,8 +80,77 @@ export class ExerciseMetadataManager {
 	}
 
 	hasWeight(exerciseName: string): boolean | null {
-		const exercise = this.metadata.exercises[exerciseName];
-		return exercise ? exercise.hasWeight : null;
+		console.log('[ExerciseMetadata] 🔍 Поиск метаданных для:', exerciseName);
+		console.log('[ExerciseMetadata] 📊 HEX:', Array.from(exerciseName).map(c => c.charCodeAt(0).toString(16)).join(' '));
+		
+		// Нормализуем Unicode (приводим к NFD, затем обратно к NFC)
+		const normalizedInput = exerciseName.normalize('NFC');
+		
+		// Сначала пробуем точное совпадение
+		let exercise = this.metadata.exercises[normalizedInput];
+		
+		if (exercise) {
+			console.log('[ExerciseMetadata] ✅ Найдено точное совпадение, hasWeight:', exercise.hasWeight);
+			return exercise.hasWeight;
+		}
+		
+		// Пробуем все ключи с нормализацией
+		const normalizedKeys = Object.keys(this.metadata.exercises).map(key => ({
+			original: key,
+			normalized: key.normalize('NFC')
+		}));
+		
+		// Поиск точного совпадения после нормализации
+		for (const {original, normalized} of normalizedKeys) {
+			if (normalized === normalizedInput) {
+				console.log('[ExerciseMetadata] ✅ Найдено после Unicode нормализации:', original);
+				return this.metadata.exercises[original].hasWeight;
+			}
+		}
+		
+		// Если не найдено, пробуем замену ё→е (используем charCode)
+		const withE = normalizedInput.replace(/\u0451/g, 'е').replace(/\u0401/g, 'Е');
+		console.log('[ExerciseMetadata] 🔄 Пробуем нормализацию (ё→е):', withE);
+		
+		exercise = this.metadata.exercises[withE];
+		if (exercise) {
+			console.log('[ExerciseMetadata] ✅ Найдено через нормализацию (ё→е), hasWeight:', exercise.hasWeight);
+			return exercise.hasWeight;
+		}
+		
+		// Пробуем поиск с заменой ё→е в ключах
+		for (const key of Object.keys(this.metadata.exercises)) {
+			const keyWithE = key.normalize('NFC').replace(/\u0451/g, 'е').replace(/\u0401/g, 'Е');
+			if (keyWithE === withE) {
+				console.log('[ExerciseMetadata] ✅ Найдено в ключах после замены ё→е:', key);
+				return this.metadata.exercises[key].hasWeight;
+			}
+		}
+		
+		// Если всё ещё не найдено, пробуем обратную нормализацию (е→ё)
+		const withYo = normalizedInput.replace(/подъем/gi, 'подъём').replace(/Подъем/g, 'Подъём');
+		console.log('[ExerciseMetadata] 🔄 Пробуем обратную нормализацию (е→ё):', withYo);
+		
+		exercise = this.metadata.exercises[withYo];
+		if (exercise) {
+			console.log('[ExerciseMetadata] ✅ Найдено через обратную нормализацию (е→ё), hasWeight:', exercise.hasWeight);
+			return exercise.hasWeight;
+		}
+		
+		// Ничего не найдено - выводим отладочную информацию
+		console.log('[ExerciseMetadata] ⚠️ Упражнение НЕ НАЙДЕНО после всех попыток');
+		console.log('[ExerciseMetadata] 📋 Доступные ключи (первые 10):', Object.keys(this.metadata.exercises).slice(0, 10));
+		console.log('[ExerciseMetadata] 📊 Всего упражнений:', Object.keys(this.metadata.exercises).length);
+		
+		// Проверим, есть ли похожие упражнения
+		const similar = Object.keys(this.metadata.exercises).filter(key => 
+			key.toLowerCase().includes('дельты') || key.toLowerCase().includes('гантел')
+		);
+		if (similar.length > 0) {
+			console.log('[ExerciseMetadata] 🔎 Похожие упражнения:', similar);
+		}
+		
+		return null;
 	}
 
 	getAll(): Record<string, ExerciseMetadata> {

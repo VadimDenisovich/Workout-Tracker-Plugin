@@ -43,12 +43,40 @@ export class ExerciseCache {
 	private cacheFilePath: string;
 	private cache: CacheData;
 	private metadataManager: ExerciseMetadataManager;
+	private normalizedNameMap: Map<string, string>; // Map: нормализованное имя -> оригинальное имя
 
 	constructor(app: App, pluginDir: string, metadataManager: ExerciseMetadataManager) {
 		this.app = app;
 		this.cacheFilePath = `${pluginDir}/exercise-cache.json`;
 		this.cache = this.getDefaultCache();
 		this.metadataManager = metadataManager;
+		this.normalizedNameMap = new Map();
+	}
+
+	/**
+	 * Нормализует название упражнения:
+	 * - Приводит к нижнему регистру
+	 * - Заменяет ё на е
+	 * - Удаляет лишние пробелы
+	 */
+	private normalizeExerciseName(name: string): string {
+		return name
+			.toLowerCase()
+			.replace(/ё/g, 'е')
+			.trim()
+			.replace(/\s+/g, ' ');
+	}
+
+	/**
+	 * Обновляет карту нормализованных имён для быстрого поиска
+	 */
+	private rebuildNormalizedNameMap(): void {
+		this.normalizedNameMap.clear();
+		for (const exerciseName of Object.keys(this.cache.exercises)) {
+			const normalized = this.normalizeExerciseName(exerciseName);
+			this.normalizedNameMap.set(normalized, exerciseName);
+		}
+		console.log('[ExerciseCache] Карта нормализованных имён обновлена:', this.normalizedNameMap.size, 'упражнений');
 	}
 
 	private getDefaultCache(): CacheData {
@@ -64,15 +92,16 @@ export class ExerciseCache {
 		try {
 			const adapter = this.app.vault.adapter;
 			
-			// Используем относительный путь от корня хранилища
-			const relativePath = this.cacheFilePath.replace(/^.*\.obsidian/, '.obsidian');
+			// cacheFilePath уже относительный путь (начинается с .obsidian)
+			const filePath = this.cacheFilePath;
 			
-			console.log('[ExerciseCache] Загрузка кэша из:', relativePath);
+			console.log('[ExerciseCache] Загрузка кэша из:', filePath);
 			
-			if (await adapter.exists(relativePath)) {
-				const data = await adapter.read(relativePath);
+			if (await adapter.exists(filePath)) {
+				const data = await adapter.read(filePath);
 				this.cache = JSON.parse(data);
 				console.log('[ExerciseCache] Кэш загружен, упражнений:', Object.keys(this.cache.exercises).length);
+				this.rebuildNormalizedNameMap();
 			} else {
 				console.log('[ExerciseCache] Кэш не найден, создаём новый');
 			}
@@ -87,11 +116,11 @@ export class ExerciseCache {
 			this.cache.lastUpdate = new Date().toISOString();
 			const adapter = this.app.vault.adapter;
 			
-			// Используем относительный путь от корня хранилища
-			const relativePath = this.cacheFilePath.replace(/^.*\.obsidian/, '.obsidian');
+			// cacheFilePath уже относительный путь
+			const filePath = this.cacheFilePath;
 			
-			console.log('[ExerciseCache] Сохранение кэша в:', relativePath);
-			await adapter.write(relativePath, JSON.stringify(this.cache, null, 2));
+			console.log('[ExerciseCache] Сохранение кэша в:', filePath);
+			await adapter.write(filePath, JSON.stringify(this.cache, null, 2));
 			console.log('[ExerciseCache] Кэш сохранён');
 		} catch (error) {
 			console.error('[ExerciseCache] Ошибка сохранения кэша:', error);
@@ -157,6 +186,7 @@ export class ExerciseCache {
 		}
 
 		await this.save();
+		this.rebuildNormalizedNameMap(); // Обновляем карту после добавления новых упражнений
 		console.log('[ExerciseCache] ✅ Кэширование завершено, сохранено');
 		return newFiles.length;
 	}
@@ -202,9 +232,13 @@ export class ExerciseCache {
 						currentExercise = exerciseText;
 					}
 					
+					console.log('[ExerciseCache] Найдено упражнение:', currentExercise, 'в файле:', file.basename);
+					
 					// Определяем тип упражнения из метаданных
 					const metadataHasWeight = this.metadataManager.hasWeight(currentExercise);
 					hasWeight = metadataHasWeight !== null ? metadataHasWeight : false;
+					
+					console.log('[ExerciseCache] Метаданные для', currentExercise, '- hasWeight:', hasWeight, 'metadata:', metadataHasWeight);
 					
 					// Создаём запись для упражнения если её нет
 					if (!exercisesInLog.has(currentExercise)) {
@@ -237,12 +271,14 @@ export class ExerciseCache {
 						const weight = parseFloat(weightMatch[1].replace(',', '.'));
 						const reps = parseInt(repsMatch[1]);
 						exerciseData.sets.push({ weight, reps });
+						console.log('[ExerciseCache] Добавлен подход с весом для', currentExercise, ':', weight, 'кг x', reps, 'раз');
 					} else {
 						// Упражнение без веса (только повторения)
 						const simpleReps = details.match(simpleRepsRegex);
 						if (simpleReps) {
 							const reps = parseInt(simpleReps[1]);
 							exerciseData.sets.push({ reps }); // Без weight
+							console.log('[ExerciseCache] Добавлен подход без веса для', currentExercise, ':', reps, 'раз');
 						}
 					}
 				} else {
@@ -373,7 +409,39 @@ export class ExerciseCache {
 	}
 
 	getExerciseData(exerciseName: string): ExerciseData | null {
-		return this.cache.exercises[exerciseName] || null;
+		console.log('[ExerciseCache] 🔍 getExerciseData вызван для:', exerciseName);
+		console.log('[ExerciseCache] 📊 HEX запроса:', Array.from(exerciseName).map(c => c.charCodeAt(0).toString(16)).join(' '));
+		
+		// Нормализуем Unicode (как в metadataManager)
+		const normalizedInput = exerciseName.normalize('NFC');
+		
+		// Сначала пытаемся найти точное совпадение
+		if (this.cache.exercises[normalizedInput]) {
+			console.log('[ExerciseCache] ✅ Найдено точное совпадение');
+			return this.cache.exercises[normalizedInput];
+		}
+		
+		// Пробуем все ключи с нормализацией
+		for (const key of Object.keys(this.cache.exercises)) {
+			if (key.normalize('NFC') === normalizedInput) {
+				console.log('[ExerciseCache] ✅ Найдено через Unicode нормализацию:', key);
+				return this.cache.exercises[key];
+			}
+		}
+		
+		// Если не нашли, ищем через нормализованное имя (старый метод)
+		const normalized = this.normalizeExerciseName(exerciseName);
+		const originalName = this.normalizedNameMap.get(normalized);
+		
+		if (originalName && this.cache.exercises[originalName]) {
+			console.log('[ExerciseCache] ✅ Найдено упражнение через normalizedNameMap:', exerciseName, '->', originalName);
+			return this.cache.exercises[originalName];
+		}
+		
+		console.log('[ExerciseCache] ❌ Упражнение НЕ НАЙДЕНО');
+		console.log('[ExerciseCache] 📋 Доступные ключи (первые 5):', Object.keys(this.cache.exercises).slice(0, 5));
+		
+		return null;
 	}
 
 	getAllExercises(): Record<string, ExerciseData> {
@@ -386,6 +454,7 @@ export class ExerciseCache {
 
 	async clearCache(): Promise<void> {
 		this.cache = this.getDefaultCache();
+		this.normalizedNameMap.clear();
 		await this.save();
 		console.log('[ExerciseCache] Кэш очищен');
 	}
@@ -468,6 +537,9 @@ export class ExerciseCache {
 
 		// Заново парсим файл
 		await this.parseLogFile(file);
+		
+		// Обновляем карту нормализованных имён
+		this.rebuildNormalizedNameMap();
 		
 		// Сохраняем кэш
 		await this.save();

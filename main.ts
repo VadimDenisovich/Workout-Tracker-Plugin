@@ -23,9 +23,10 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		// Загружаем Chart.js глобально один раз при старте плагина
 		this.loadChartJS();
 		
-		// Получаем путь к директории плагина
-		const adapter = this.app.vault.adapter;
-		const pluginDir = (adapter as any).basePath + '/.obsidian/plugins/' + this.manifest.id;
+		// Получаем ID плагина для построения относительных путей
+		// НЕ используем basePath - он не работает на iOS!
+		const pluginId = this.manifest.id;
+		const pluginDir = `.obsidian/plugins/${pluginId}`;
 		
 		this.fileManager = new FileManager(this.app, pluginDir, () => this.settings);
 		this.templateUpdater = new TemplateUpdater(
@@ -188,13 +189,6 @@ export default class WorkoutTrackerPlugin extends Plugin {
 				
 				console.log(`[Main] 📖 Открыт файл упражнения: ${file.basename}`);
 				
-				// Обновляем кэш логов перед обновлением файла
-				const logsFolder = `${this.settings.workoutFolder}/Logs`;
-				const newCachedCount = await this.exerciseCache.rebuildCache(logsFolder);
-				if (newCachedCount > 0) {
-					console.log(`[Main] Закэшировано ${newCachedCount} новых логов при открытии упражнения`);
-				}
-				
 				// Обновляем содержимое файла с актуальным шаблоном
 				try {
 					const exerciseName = file.basename;
@@ -265,18 +259,41 @@ export default class WorkoutTrackerPlugin extends Plugin {
 
 		this.addCommand({
 			id: 'refresh-exercise-files',
-			name: 'Обновить файлы упражнений',
+			name: 'Обновить все файлы упражнений',
 			callback: async () => {
 				try {
+					// Пересобираем кэш перед обновлением
+					const logsFolder = `${this.settings.workoutFolder}/Logs`;
+					await this.exerciseCache.rebuildCache(logsFolder);
+					
 					await this.fileManager.updateAllExerciseFiles(
 						this.settings.workoutFolder,
-						this.settings.exerciseRegistry
+						this.settings.exerciseRegistry,
+						true // forceTemplateUpdate = true
 					);
-					new Notice('Файлы упражнений обновлены');
+					new Notice('✅ Все файлы упражнений обновлены');
 				} catch (error) {
 					console.error('Ошибка обновления файлов упражнений:', error);
-					new Notice('Ошибка при обновлении файлов упражнений');
+					new Notice('❌ Ошибка при обновлении файлов упражнений');
 				}
+			}
+		});
+
+		this.addCommand({
+			id: 'refresh-current-exercise',
+			name: 'Обновить текущее упражнение',
+			checkCallback: (checking: boolean) => {
+				const activeFile = this.app.workspace.getActiveFile();
+				const exercisesPath = `${this.settings.workoutFolder}/Exercises/`;
+				
+				// Показываем команду только если открыт файл упражнения
+				if (activeFile && activeFile.path.startsWith(exercisesPath)) {
+					if (!checking) {
+						this.refreshCurrentExercise(activeFile);
+					}
+					return true;
+				}
+				return false;
 			}
 		});
 
@@ -284,6 +301,37 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		this.addSettingTab(new WorkoutTrackerSettingTab(this.app, this));
 		
 		console.log('[Main] ✅ Все UI элементы и команды зарегистрированы');
+	}
+
+	async refreshCurrentExercise(file: TFile): Promise<void> {
+		try {
+			console.log(`[Main] 🔄 Обновление упражнения: ${file.basename}`);
+			
+			// Пересобираем кэш перед обновлением
+			const logsFolder = `${this.settings.workoutFolder}/Logs`;
+			await this.exerciseCache.rebuildCache(logsFolder);
+			
+			// Определяем hasWeight для упражнения
+			const exerciseName = file.basename;
+			const exerciseInfo = this.settings.exerciseRegistry.find(ex => ex.name === exerciseName);
+			const hasWeight = exerciseInfo?.hasWeight ?? true;
+			
+			// Обновляем файл упражнения с проверкой актуальности шаблона
+			const exerciseTemplate = await this.fileManager.getExerciseTemplate(hasWeight);
+			await this.fileManager.updateExerciseFile(
+				this.settings.workoutFolder,
+				exerciseName,
+				exerciseTemplate,
+				hasWeight,
+				true // forceTemplateUpdate = true
+			);
+			
+			new Notice(`✅ Упражнение "${exerciseName}" обновлено`);
+			console.log(`[Main] ✅ Упражнение "${exerciseName}" успешно обновлено`);
+		} catch (error) {
+			console.error('[Main] Ошибка обновления упражнения:', error);
+			new Notice('❌ Ошибка при обновлении упражнения');
+		}
 	}
 
 	async createWorkoutLog() {

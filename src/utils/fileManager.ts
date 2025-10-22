@@ -41,7 +41,7 @@ export class FileManager {
 		}
 	}
 
-	private async getExerciseTemplate(hasWeight: boolean = true): Promise<string> {
+	async getExerciseTemplate(hasWeight: boolean = true): Promise<string> {
 		const settings = this.getSettings();
 		const chartMin = settings.chartRepsMin ?? 0;
 		const chartMax = settings.chartRepsMax ?? 15;
@@ -52,8 +52,12 @@ export class FileManager {
 				? 'exercise-stats-with-weight-cached.dataviewjs'
 				: 'exercise-stats-no-weight-cached.dataviewjs';
 			
-			const dataviewjsPath = `${this.pluginDir}/src/templates/${templateFileName}`;
-			let dataviewjsCode = await this.app.vault.adapter.read(dataviewjsPath);
+			// Относительный путь от vault root
+			const dataviewjsPath = `.obsidian/plugins/${this.app.vault.getAbstractFileByPath('.obsidian')?.name ? this.app.vault.getAbstractFileByPath('.obsidian')?.parent?.name || 'workout-tracker' : 'workout-tracker'}/src/templates/${templateFileName}`;
+			
+			// Пробуем сначала со стандартным путем
+			const relativePath = `.obsidian/plugins/workout-tracker/src/templates/${templateFileName}`;
+			let dataviewjsCode = await this.app.vault.adapter.read(relativePath);
 			
 			// Заменяем плейсхолдеры для диапазона графика
 			dataviewjsCode = dataviewjsCode.replace(/{{chartRepsMin}}/g, String(chartMin));
@@ -521,8 +525,10 @@ if (!cache) {
 		const files = this.app.vault.getMarkdownFiles();
 		const logFiles = files.filter(f => f.path.startsWith(logsFolder));
 		
-		
+		// Поддерживаем оба варианта: с ссылкой и без
 		const exerciseHeader = `### ${exerciseName}`;
+		const exerciseHeaderWithLink = `### [[${exerciseName}]]`;
+		
 		const setRegex = /^Подход\s*(\d+):\s*(.+)$/i;
 		const weightRegex = /(\d+[,.]?\d*)\s*кг/i;
 		const repsRegex = /(\d+)\s*раз/i;
@@ -540,18 +546,17 @@ if (!cache) {
 			const content = await this.app.vault.read(file);
 			const lines = content.split('\n');
 			
-			
 			let i = 0;
+			let foundExercise = false;
 			while (i < lines.length) {
-				if (lines[i].trim() === exerciseHeader) {
+				const trimmedLine = lines[i].trim();
+				
+				// Проверяем оба варианта: с ссылкой и без
+				if (trimmedLine === exerciseHeader || trimmedLine === exerciseHeaderWithLink) {
+					foundExercise = true;
 					i++;
-					let processedLines = 0;
 					while (i < lines.length) {
 						const line = lines[i].trim();
-						processedLines++;
-						
-						if (processedLines <= 5) {
-						}
 						
 						if (line.startsWith('###') || line.startsWith('##')) {
 							break;
@@ -587,7 +592,6 @@ if (!cache) {
 							const weightMatch = weightRegex.exec(details);
 							const repsMatch = repsRegex.exec(details);
 							
-							
 							if (repsMatch) {
 								const reps = Number(repsMatch[1]);
 								if (latestReps === null) {
@@ -599,6 +603,7 @@ if (!cache) {
 								
 								if (hasWeight && weightMatch) {
 									const weight = Number(weightMatch[1].replace(',', '.'));
+									
 									// Ищем рабочий подход (12-15 повторений)
 									if (reps >= 12 && reps <= 15 && !workingSet) {
 										workingSet = { weight, reps };
@@ -619,15 +624,18 @@ if (!cache) {
 			
 			// Если нашли всё необходимое, прекращаем поиск
 			if (hasWeight) {
-				if (workingSet && maxWeightSet) break;
+				if (workingSet && maxWeightSet) {
+					break;
+				}
 			} else {
-				if (latestReps !== null && maxReps !== null) break;
+				if (latestReps !== null && maxReps !== null) {
+					break;
+				}
 			}
 		}
 		
 		let result = '';
 		if (hasWeight) {
-			
 			// Если нет данных, выводим шаблон с нулями
 			if (!workingSet && !maxWeightSet) {
 				result += `Последний актуальный подход на 12-15: 0 кг x 0 раз\n`;
@@ -647,7 +655,6 @@ if (!cache) {
 				result += 'Максималка: 0 раз\n';
 			}
 		}
-		
 		
 		return result;
 	}
@@ -756,7 +763,7 @@ if (!cache) {
 		await this.createExerciseFiles(workoutFolder, exerciseNames);
 	}
 
-	async updateAllExerciseFiles(workoutFolder: string, exerciseNames: ExerciseInfo[]): Promise<void> {
+	async updateAllExerciseFiles(workoutFolder: string, exerciseNames: ExerciseInfo[], forceTemplateUpdate: boolean = false): Promise<void> {
 		const exercisesPath = `${workoutFolder}/Exercises`;
 		await this.ensureFolderExists(exercisesPath);
 
@@ -771,32 +778,78 @@ if (!cache) {
 
 		for (const exercise of uniqueExercises) {
 			const exerciseTemplate = await this.getExerciseTemplate(exercise.hasWeight);
-			await this.updateExerciseFile(workoutFolder, exercise.name, exerciseTemplate);
+			await this.updateExerciseFile(workoutFolder, exercise.name, exerciseTemplate, exercise.hasWeight, forceTemplateUpdate);
 		}
 	}
 
-	async updateExerciseFile(workoutFolder: string, exerciseName: string, template?: string, hasWeight: boolean = true): Promise<void> {
+	async updateExerciseFile(workoutFolder: string, exerciseName: string, template?: string, hasWeight: boolean = true, forceTemplateUpdate: boolean = false): Promise<void> {
 		const exercisesPath = `${workoutFolder}/Exercises`;
 		const filePath = `${exercisesPath}/${exerciseName}.md`;
 		
 		// Если шаблон не передан, читаем его
 		const exerciseTemplate = template || await this.getExerciseTemplate(hasWeight);
 		
-		const content = exerciseTemplate
+		const newContent = exerciseTemplate
 			.replace(/{{exerciseName}}/g, exerciseName)
 			.replace(/{{workoutFolder}}/g, workoutFolder);
-		
 		
 		const existing = this.app.vault.getAbstractFileByPath(filePath);
 
 		if (existing instanceof TFile) {
-			// Обновляем существующий файл
-			await this.app.vault.modify(existing, content);
+			// Если файл существует и нужна принудительная проверка шаблона
+			if (forceTemplateUpdate) {
+				const currentContent = await this.app.vault.read(existing);
+				const needsUpdate = await this.needsTemplateUpdate(currentContent, hasWeight);
+				
+				if (needsUpdate) {
+					console.log(`[FileManager] 🔄 Обновляем шаблон для упражнения: ${exerciseName}`);
+					// Извлекаем секцию "Заметки" из старого файла
+					const notesMatch = currentContent.match(/## Заметки\n([\s\S]*)/);
+					const notes = notesMatch ? notesMatch[1] : '';
+					
+					// Вставляем заметки в новый шаблон
+					const updatedContent = newContent.replace(/## Заметки\n/, `## Заметки\n${notes}`);
+					await this.app.vault.modify(existing, updatedContent);
+				} else {
+					console.log(`[FileManager] ✅ Шаблон актуален для упражнения: ${exerciseName}`);
+				}
+			} else {
+				// Обновляем без проверки (старое поведение)
+				await this.app.vault.modify(existing, newContent);
+			}
 		} else {
 			// Создаём новый файл
 			await this.ensureFolderExists(exercisesPath);
-			await this.app.vault.create(filePath, content);
+			await this.app.vault.create(filePath, newContent);
 		}
+	}
+	
+	private async needsTemplateUpdate(currentContent: string, hasWeight: boolean): Promise<boolean> {
+		// Извлекаем dataviewjs блок из текущего файла
+		const dataviewjsMatch = currentContent.match(/```dataviewjs\n([\s\S]*?)\n```/);
+		if (!dataviewjsMatch) {
+			console.log('[FileManager] ⚠️ DataviewJS блок не найден');
+			return true; // Нет dataviewjs блока - нужно обновить
+		}
+		
+		const currentDataviewjs = dataviewjsMatch[1].trim();
+		
+		// Получаем актуальный шаблон
+		const newTemplate = await this.getExerciseTemplate(hasWeight);
+		const newDataviewjsMatch = newTemplate.match(/```dataviewjs\n([\s\S]*?)\n```/);
+		
+		if (!newDataviewjsMatch) {
+			console.log('[FileManager] ⚠️ Не удалось извлечь новый шаблон');
+			return false; // Не можем определить - не обновляем
+		}
+		
+		const newDataviewjs = newDataviewjsMatch[1].trim();
+		
+		// Сравниваем dataviewjs блоки (игнорируем пробелы)
+		const currentNormalized = currentDataviewjs.replace(/\s+/g, ' ');
+		const newNormalized = newDataviewjs.replace(/\s+/g, ' ');
+		
+		return currentNormalized !== newNormalized;
 	}
 
 	async updateWeightedExerciseFiles(workoutFolder: string, exerciseNames: ExerciseInfo[]): Promise<number> {
