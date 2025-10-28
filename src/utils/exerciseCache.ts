@@ -358,12 +358,21 @@ export class ExerciseCache {
 					session.maxActualWeight = { weight: heaviestSet.weight, reps: heaviestSet.reps };
 				}
 
-				// maxActualWorkingSet - максимальное количество повторений за тренировку
-				const mostRepsSet = session.sets.reduce((max, set) => 
-					set.reps > max.reps ? set : max
+				// maxActualWorkingSet - максимальный вес в диапазоне 12-15 повторений
+				const workingSets = session.sets.filter(set => 
+					set.reps >= 12 && set.reps <= 15 && set.weight !== undefined
 				);
-				if (mostRepsSet.weight !== undefined) {
-					session.maxActualWorkingSet = { weight: mostRepsSet.weight, reps: mostRepsSet.reps };
+				
+				if (workingSets.length > 0) {
+					const bestWorkingSet = workingSets.reduce((max, set) => 
+						(set.weight ?? 0) > (max.weight ?? 0) ? set : max
+					);
+					if (bestWorkingSet.weight !== undefined) {
+						session.maxActualWorkingSet = { weight: bestWorkingSet.weight, reps: bestWorkingSet.reps };
+					}
+				} else {
+					// Если нет подходов в диапазоне 12-15, не устанавливаем значение
+					session.maxActualWorkingSet = undefined;
 				}
 			}
 		}

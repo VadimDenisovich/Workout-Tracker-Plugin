@@ -28,15 +28,7 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		const pluginId = this.manifest.id;
 		const pluginDir = `.obsidian/plugins/${pluginId}`;
 		
-		this.fileManager = new FileManager(this.app, pluginDir, () => this.settings);
-		this.templateUpdater = new TemplateUpdater(
-			this.app, 
-			this.manifest.id, 
-			() => this.settings,
-			async () => await this.persistSettings()
-		);
-
-		// Инициализируем менеджер метаданных упражнений
+		// Инициализируем менеджер метаданных упражнений ПЕРЕД FileManager
 		try {
 			this.exerciseMetadata = new ExerciseMetadataManager(this.app, pluginDir);
 			await this.exerciseMetadata.load();
@@ -48,6 +40,14 @@ export default class WorkoutTrackerPlugin extends Plugin {
 			// Создаем пустой объект метаданных для продолжения работы
 			this.exerciseMetadata = new ExerciseMetadataManager(this.app, pluginDir);
 		}
+		
+		this.fileManager = new FileManager(this.app, pluginDir, () => this.settings, () => this.exerciseCache, () => this.exerciseMetadata);
+		this.templateUpdater = new TemplateUpdater(
+			this.app, 
+			this.manifest.id, 
+			() => this.settings,
+			async () => await this.persistSettings()
+		);
 
 		// Инициализируем кэш упражнений
 		this.exerciseCache = new ExerciseCache(this.app, pluginDir, this.exerciseMetadata);
@@ -194,7 +194,7 @@ export default class WorkoutTrackerPlugin extends Plugin {
 					const exerciseName = file.basename;
 					// Ищем информацию об упражнении в реестре
 					const exerciseInfo = this.settings.exerciseRegistry.find(ex => ex.name === exerciseName);
-					const hasWeight = exerciseInfo?.hasWeight ?? true; // По умолчанию с весом
+					const hasWeight = exerciseInfo?.hasWeight ?? false; // По умолчанию БЕЗ веса
 					
 					await this.fileManager.updateExerciseFile(
 						this.settings.workoutFolder,
@@ -266,12 +266,43 @@ export default class WorkoutTrackerPlugin extends Plugin {
 					const logsFolder = `${this.settings.workoutFolder}/Logs`;
 					await this.exerciseCache.rebuildCache(logsFolder);
 					
+					// Синхронизируем метаданные с файловой системой
+					const exercisesPath = `${this.settings.workoutFolder}/Exercises`;
+					const syncResult = await this.exerciseMetadata.syncWithFileSystem(
+						exercisesPath,
+						this.settings.exerciseRegistry
+					);
+					
+					// Обновляем реестр упражнений на основе метаданных
+					const metadataExercises = this.exerciseMetadata.getAll();
+					const updatedRegistry: ExerciseInfo[] = [];
+					
+					for (const [name, metadata] of Object.entries(metadataExercises)) {
+						updatedRegistry.push({
+							name: metadata.name,
+							hasWeight: metadata.hasWeight
+						});
+					}
+					
+					// Обновляем настройки с новым реестром
+					this.settings.exerciseRegistry = updatedRegistry;
+					await this.persistSettings();
+					
+					// Обновляем файлы упражнений
 					await this.fileManager.updateAllExerciseFiles(
 						this.settings.workoutFolder,
 						this.settings.exerciseRegistry,
 						true // forceTemplateUpdate = true
 					);
-					new Notice('✅ Все файлы упражнений обновлены');
+					
+					// Формируем сообщение о результатах
+					let message = '✅ Все файлы упражнений обновлены';
+					if (syncResult.added > 0 || syncResult.removed > 0) {
+						message += `\n📊 Добавлено: ${syncResult.added}, Удалено: ${syncResult.removed}`;
+					}
+					new Notice(message);
+					
+					console.log('[Main] ✅ Обновление файлов упражнений завершено:', syncResult);
 				} catch (error) {
 					console.error('Ошибка обновления файлов упражнений:', error);
 					new Notice('❌ Ошибка при обновлении файлов упражнений');
@@ -314,7 +345,7 @@ export default class WorkoutTrackerPlugin extends Plugin {
 			// Определяем hasWeight для упражнения
 			const exerciseName = file.basename;
 			const exerciseInfo = this.settings.exerciseRegistry.find(ex => ex.name === exerciseName);
-			const hasWeight = exerciseInfo?.hasWeight ?? true;
+			const hasWeight = exerciseInfo?.hasWeight ?? false;
 			
 			// Обновляем файл упражнения с проверкой актуальности шаблона
 			const exerciseTemplate = await this.fileManager.getExerciseTemplate(hasWeight);
@@ -507,7 +538,7 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		}
 	}
 
-	async registerExercise(name: string, hasWeight: boolean = true): Promise<void> {
+	async registerExercise(name: string, hasWeight: boolean = false): Promise<void> {
 		const normalized = name.trim();
 		if (!normalized) return;
 
@@ -516,11 +547,23 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		);
 
 		if (!exists) {
+			// 1. Добавляем в реестр настроек
 			this.settings.exerciseRegistry.push({ name: normalized, hasWeight });
 			await this.persistSettings();
 			
-			// Добавляем в метаданные
+			// 2. Добавляем в метаданные
 			await this.exerciseMetadata.addExercise(normalized, hasWeight);
+			
+			// 3. Создаем файл упражнения
+			const created = await this.fileManager.createSingleExerciseFile(
+				this.settings.workoutFolder,
+				normalized,
+				hasWeight
+			);
+			
+			if (created) {
+				console.log('[Main] ✅ Создан файл для нового упражнения:', normalized);
+			}
 		}
 	}
 
@@ -533,11 +576,17 @@ export default class WorkoutTrackerPlugin extends Plugin {
 		);
 
 		if (index !== -1) {
+			// 1. Удаляем из реестра настроек
 			this.settings.exerciseRegistry.splice(index, 1);
 			await this.persistSettings();
 			
-			// Удаляем из метаданных
+			// 2. Удаляем из метаданных
 			await this.exerciseMetadata.removeExercise(normalized);
+			
+			// 3. Удаляем файл упражнения
+			const exercisePath = `${this.settings.workoutFolder}/Exercises/${normalized}.md`;
+			await this.fileManager.deleteExerciseFile(exercisePath);
+			console.log('[Main] ✅ Удален файл упражнения:', normalized);
 		}
 	}
 

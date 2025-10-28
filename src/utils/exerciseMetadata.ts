@@ -171,4 +171,78 @@ export class ExerciseMetadataManager {
 		await this.save();
 		console.log('[ExerciseMetadata] Синхронизация завершена');
 	}
+
+	/**
+	 * Синхронизирует exercise-metadata.json с файлами в папке Exercises
+	 * Добавляет новые упражнения из файловой системы
+	 * Удаляет упражнения, которых нет в файловой системе
+	 * @param exercisesPath Путь к папке Exercises (например, "Workout/Exercises")
+	 * @param exerciseRegistry Реестр упражнений из настроек для определения hasWeight
+	 * @returns Объект с информацией о количестве добавленных и удаленных упражнений
+	 */
+	async syncWithFileSystem(
+		exercisesPath: string, 
+		exerciseRegistry: Array<{ name: string; hasWeight: boolean }>
+	): Promise<{ added: number; removed: number }> {
+		console.log('[ExerciseMetadata] 🔄 Синхронизация с файловой системой...');
+		console.log('[ExerciseMetadata] 📂 Путь к упражнениям:', exercisesPath);
+		
+		let added = 0;
+		let removed = 0;
+
+		try {
+			// Получаем список файлов из папки Exercises
+			const files = this.app.vault.getMarkdownFiles();
+			const exerciseFiles = files.filter(f => f.path.startsWith(exercisesPath) && f.extension === 'md');
+			
+			console.log('[ExerciseMetadata] 📁 Найдено файлов упражнений:', exerciseFiles.length);
+			
+			// Создаем Set с именами файлов (без расширения)
+			const fileNames = new Set<string>();
+			exerciseFiles.forEach(file => {
+				const exerciseName = file.basename;
+				fileNames.add(exerciseName);
+			});
+			
+			// 1. Добавляем новые упражнения из файловой системы
+			for (const exerciseName of fileNames) {
+				if (!this.metadata.exercises[exerciseName]) {
+					// Определяем hasWeight из реестра или ставим false по умолчанию
+					const registryEntry = exerciseRegistry.find(ex => ex.name === exerciseName);
+					const hasWeight = registryEntry?.hasWeight ?? false;
+					
+					this.metadata.exercises[exerciseName] = {
+						name: exerciseName,
+						hasWeight: hasWeight
+					};
+					
+					added++;
+					console.log('[ExerciseMetadata] ➕ Добавлено новое упражнение:', exerciseName, 'hasWeight:', hasWeight);
+				}
+			}
+			
+			// 2. Удаляем упражнения, которых нет в файловой системе
+			const metadataKeys = Object.keys(this.metadata.exercises);
+			for (const exerciseName of metadataKeys) {
+				if (!fileNames.has(exerciseName)) {
+					delete this.metadata.exercises[exerciseName];
+					removed++;
+					console.log('[ExerciseMetadata] ➖ Удалено упражнение (файл не найден):', exerciseName);
+				}
+			}
+			
+			// Сохраняем изменения
+			if (added > 0 || removed > 0) {
+				await this.save();
+				console.log('[ExerciseMetadata] ✅ Синхронизация завершена. Добавлено:', added, 'Удалено:', removed);
+			} else {
+				console.log('[ExerciseMetadata] ✅ Синхронизация завершена. Изменений нет.');
+			}
+			
+		} catch (error) {
+			console.error('[ExerciseMetadata] ❌ Ошибка синхронизации с файловой системой:', error);
+		}
+		
+		return { added, removed };
+	}
 }

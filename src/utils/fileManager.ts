@@ -1,12 +1,16 @@
 import { App, TFolder, TFile, moment, Notice, TAbstractFile } from 'obsidian';
 import { WorkoutLocation, WorkoutDay, TemplateKey, ExerciseInfo, WorkoutTrackerSettings, CustomTemplate } from '../types';
 import { TEMPLATE_FILES, DEFAULT_EXERCISES, EXERCISE_TEMPLATE } from '../templates';
+import { ExerciseCache } from './exerciseCache';
+import { ExerciseMetadataManager } from './exerciseMetadata';
 
 export class FileManager {
 	constructor(
 		private app: App, 
 		private pluginDir: string,
-		private getSettings: () => WorkoutTrackerSettings
+		private getSettings: () => WorkoutTrackerSettings,
+		private getExerciseCache?: () => ExerciseCache | null,
+		private getExerciseMetadata?: () => ExerciseMetadataManager | null
 	) {}
 
 	private async getTemplate(key: TemplateKey): Promise<string> {
@@ -41,7 +45,7 @@ export class FileManager {
 		}
 	}
 
-	async getExerciseTemplate(hasWeight: boolean = true): Promise<string> {
+	async getExerciseTemplate(hasWeight: boolean = false): Promise<string> {
 		const settings = this.getSettings();
 		const chartMin = settings.chartRepsMin ?? 0;
 		const chartMax = settings.chartRepsMax ?? 15;
@@ -510,17 +514,133 @@ if (!cache) {
 
 	private getExerciseInfoByName(exerciseName: string): ExerciseInfo | undefined {
 		const settings = this.getSettings();
+		
+		// 1. Сначала проверяем в метаданных (exercise-metadata.json)
+		const metadata = this.getExerciseMetadata?.();
+		if (metadata) {
+			const hasWeight = metadata.hasWeight(exerciseName);
+			if (hasWeight !== null) {
+				return {
+					name: exerciseName,
+					hasWeight: hasWeight
+				};
+			}
+		}
+		
+		// 2. Затем проверяем в настройках (exerciseRegistry)
 		const fromSettings = settings.exerciseRegistry?.find((exercise) => exercise.name === exerciseName);
 		if (fromSettings) {
 			return fromSettings;
 		}
+		
+		// 3. Наконец, проверяем в дефолтных упражнениях
 		return DEFAULT_EXERCISES.find((exercise) => exercise.name === exerciseName);
 	}
 
 	private async getExerciseStats(exerciseName: string, workoutFolder: string): Promise<string> {
 		const exerciseInfo = this.getExerciseInfoByName(exerciseName);
-		const hasWeight = exerciseInfo?.hasWeight ?? true;
+		const hasWeight = exerciseInfo?.hasWeight ?? false;
+		
+		console.log(`[FileManager] 📊 Получение статистики для "${exerciseName}":`, { hasWeight, exerciseInfo });
 
+		// Пытаемся получить данные из кэша
+		const cache = this.getExerciseCache?.();
+		if (cache) {
+			const cachedData = cache.getExerciseData(exerciseName);
+			
+			if (cachedData && cachedData.history && cachedData.history.length > 0) {
+				console.log('[FileManager] ✅ Используем данные из кэша для', exerciseName);
+				
+				let result = '';
+				
+				if (hasWeight) {
+					// Находим последний актуальный подход на 12-15 повторений
+					let workingSet: { weight: number; reps: number } | null = null;
+					
+					// Ищем в истории (от новых к старым)
+					for (const session of cachedData.history) {
+						if (session.maxActualWorkingSet) {
+							workingSet = session.maxActualWorkingSet;
+							break;
+						}
+					}
+					
+					// Если нет подхода на 12-15, берем максимальный вес из всех подходов
+					if (!workingSet) {
+						console.log('[FileManager] ⚠️ Нет рабочего подхода на 12-15, ищем максимальный подход');
+						
+						for (const session of cachedData.history) {
+							for (const set of session.sets) {
+								if (set.weight !== undefined) {
+									if (!workingSet || set.weight > workingSet.weight) {
+										workingSet = { weight: set.weight, reps: set.reps };
+									}
+								}
+							}
+						}
+						
+						if (workingSet) {
+							console.log('[FileManager] ✅ Найден максимальный подход:', workingSet);
+						}
+					}
+					
+					// Максимальный вес за всё время (максимальный вес с максимальными повторениями на этом весе)
+					let maxWeightSet: { weight: number; reps: number } | null = null;
+					
+					// Сначала находим максимальный вес
+					let maxWeight = 0;
+					for (const session of cachedData.history) {
+						for (const set of session.sets) {
+							if (set.weight !== undefined && set.weight > maxWeight) {
+								maxWeight = set.weight;
+							}
+						}
+					}
+					
+					// Затем среди подходов с максимальным весом находим максимальное количество повторений
+					if (maxWeight > 0) {
+						let maxRepsAtMaxWeight = 0;
+						for (const session of cachedData.history) {
+							for (const set of session.sets) {
+								if (set.weight === maxWeight && set.reps > maxRepsAtMaxWeight) {
+									maxRepsAtMaxWeight = set.reps;
+									maxWeightSet = { weight: maxWeight, reps: maxRepsAtMaxWeight };
+								}
+							}
+						}
+					}
+					
+					if (workingSet) {
+						result += `Последний актуальный подход на 12-15: ${workingSet.weight} кг x ${workingSet.reps} раз\n`;
+					} else {
+						result += `Последний актуальный подход на 12-15: 0 кг x 0 раз\n`;
+					}
+					
+					if (maxWeightSet) {
+						result += `Максимальный вес: ${maxWeightSet.weight} кг x ${maxWeightSet.reps} раз\n`;
+					} else {
+						result += `Максимальный вес: 0 кг x 0 раз\n`;
+					}
+				} else {
+					// Для упражнений без веса
+					const maxReps = cachedData.allTimeMaxReps;
+					
+					if (maxReps) {
+						result += `Максималка: ${maxReps.reps} раз\n`;
+					} else {
+						result += 'Максималка: 0 раз\n';
+					}
+				}
+				
+				return result;
+			} else {
+				console.log('[FileManager] ⚠️ Данные в кэше для', exerciseName, 'пусты или отсутствуют');
+			}
+		} else {
+			console.log('[FileManager] ⚠️ Кэш недоступен, парсим файлы для', exerciseName);
+		}
+
+		// Fallback: парсим файлы если кэш недоступен или пуст
 		const logsFolder = `${workoutFolder}/Logs`;
 		const files = this.app.vault.getMarkdownFiles();
 		const logFiles = files.filter(f => f.path.startsWith(logsFolder));
@@ -777,12 +897,14 @@ if (!cache) {
 		);
 
 		for (const exercise of uniqueExercises) {
+			// Используем правильный шаблон в зависимости от hasWeight
 			const exerciseTemplate = await this.getExerciseTemplate(exercise.hasWeight);
+			console.log(`[FileManager] 📝 Обновляем упражнение: ${exercise.name} (hasWeight: ${exercise.hasWeight})`);
 			await this.updateExerciseFile(workoutFolder, exercise.name, exerciseTemplate, exercise.hasWeight, forceTemplateUpdate);
 		}
 	}
 
-	async updateExerciseFile(workoutFolder: string, exerciseName: string, template?: string, hasWeight: boolean = true, forceTemplateUpdate: boolean = false): Promise<void> {
+	async updateExerciseFile(workoutFolder: string, exerciseName: string, template?: string, hasWeight: boolean = false, forceTemplateUpdate: boolean = false): Promise<void> {
 		const exercisesPath = `${workoutFolder}/Exercises`;
 		const filePath = `${exercisesPath}/${exerciseName}.md`;
 		
@@ -924,13 +1046,14 @@ if (!cache) {
 
 			// СОЗДАЁМ файл ТОЛЬКО если его нет
 			if (!existing) {
+				// Используем правильный шаблон в зависимости от hasWeight
 				const template = await this.getExerciseTemplate(exercise.hasWeight);
 				const content = template
 					.replace(/{{exerciseName}}/g, exercise.name)
 					.replace(/{{workoutFolder}}/g, workoutFolder);
 				
 				await this.app.vault.create(filePath, content);
-				console.log(`[FileManager] ✅ Создан новый файл упражнения: ${exercise.name}`);
+				console.log(`[FileManager] ✅ Создан новый файл упражнения: ${exercise.name} (hasWeight: ${exercise.hasWeight})`);
 			} else {
 				console.log(`[FileManager] ⏭️ Файл упражнения уже существует, пропускаем: ${exercise.name}`);
 			}
@@ -1114,6 +1237,37 @@ if (!cache) {
 		const file = this.app.vault.getAbstractFileByPath(filePath);
 		if (file instanceof TFile) {
 			await this.app.vault.delete(file);
+		}
+	}
+
+	/**
+	 * Создает файл для одного упражнения
+	 * @param workoutFolder Путь к основной папке тренировок
+	 * @param exerciseName Название упражнения
+	 * @param hasWeight Использует ли упражнение вес
+	 * @returns true если файл был создан, false если уже существовал
+	 */
+	async createSingleExerciseFile(workoutFolder: string, exerciseName: string, hasWeight: boolean = false): Promise<boolean> {
+		const exercisesPath = `${workoutFolder}/Exercises`;
+		await this.ensureFolderExists(exercisesPath);
+		
+		const filePath = `${exercisesPath}/${exerciseName}.md`;
+		const existing = this.app.vault.getAbstractFileByPath(filePath);
+
+		// Создаём файл ТОЛЬКО если его нет
+		if (!existing) {
+			// Используем правильный шаблон в зависимости от hasWeight
+			const template = await this.getExerciseTemplate(hasWeight);
+			const content = template
+				.replace(/{{exerciseName}}/g, exerciseName)
+				.replace(/{{workoutFolder}}/g, workoutFolder);
+			
+			await this.app.vault.create(filePath, content);
+			console.log(`[FileManager] ✅ Создан новый файл упражнения: ${exerciseName} (hasWeight: ${hasWeight})`);
+			return true;
+		} else {
+			console.log(`[FileManager] ⏭️ Файл упражнения уже существует: ${exerciseName}`);
+			return false;
 		}
 	}
 
