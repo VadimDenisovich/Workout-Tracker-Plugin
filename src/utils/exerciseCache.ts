@@ -101,6 +101,10 @@ export class ExerciseCache {
 				const data = await adapter.read(filePath);
 				this.cache = JSON.parse(data);
 				console.log('[ExerciseCache] Кэш загружен, упражнений:', Object.keys(this.cache.exercises).length);
+				
+				// Очищаем дубликаты после загрузки
+				await this.deduplicateExercises();
+				
 				this.rebuildNormalizedNameMap();
 			} else {
 				console.log('[ExerciseCache] Кэш не найден, создаём новый');
@@ -110,6 +114,157 @@ export class ExerciseCache {
 			this.cache = this.getDefaultCache();
 		}
 	}
+
+	/**
+	 * Удаляет дубликаты упражнений, которые отличаются только формой Unicode.
+	 * Объединяет данные из дубликатов в одну запись с нормализованным названием.
+	 */
+	private async deduplicateExercises(): Promise<void> {
+		const exercises = this.cache.exercises;
+		const normalizedMap = new Map<string, string[]>(); // normalized name -> original names
+		
+		// Группируем упражнения по нормализованным названиям
+		for (const name of Object.keys(exercises)) {
+			const normalized = name.normalize('NFC').trim();
+			if (!normalizedMap.has(normalized)) {
+				normalizedMap.set(normalized, []);
+			}
+			normalizedMap.get(normalized)!.push(name);
+		}
+		
+		// Ищем дубликаты (где одному нормализованному имени соответствует несколько оригинальных)
+		let foundDuplicates = false;
+		for (const [normalized, originalNames] of normalizedMap.entries()) {
+			if (originalNames.length > 1) {
+				foundDuplicates = true;
+				console.log('[ExerciseCache] 🔄 Найден дубликат:', normalized);
+				console.log('[ExerciseCache] Варианты написания:', originalNames.map(n => 
+					`"${n}" (${Array.from(n).map(c => c.charCodeAt(0).toString(16)).join(' ')})`
+				).join(', '));
+				
+				// Объединяем все данные из дубликатов
+				const mergedExercise: ExerciseData = {
+					name: normalized,
+					hasWeight: exercises[originalNames[0]].hasWeight,
+					history: [],
+					lastWorkout: null,
+					allTimeMaxReps: null,
+					allTimeMaxWeight: null
+				};
+				
+				// Собираем все сессии из всех дубликатов
+				const allSessions = new Map<string, WorkoutSession>();
+				for (const originalName of originalNames) {
+					const exercise = exercises[originalName];
+					for (const session of exercise.history) {
+						// Если сессия с этой датой уже есть, берём ту, у которой больше подходов
+						if (allSessions.has(session.date)) {
+							const existing = allSessions.get(session.date)!;
+							if (session.sets.length > existing.sets.length) {
+								allSessions.set(session.date, session);
+							}
+						} else {
+							allSessions.set(session.date, session);
+						}
+					}
+				}
+				
+				// Преобразуем Map в массив и сортируем по дате
+				mergedExercise.history = Array.from(allSessions.values())
+					.sort((a, b) => b.date.localeCompare(a.date));
+				
+				// Пересчитываем статистику
+				if (mergedExercise.history.length > 0) {
+					mergedExercise.lastWorkout = mergedExercise.history[0];
+					
+					// Пересчитываем maxActualWeight и maxActualWorkingSet для всех сессий
+					for (const session of mergedExercise.history) {
+						if (mergedExercise.hasWeight) {
+							const heaviestSet = session.sets.reduce((max, set) => 
+								(set.weight ?? 0) > (max.weight ?? 0) ? set : max
+							);
+							if (heaviestSet.weight !== undefined) {
+								session.maxActualWeight = { weight: heaviestSet.weight, reps: heaviestSet.reps };
+							}
+							
+							const workingSets = session.sets.filter(set => 
+								set.reps >= 12 && set.reps <= 15 && set.weight !== undefined
+							);
+							if (workingSets.length > 0) {
+								const bestWorkingSet = workingSets.reduce((max, set) => 
+									(set.weight ?? 0) > (max.weight ?? 0) ? set : max
+								);
+								if (bestWorkingSet.weight !== undefined) {
+									session.maxActualWorkingSet = { weight: bestWorkingSet.weight, reps: bestWorkingSet.reps };
+								}
+							}
+						}
+					}
+					
+					// Пересчитываем allTimeMaxReps
+					// Если повторений одинаково - выбираем подход с большим весом
+					for (const session of mergedExercise.history) {
+						const maxRepsSet = session.sets.reduce((max, set) => {
+							if (set.reps > max.reps) {
+								return set;
+							} else if (set.reps === max.reps && mergedExercise.hasWeight) {
+								// При одинаковых повторениях выбираем больший вес
+								return (set.weight ?? 0) > (max.weight ?? 0) ? set : max;
+							}
+							return max;
+						});
+						
+						if (!mergedExercise.allTimeMaxReps || 
+							maxRepsSet.reps > mergedExercise.allTimeMaxReps.reps ||
+							(maxRepsSet.reps === mergedExercise.allTimeMaxReps.reps && mergedExercise.hasWeight && 
+							 (maxRepsSet.weight ?? 0) > (mergedExercise.allTimeMaxReps.weight ?? 0))) {
+							mergedExercise.allTimeMaxReps = {
+								...(mergedExercise.hasWeight && maxRepsSet.weight !== undefined && { weight: maxRepsSet.weight }),
+								reps: maxRepsSet.reps,
+								date: session.date
+							};
+						}
+					}
+					
+					// Пересчитываем allTimeMaxWeight
+					if (mergedExercise.hasWeight) {
+						for (const session of mergedExercise.history) {
+							const maxWeightSet = session.sets.reduce((max, set) => 
+								(set.weight !== undefined && (max.weight === undefined || set.weight > max.weight)) ? set : max
+							);
+							if (maxWeightSet.weight !== undefined) {
+								if (!mergedExercise.allTimeMaxWeight || maxWeightSet.weight > mergedExercise.allTimeMaxWeight.weight) {
+									mergedExercise.allTimeMaxWeight = {
+										weight: maxWeightSet.weight,
+										reps: maxWeightSet.reps,
+										date: session.date
+									};
+								}
+							}
+						}
+					}
+				}
+				
+				// Удаляем все старые варианты
+				for (const originalName of originalNames) {
+					delete exercises[originalName];
+				}
+				
+				// Добавляем объединённую запись
+				exercises[normalized] = mergedExercise;
+				
+				console.log('[ExerciseCache] ✅ Дубликаты объединены, история сессий:', mergedExercise.history.length);
+			}
+		}
+		
+		if (foundDuplicates) {
+			console.log('[ExerciseCache] 💾 Сохраняем кэш после дедупликации');
+			await this.save();
+		} else {
+			console.log('[ExerciseCache] ✅ Дубликатов не найдено');
+		}
+	}
+
 
 	async save(): Promise<void> {
 		try {
@@ -232,6 +387,9 @@ export class ExerciseCache {
 						currentExercise = exerciseText;
 					}
 					
+					// ВАЖНО: Нормализуем название упражнения в NFC для избежания дубликатов
+					currentExercise = currentExercise.normalize('NFC').trim();
+					
 					console.log('[ExerciseCache] Найдено упражнение:', currentExercise, 'в файле:', file.basename);
 					
 					// Определяем тип упражнения из метаданных
@@ -315,10 +473,13 @@ export class ExerciseCache {
 		sets: ExerciseSet[],
 		hasWeight: boolean
 	): void {
+		// ВАЖНО: Нормализуем название упражнения в NFC для избежания дубликатов
+		const normalizedName = exerciseName.normalize('NFC').trim();
+		
 		// Создаём упражнение если его нет
-		if (!this.cache.exercises[exerciseName]) {
-			this.cache.exercises[exerciseName] = {
-				name: exerciseName,
+		if (!this.cache.exercises[normalizedName]) {
+			this.cache.exercises[normalizedName] = {
+				name: normalizedName,
 				hasWeight,
 				history: [],
 				lastWorkout: null,
@@ -327,7 +488,7 @@ export class ExerciseCache {
 			};
 		}
 
-		const exercise = this.cache.exercises[exerciseName];
+		const exercise = this.cache.exercises[normalizedName];
 
 		// Ищем существующую сессию с этой датой
 		let existingSession = exercise.history.find(s => s.date === date);
@@ -381,12 +542,22 @@ export class ExerciseCache {
 		exercise.lastWorkout = exercise.history[0];
 
 		// Обновляем allTimeMaxReps (максимальное количество повторений за все время)
+		// Если повторений одинаково - выбираем подход с большим весом
 		for (const session of exercise.history) {
-			const maxRepsSet = session.sets.reduce((max, set) => 
-				set.reps > max.reps ? set : max
-			);
+			const maxRepsSet = session.sets.reduce((max, set) => {
+				if (set.reps > max.reps) {
+					return set;
+				} else if (set.reps === max.reps && hasWeight) {
+					// При одинаковых повторениях выбираем больший вес
+					return (set.weight ?? 0) > (max.weight ?? 0) ? set : max;
+				}
+				return max;
+			});
 			
-			if (!exercise.allTimeMaxReps || maxRepsSet.reps > exercise.allTimeMaxReps.reps) {
+			if (!exercise.allTimeMaxReps || 
+				maxRepsSet.reps > exercise.allTimeMaxReps.reps ||
+				(maxRepsSet.reps === exercise.allTimeMaxReps.reps && hasWeight && 
+				 (maxRepsSet.weight ?? 0) > (exercise.allTimeMaxReps.weight ?? 0))) {
 				exercise.allTimeMaxReps = {
 					...(hasWeight && maxRepsSet.weight !== undefined && { weight: maxRepsSet.weight }),
 					reps: maxRepsSet.reps,

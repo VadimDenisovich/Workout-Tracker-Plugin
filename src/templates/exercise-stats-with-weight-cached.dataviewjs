@@ -272,9 +272,20 @@ if (!cache) {
 				dv.paragraph("💪 **Максимальный вес за тренировку:** " + max.weight + " кг × " + max.reps + " раз");
 			}
 			
-			if (exerciseData.lastWorkout.maxActualWorkingSet) {
-				const working = exerciseData.lastWorkout.maxActualWorkingSet;
-				dv.paragraph("🔥 **Максимальное количество повторений:** " + working.reps + " раз с " + working.weight + " кг");
+			// Находим подход с максимальным количеством повторений
+			// Если несколько подходов с одинаковым числом повторений - выбираем тот, где вес больше
+			const maxRepsInLastWorkout = exerciseData.lastWorkout.sets.reduce((max, set) => {
+				if (set.reps > max.reps) {
+					return set;
+				} else if (set.reps === max.reps) {
+					// При одинаковых повторениях выбираем больший вес
+					return (set.weight ?? 0) > (max.weight ?? 0) ? set : max;
+				}
+				return max;
+			});
+			
+			if (maxRepsInLastWorkout) {
+				dv.paragraph("🔥 **Максимальное количество повторений:** " + maxRepsInLastWorkout.reps + " раз с " + maxRepsInLastWorkout.weight + " кг");
 			}
 		}			// Рекорды за все время
 			dv.header(3, "Рекорды");

@@ -83,11 +83,11 @@ export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
 ![[Pasted image 20240523211013.png|300]]
 ![[Pasted image 20240523211121.png|300]]
 ![[Pasted image 20240523211124.png|300]]
-### [[Жим гантелей лежа]]
+### [[Main/Training/Exercises/Жим гантелей лежа на горизонтальной скамье|Жим гантелей лежа на горизонтальной скамье]] 
 Подход 1: _ кг x _ раз
 Подход 2: _ кг x _ раз
 
-{{exercise:Жим гантелей лежа}}
+{{exercise:Жим гантелей лежа на горизонтальной скамье}}
 
 ![[Pasted image 20240523211504.png|300]]
 ![[Pasted image 20240523211651.png|300]]
@@ -144,10 +144,6 @@ export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
 
 {{exercise:Подъем на носки с гантелями}}
 
-
-
-
-## Заметки
 `,
 
 	WEDNESDAY: `# Тренировка - Среда
@@ -200,8 +196,6 @@ export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
 Подход 3: _ раз
 
 {{exercise:Подъемы ног на пресс на скамье}}
-
-## Заметки
 `,
 
 	FRIDAY: `# Тренировка - Пятница
@@ -218,12 +212,21 @@ export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
 
 {{exercise:Жим штанги лёжа узким хватом}}
 
-![[Pasted image 20251004115509.png|400x250]]
-### [[Становая тяга классика (средний вес)]]
+![[Pasted image 20240523211504.png|300]]
+![[Pasted image 20240523211651.png|300]]
+![[Pasted image 20240523211654.png|300]]
+### [[Румынская тяга с гантелями]]
 Подход 1: _ кг x _ раз
 Подход 2: _ кг x _ раз
 
-{{exercise:Становая тяга классика (средний вес)}}
+{{exercise:Румынская тяга с гантелями}}
+
+![[Pasted image 20251101130211.png|400]]
+### [[Обратные выпады]]
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+{{exercise:Обратные выпады}}
 
 ![[Pasted image 20251004121231.png|400x300]]
 ### [[Тяга горизонтального блока к поясу]]
@@ -267,8 +270,6 @@ export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
 
 {{exercise:Гиперэкстензия}}
 
-
-## Заметки
 `,
 
 	TUESDAY: `# Тренировка - Вторник
@@ -395,7 +396,6 @@ export const WORKOUT_TEMPLATES: Record<TemplateKey, string> = {
 
 {{exercise:Велосипед на пресс}}
 
-## Заметки
 `,
 
 	HOME: `# Домашняя тренировка
