@@ -3,59 +3,73 @@
   "exercises": {
     "Румынская тяга с гантелями": {
       "name": "Румынская тяга с гантелями",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20240523211654.png|300]]"
     },
     "Подъемы с гантелями": {
       "name": "Подъемы с гантелями",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20240523213357.png|300]]"
     },
     "Французский жим с нижнего блока": {
       "name": "Французский жим с нижнего блока",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20240523214828.png|300x300]]"
     },
     "Подъем гантелей на дельты": {
       "name": "Подъем гантелей на дельты",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20240523215257.png|300]]"
     },
     "Жим ногами на носки": {
       "name": "Жим ногами на носки",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20240523215711.png|300]]"
     },
     "Жим ног": {
       "name": "Жим ног",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251004115009.png|300x300]]"
     },
     "Жим от груди в Смите": {
       "name": "Жим от груди в Смите",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251019104147.png|400]]"
     },
     "Разгибание ног в тренажере": {
       "name": "Разгибание ног в тренажере",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20240523222301.png|300]]"
     },
     "Подъем EZ-штанги на бицепс стоя": {
       "name": "Подъем EZ-штанги на бицепс стоя",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20240523222856.png|300]]"
     },
     "Жим штанги лёжа узким хватом": {
       "name": "Жим штанги лёжа узким хватом",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251004115159.png|400x250]]"
     },
     "Тяга горизонтального блока к поясу": {
       "name": "Тяга горизонтального блока к поясу",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251004121231.png|400x300]]"
     },
     "Жим гантелей на наклонной скамье (45°)": {
       "name": "Жим гантелей на наклонной скамье (45°)",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251004121429.png]]"
     },
     "Разгибания рук с гантелью из-за головы (французский жим сидя)": {
       "name": "Разгибания рук с гантелью из-за головы (французский жим сидя)",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251004121547.png|400x250]]"
     },
     "Подъёмы ног в висе": {
       "name": "Подъёмы ног в висе",
-      "hasWeight": false
+      "hasWeight": false,
+      "imageLink": "![[Pasted image 20251004121737.png|300]]"
     },
     "Отжимания": {
       "name": "Отжимания",
@@ -71,7 +85,8 @@
     },
     "Гоблет-присед с гантелью": {
       "name": "Гоблет-присед с гантелью",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[2025-10-28_15-43-42.png|400]]"
     },
     "Гиперэкстензия (икры)": {
       "name": "Гиперэкстензия (икры)",
@@ -91,7 +106,8 @@
     },
     "Обратные разводки на пек-деке": {
       "name": "Обратные разводки на пек-деке",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251019102813.png|400]]"
     },
     "Разводки на пек-деке": {
       "name": "Разводки на пек-деке",
@@ -99,7 +115,8 @@
     },
     "Жим лежа": {
       "name": "Жим лежа",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251019104147.png|400]]"
     },
     "Байесовский подъём на бицепс": {
       "name": "Байесовский подъём на бицепс",
@@ -107,7 +124,8 @@
     },
     "Велосипед на пресс": {
       "name": "Велосипед на пресс",
-      "hasWeight": false
+      "hasWeight": false,
+      "imageLink": "![[Pasted image 20251019104806.png|400]]"
     },
     "Подъем гантелей на дельты лежа": {
       "name": "Подъем гантелей на дельты лежа",
@@ -123,19 +141,23 @@
     },
     "Разводки на пэк-деке": {
       "name": "Разводки на пэк-деке",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251019104230.png|400]]"
     },
     "Верхняя тяга блока к груди": {
       "name": "Верхняя тяга блока к груди",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20240523212914.png|300]]"
     },
     "Верхняя тяга блока на бицепс": {
       "name": "Верхняя тяга блока на бицепс",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20240523212914.png|300]]"
     },
     "Гиперэкстензия": {
       "name": "Гиперэкстензия",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251004121913.png|300]]"
     },
     "Двойная верхняя тяга блока в груди": {
       "name": "Двойная верхняя тяга блока в груди",
@@ -147,23 +169,53 @@
     },
     "Подъемы ног на пресс на скамье": {
       "name": "Подъемы ног на пресс на скамье",
-      "hasWeight": false
+      "hasWeight": false,
+      "imageLink": "![[Pasted image 20251004122326.png|300]]"
     },
     "Подъем на носки с гантелями": {
       "name": "Подъем на носки с гантелями",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251028160606.png|400]]"
     },
     "Обратные выпады": {
       "name": "Обратные выпады",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251101130211.png|400]]"
     },
     "Становая тяга классика (средний вес)": {
       "name": "Становая тяга классика (средний вес)",
-      "hasWeight": true
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20251004115509.png|400x250]]"
     },
     "Жим гантелей лежа на горизонтальной скамье": {
       "name": "Жим гантелей лежа на горизонтальной скамье",
+      "hasWeight": true,
+      "imageLink": "![[Pasted image 20240523211124.png|300]]"
+    },
+    "Жим на верхних блоках стоя": {
+      "name": "Жим на верхних блоках стоя",
+      "hasWeight": true,
+      "imageLink": "![[2025-10-28_16-15-36.png|400]]"
+    },
+    "Разведение гантелей лежа": {
+      "name": "Разведение гантелей лежа",
+      "hasWeight": true
+    },
+    "Разведение гантелей лёжа под углом 20–30°": {
+      "name": "Разведение гантелей лёжа под углом 20–30°",
+      "hasWeight": true
+    },
+    "Сгибание ног лёжа": {
+      "name": "Сгибание ног лёжа",
+      "hasWeight": true
+    },
+    "Сгибание рук с гантелями сидя": {
+      "name": "Сгибание рук с гантелями сидя",
+      "hasWeight": true
+    },
+    "Разгибание рук на блоке": {
+      "name": "Разгибание рук на блоке",
       "hasWeight": true
     }
   }
-} 
+}

@@ -15,6 +15,16 @@ if (!cache) {
 	if (!exerciseData || exerciseData.history.length === 0) {
 		dv.paragraph("Данные по подходам пока не найдены.");
 	} else {
+		// Получаем изображение упражнения из метаданных
+		const metadata = plugin?.exerciseMetadata;
+		const exerciseMetadata = metadata?.getAll();
+		const imageLink = exerciseMetadata?.[exerciseName]?.imageLink;
+		
+		// Отображаем изображение, если оно есть
+		if (imageLink) {
+			dv.paragraph(imageLink);
+		}
+		
 		const rows = [];
 		const maxReps = new Map();
 		const maxRepsWeight = new Map();

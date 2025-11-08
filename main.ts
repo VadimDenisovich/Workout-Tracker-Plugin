@@ -328,6 +328,53 @@ export default class WorkoutTrackerPlugin extends Plugin {
 			}
 		});
 
+		this.addCommand({
+			id: 'update-exercise-metadata',
+			name: 'Обновить метаданные упражнений (изображения и hasWeight)',
+			callback: async () => {
+				try {
+					new Notice('🔄 Обновление метаданных упражнений...');
+					
+					const exercisesPath = `${this.settings.workoutFolder}/Exercises`;
+					const logsPath = `${this.settings.workoutFolder}/Logs`;
+					
+					// Полное обновление метаданных
+					const result = await this.exerciseMetadata.fullUpdate(
+						exercisesPath,
+						logsPath,
+						this.settings.exerciseRegistry
+					);
+					
+					// Обновляем реестр упражнений на основе метаданных
+					const metadataExercises = this.exerciseMetadata.getAll();
+					const updatedRegistry: ExerciseInfo[] = [];
+					
+					for (const [name, metadata] of Object.entries(metadataExercises)) {
+						updatedRegistry.push({
+							name: metadata.name,
+							hasWeight: metadata.hasWeight,
+							imageLink: metadata.imageLink
+						});
+					}
+					
+					// Обновляем настройки с новым реестром
+					this.settings.exerciseRegistry = updatedRegistry;
+					await this.persistSettings();
+					
+					// Формируем сообщение о результатах
+					let message = '✅ Метаданные обновлены\n';
+					message += `📊 Упражнений: +${result.exercises.added} / -${result.exercises.removed}\n`;
+					message += `🖼️ Изображений обновлено: ${result.images.updated} (проверено логов: ${result.images.scanned})`;
+					
+					new Notice(message, 5000);
+					console.log('[Main] ✅ Обновление метаданных завершено:', result);
+				} catch (error) {
+					console.error('[Main] ❌ Ошибка обновления метаданных:', error);
+					new Notice('❌ Ошибка при обновлении метаданных');
+				}
+			}
+		});
+
 		// Настройки
 		this.addSettingTab(new WorkoutTrackerSettingTab(this.app, this));
 		
@@ -896,6 +943,54 @@ class WorkoutTrackerSettingTab extends PluginSettingTab {
 						new Notice('✅ Кэш очищен');
 					} finally {
 						button.setDisabled(false);
+					}
+				});
+			});
+
+		new Setting(containerEl)
+			.setName('Метаданные упражнений')
+			.setDesc('Обновить метаданные: синхронизировать список упражнений с папкой Exercises, собрать изображения из логов тренировок.')
+			.addButton(button => {
+				button.setButtonText('Обновить метаданные');
+				button.setCta();
+				button.onClick(async () => {
+					button.setDisabled(true);
+					button.setButtonText('Обновление...');
+					try {
+						const exercisesPath = `${this.plugin.settings.workoutFolder}/Exercises`;
+						const logsPath = `${this.plugin.settings.workoutFolder}/Logs`;
+						
+						const result = await this.plugin.exerciseMetadata.fullUpdate(
+							exercisesPath,
+							logsPath,
+							this.plugin.settings.exerciseRegistry
+						);
+						
+						// Обновляем реестр упражнений
+						const metadataExercises = this.plugin.exerciseMetadata.getAll();
+						const updatedRegistry: ExerciseInfo[] = [];
+						
+						for (const [name, metadata] of Object.entries(metadataExercises)) {
+							updatedRegistry.push({
+								name: metadata.name,
+								hasWeight: metadata.hasWeight,
+								imageLink: metadata.imageLink
+							});
+						}
+						
+						this.plugin.settings.exerciseRegistry = updatedRegistry;
+						await this.plugin.persistSettings();
+						
+						let message = '✅ Метаданные обновлены\n';
+						message += `📊 Упражнений: +${result.exercises.added} / -${result.exercises.removed}\n`;
+						message += `🖼️ Изображений: ${result.images.updated} (логов: ${result.images.scanned})`;
+						
+						new Notice(message, 5000);
+					} catch (error) {
+						new Notice(`❌ Ошибка обновления метаданных: ${error.message}`);
+					} finally {
+						button.setDisabled(false);
+						button.setButtonText('Обновить метаданные');
 					}
 				});
 			});

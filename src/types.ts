@@ -5,6 +5,7 @@ export type TemplateOverrides = Partial<Record<TemplateKey, string>>;
 export interface ExerciseInfo {
 	name: string;
 	hasWeight: boolean;
+	imageLink?: string; // Ссылка на изображение упражнения (например, "![[image.png|400]]")
 }
 
 export interface CustomTemplate {

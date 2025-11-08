@@ -1,27 +1,341 @@
 {
   "version": "1.0.0",
-  "lastUpdate": "2025-11-03T09:55:36.450Z",
+  "lastUpdate": "2025-11-08T00:36:00.865Z",
   "cachedFiles": [
+    "Main/Training/Logs/2025-11-07-Home.md",
+    "Main/Training/Logs/2025-11-07-Friday.md",
+    "Main/Training/Logs/2025-11-05-Wednesday.md",
+    "Main/Training/Logs/2025-10-26-Sunday.md",
+    "Main/Training/Logs/2025-10-28-Monday.md",
+    "Main/Training/Logs/2025-10-19-Sunday.md",
+    "Main/Training/Logs/2025-11-03-Monday.md",
     "Main/Training/Logs/2025-11-02-Sunday.md",
     "Main/Training/Logs/2025-10-31-Friday.md",
     "Main/Training/Logs/2025-10-29-Wednesday.md",
-    "Main/Training/Logs/2025-10-26-Sunday.md",
-    "Main/Training/Logs/2025-10-24-Friday.md",
-    "Main/Training/Logs/2025-10-22-Wednesday.md",
-    "Main/Training/Logs/2025-10-19-Sunday.md",
-    "Main/Training/Logs/2025-10-17-Friday.md",
-    "Main/Training/Logs/2025-10-15-Wednesday.md",
     "Main/Training/Logs/2025-10-10-Friday.md",
-    "Main/Training/Logs/2025-10-09-Friday.md",
-    "Main/Training/Logs/2025-10-28-Monday.md",
+    "Main/Training/Logs/2025-10-24-Friday.md",
+    "Main/Training/Logs/2025-10-17-Friday.md",
+    "Main/Training/Logs/2025-10-22-Wednesday.md",
     "Main/Training/Logs/2025-10-13-Monday.md",
-    "Main/Training/Logs/2025-11-03-Monday.md"
+    "Main/Training/Logs/2025-10-15-Wednesday.md",
+    "Main/Training/Logs/2025-10-09-Friday.md"
   ],
   "exercises": {
+    "Отжимания": {
+      "name": "Отжимания",
+      "hasWeight": false,
+      "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "reps": 12
+            },
+            {
+              "reps": 14
+            },
+            {
+              "reps": 20
+            }
+          ]
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-07",
+        "sets": [
+          {
+            "reps": 12
+          },
+          {
+            "reps": 14
+          },
+          {
+            "reps": 20
+          }
+        ]
+      },
+      "allTimeMaxReps": {
+        "reps": 20,
+        "date": "2025-11-07"
+      },
+      "allTimeMaxWeight": null
+    },
+    "Приседания": {
+      "name": "Приседания",
+      "hasWeight": false,
+      "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "reps": 20
+            },
+            {
+              "reps": 20
+            },
+            {
+              "reps": 30
+            }
+          ]
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-07",
+        "sets": [
+          {
+            "reps": 20
+          },
+          {
+            "reps": 20
+          },
+          {
+            "reps": 30
+          }
+        ]
+      },
+      "allTimeMaxReps": {
+        "reps": 30,
+        "date": "2025-11-07"
+      },
+      "allTimeMaxWeight": null
+    },
+    "Пресс": {
+      "name": "Пресс",
+      "hasWeight": false,
+      "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "reps": 30
+            },
+            {
+              "reps": 30
+            }
+          ]
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-07",
+        "sets": [
+          {
+            "reps": 30
+          },
+          {
+            "reps": 30
+          }
+        ]
+      },
+      "allTimeMaxReps": {
+        "reps": 30,
+        "date": "2025-11-07"
+      },
+      "allTimeMaxWeight": null
+    },
+    "Жим штанги лёжа узким хватом": {
+      "name": "Жим штанги лёжа узким хватом",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "weight": 25,
+              "reps": 12
+            },
+            {
+              "weight": 35,
+              "reps": 9
+            },
+            {
+              "weight": 37.5,
+              "reps": 6
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 37.5,
+            "reps": 6
+          },
+          "maxActualWorkingSet": {
+            "weight": 25,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-31",
+          "sets": [
+            {
+              "weight": 25,
+              "reps": 12
+            },
+            {
+              "weight": 30,
+              "reps": 8
+            },
+            {
+              "weight": 30,
+              "reps": 8
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 30,
+            "reps": 8
+          },
+          "maxActualWorkingSet": {
+            "weight": 25,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-24",
+          "sets": [
+            {
+              "weight": 20,
+              "reps": 15
+            },
+            {
+              "weight": 25,
+              "reps": 10
+            },
+            {
+              "weight": 25,
+              "reps": 10
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 25,
+            "reps": 10
+          },
+          "maxActualWorkingSet": {
+            "weight": 20,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-17",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 16
+            },
+            {
+              "weight": 20,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 20,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 20,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-10",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 15
+            },
+            {
+              "weight": 10,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 10,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-09",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 12
+            },
+            {
+              "weight": 0,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 0,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 0,
+            "reps": 12
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-07",
+        "sets": [
+          {
+            "weight": 25,
+            "reps": 12
+          },
+          {
+            "weight": 35,
+            "reps": 9
+          },
+          {
+            "weight": 37.5,
+            "reps": 6
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 37.5,
+          "reps": 6
+        },
+        "maxActualWorkingSet": {
+          "weight": 25,
+          "reps": 12
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 10,
+        "reps": 16,
+        "date": "2025-10-17"
+      },
+      "allTimeMaxWeight": {
+        "weight": 37.5,
+        "reps": 6,
+        "date": "2025-11-07"
+      }
+    },
     "Румынская тяга с гантелями": {
       "name": "Румынская тяга с гантелями",
       "hasWeight": true,
       "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 15
+            },
+            {
+              "weight": 15,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 15
+          }
+        },
         {
           "date": "2025-11-03",
           "sets": [
@@ -87,7 +401,7 @@
         }
       ],
       "lastWorkout": {
-        "date": "2025-11-03",
+        "date": "2025-11-07",
         "sets": [
           {
             "weight": 15,
@@ -115,7 +429,2560 @@
       "allTimeMaxWeight": {
         "weight": 15,
         "reps": 15,
-        "date": "2025-11-03"
+        "date": "2025-11-07"
+      }
+    },
+    "Обратные выпады": {
+      "name": "Обратные выпады",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "weight": 8,
+              "reps": 10
+            },
+            {
+              "weight": 9,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 9,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 9,
+            "reps": 12
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-07",
+        "sets": [
+          {
+            "weight": 8,
+            "reps": 10
+          },
+          {
+            "weight": 9,
+            "reps": 12
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 9,
+          "reps": 12
+        },
+        "maxActualWorkingSet": {
+          "weight": 9,
+          "reps": 12
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 9,
+        "reps": 12,
+        "date": "2025-11-07"
+      },
+      "allTimeMaxWeight": {
+        "weight": 9,
+        "reps": 12,
+        "date": "2025-11-07"
+      }
+    },
+    "Тяга горизонтального блока к поясу": {
+      "name": "Тяга горизонтального блока к поясу",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "weight": 45,
+              "reps": 15
+            },
+            {
+              "weight": 45,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 45,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 45,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-11-02",
+          "sets": [
+            {
+              "weight": 45,
+              "reps": 10
+            },
+            {
+              "weight": 45,
+              "reps": 12
+            },
+            {
+              "weight": 45,
+              "reps": 10
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 45,
+            "reps": 10
+          },
+          "maxActualWorkingSet": {
+            "weight": 45,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-31",
+          "sets": [
+            {
+              "weight": 45,
+              "reps": 15
+            },
+            {
+              "weight": 45,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 45,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 45,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-26",
+          "sets": [
+            {
+              "weight": 45,
+              "reps": 12
+            },
+            {
+              "weight": 40,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 45,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 45,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-24",
+          "sets": [
+            {
+              "weight": 40,
+              "reps": 15
+            },
+            {
+              "weight": 45,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 45,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 45,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-19",
+          "sets": [
+            {
+              "weight": 40,
+              "reps": 15
+            },
+            {
+              "weight": 40,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 40,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 40,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-17",
+          "sets": [
+            {
+              "weight": 35,
+              "reps": 15
+            },
+            {
+              "weight": 35,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 35,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 35,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-10",
+          "sets": [
+            {
+              "weight": 35,
+              "reps": 14
+            },
+            {
+              "weight": 30,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 35,
+            "reps": 14
+          },
+          "maxActualWorkingSet": {
+            "weight": 35,
+            "reps": 14
+          }
+        },
+        {
+          "date": "2025-10-09",
+          "sets": [
+            {
+              "weight": 20,
+              "reps": 15
+            },
+            {
+              "weight": 30,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 30,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 30,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-07",
+        "sets": [
+          {
+            "weight": 45,
+            "reps": 15
+          },
+          {
+            "weight": 45,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 45,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 45,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 45,
+        "reps": 15,
+        "date": "2025-11-07"
+      },
+      "allTimeMaxWeight": {
+        "weight": 45,
+        "reps": 15,
+        "date": "2025-11-07"
+      }
+    },
+    "Жим гантелей на наклонной скамье (45°)": {
+      "name": "Жим гантелей на наклонной скамье (45°)",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 15
+            },
+            {
+              "weight": 17.5,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 17.5,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 17.5,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-31",
+          "sets": [
+            {
+              "weight": 12.5,
+              "reps": 15
+            },
+            {
+              "weight": 15,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-24",
+          "sets": [
+            {
+              "weight": 12.5,
+              "reps": 15
+            },
+            {
+              "weight": 12.5,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 12.5,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 12.5,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-17",
+          "sets": [
+            {
+              "weight": 12.5,
+              "reps": 15
+            },
+            {
+              "weight": 12.5,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 12.5,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 12.5,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-10",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 13
+            },
+            {
+              "weight": 10,
+              "reps": 14
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 13
+          },
+          "maxActualWorkingSet": {
+            "weight": 10,
+            "reps": 13
+          }
+        },
+        {
+          "date": "2025-10-09",
+          "sets": [
+            {
+              "weight": 12.5,
+              "reps": 8
+            },
+            {
+              "weight": 10,
+              "reps": 13
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 12.5,
+            "reps": 8
+          },
+          "maxActualWorkingSet": {
+            "weight": 10,
+            "reps": 13
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-07",
+        "sets": [
+          {
+            "weight": 15,
+            "reps": 15
+          },
+          {
+            "weight": 17.5,
+            "reps": 12
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 17.5,
+          "reps": 12
+        },
+        "maxActualWorkingSet": {
+          "weight": 17.5,
+          "reps": 12
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 15,
+        "reps": 15,
+        "date": "2025-11-07"
+      },
+      "allTimeMaxWeight": {
+        "weight": 17.5,
+        "reps": 12,
+        "date": "2025-11-07"
+      }
+    },
+    "Разгибания рук с гантелью из-за головы (французский жим сидя)": {
+      "name": "Разгибания рук с гантелью из-за головы (французский жим сидя)",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 15
+            },
+            {
+              "weight": 15,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-31",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 15
+            },
+            {
+              "weight": 15,
+              "reps": 10
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-24",
+          "sets": [
+            {
+              "weight": 12.5,
+              "reps": 15
+            },
+            {
+              "weight": 12.5,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 12.5,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 12.5,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-17",
+          "sets": [
+            {
+              "weight": 12.5,
+              "reps": 15
+            },
+            {
+              "weight": 12.5,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 12.5,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 12.5,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-10",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 15
+            },
+            {
+              "weight": 10,
+              "reps": 10
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 10,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-09",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 10
+            },
+            {
+              "weight": 10,
+              "reps": 9
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 10
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-07",
+        "sets": [
+          {
+            "weight": 15,
+            "reps": 15
+          },
+          {
+            "weight": 15,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 15,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 15,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 15,
+        "reps": 15,
+        "date": "2025-11-07"
+      },
+      "allTimeMaxWeight": {
+        "weight": 15,
+        "reps": 15,
+        "date": "2025-11-07"
+      }
+    },
+    "Подъем гантелей на дельты": {
+      "name": "Подъем гантелей на дельты",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 15
+            },
+            {
+              "weight": 10,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 10,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-11-03",
+          "sets": [
+            {
+              "weight": 9,
+              "reps": 15
+            },
+            {
+              "weight": 9,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 9,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 9,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-31",
+          "sets": [
+            {
+              "weight": 9,
+              "reps": 15
+            },
+            {
+              "weight": 9,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 9,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 9,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-28",
+          "sets": [
+            {
+              "weight": 9,
+              "reps": 12
+            },
+            {
+              "weight": 9,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 9,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 9,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-24",
+          "sets": [
+            {
+              "weight": 9,
+              "reps": 12
+            },
+            {
+              "weight": 9,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 9,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 9,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-17",
+          "sets": [
+            {
+              "weight": 8,
+              "reps": 15
+            },
+            {
+              "weight": 8,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 8,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 8,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-13",
+          "sets": [
+            {
+              "weight": 7,
+              "reps": 15
+            },
+            {
+              "weight": 7,
+              "reps": 16
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 7,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 7,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-10",
+          "sets": [
+            {
+              "weight": 6,
+              "reps": 15
+            },
+            {
+              "weight": 6,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 6,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 6,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-09",
+          "sets": [
+            {
+              "weight": 7,
+              "reps": 8
+            },
+            {
+              "weight": 5,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 7,
+            "reps": 8
+          },
+          "maxActualWorkingSet": {
+            "weight": 5,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-07",
+        "sets": [
+          {
+            "weight": 10,
+            "reps": 15
+          },
+          {
+            "weight": 10,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 10,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 10,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 7,
+        "reps": 16,
+        "date": "2025-10-13"
+      },
+      "allTimeMaxWeight": {
+        "weight": 10,
+        "reps": 15,
+        "date": "2025-11-07"
+      }
+    },
+    "Гиперэкстензия": {
+      "name": "Гиперэкстензия",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-07",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 15
+            },
+            {
+              "weight": 10,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 10,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-31",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 15
+            },
+            {
+              "weight": 10,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 10,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-24",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 15
+            },
+            {
+              "weight": 0,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 0,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 0,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-17",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 15
+            },
+            {
+              "weight": 0,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 0,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 0,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-13",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 12
+            },
+            {
+              "weight": 0,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 0,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 0,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-10",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 15
+            },
+            {
+              "weight": 0,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 0,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 0,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-09",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 12
+            },
+            {
+              "weight": 0,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 0,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 0,
+            "reps": 12
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-07",
+        "sets": [
+          {
+            "weight": 10,
+            "reps": 15
+          },
+          {
+            "weight": 10,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 10,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 10,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 10,
+        "reps": 15,
+        "date": "2025-11-07"
+      },
+      "allTimeMaxWeight": {
+        "weight": 10,
+        "reps": 15,
+        "date": "2025-11-07"
+      }
+    },
+    "Жим ног": {
+      "name": "Жим ног",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-05",
+          "sets": [
+            {
+              "weight": 120,
+              "reps": 15
+            },
+            {
+              "weight": 125,
+              "reps": 15
+            },
+            {
+              "weight": 135,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 135,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 135,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-29",
+          "sets": [
+            {
+              "weight": 100,
+              "reps": 15
+            },
+            {
+              "weight": 110,
+              "reps": 15
+            },
+            {
+              "weight": 120,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 120,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 120,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-22",
+          "sets": [
+            {
+              "weight": 80,
+              "reps": 15
+            },
+            {
+              "weight": 80,
+              "reps": 15
+            },
+            {
+              "weight": 90,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 90,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 90,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-15",
+          "sets": [
+            {
+              "weight": 50,
+              "reps": 15
+            },
+            {
+              "weight": 70,
+              "reps": 15
+            },
+            {
+              "weight": 70,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 70,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 70,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-05",
+        "sets": [
+          {
+            "weight": 120,
+            "reps": 15
+          },
+          {
+            "weight": 125,
+            "reps": 15
+          },
+          {
+            "weight": 135,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 135,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 135,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 135,
+        "reps": 15,
+        "date": "2025-11-05"
+      },
+      "allTimeMaxWeight": {
+        "weight": 135,
+        "reps": 15,
+        "date": "2025-11-05"
+      }
+    },
+    "Жим на верхних блоках стоя": {
+      "name": "Жим на верхних блоках стоя",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-05",
+          "sets": [
+            {
+              "weight": 20,
+              "reps": 15
+            },
+            {
+              "weight": 20,
+              "reps": 15
+            },
+            {
+              "weight": 20,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 20,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 20,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-29",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 15
+            },
+            {
+              "weight": 15,
+              "reps": 15
+            },
+            {
+              "weight": 20,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 20,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 20,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-05",
+        "sets": [
+          {
+            "weight": 20,
+            "reps": 15
+          },
+          {
+            "weight": 20,
+            "reps": 15
+          },
+          {
+            "weight": 20,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 20,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 20,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 20,
+        "reps": 15,
+        "date": "2025-11-05"
+      },
+      "allTimeMaxWeight": {
+        "weight": 20,
+        "reps": 15,
+        "date": "2025-11-05"
+      }
+    },
+    "Подъём гантелей на дельты лежа": {
+      "name": "Подъём гантелей на дельты лежа",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-05",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 15
+            },
+            {
+              "weight": 17.5,
+              "reps": 15
+            },
+            {
+              "weight": 20,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 20,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 20,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-29",
+          "sets": [
+            {
+              "weight": 12.5,
+              "reps": 15
+            },
+            {
+              "weight": 12.5,
+              "reps": 15
+            },
+            {
+              "weight": 15,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-22",
+          "sets": [
+            {
+              "weight": 12.5,
+              "reps": 15
+            },
+            {
+              "weight": 12.5,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 12.5,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 12.5,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-15",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 16
+            },
+            {
+              "weight": 12.5,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 12.5,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 12.5,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-05",
+        "sets": [
+          {
+            "weight": 15,
+            "reps": 15
+          },
+          {
+            "weight": 17.5,
+            "reps": 15
+          },
+          {
+            "weight": 20,
+            "reps": 12
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 20,
+          "reps": 12
+        },
+        "maxActualWorkingSet": {
+          "weight": 20,
+          "reps": 12
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 10,
+        "reps": 16,
+        "date": "2025-10-15"
+      },
+      "allTimeMaxWeight": {
+        "weight": 20,
+        "reps": 12,
+        "date": "2025-11-05"
+      }
+    },
+    "Разгибание ног в тренажере": {
+      "name": "Разгибание ног в тренажере",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-05",
+          "sets": [
+            {
+              "weight": 65,
+              "reps": 15
+            },
+            {
+              "weight": 65,
+              "reps": 15
+            },
+            {
+              "weight": 70,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 70,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 70,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-29",
+          "sets": [
+            {
+              "weight": 55,
+              "reps": 15
+            },
+            {
+              "weight": 60,
+              "reps": 15
+            },
+            {
+              "weight": 65,
+              "reps": 20
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 65,
+            "reps": 20
+          },
+          "maxActualWorkingSet": {
+            "weight": 60,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-22",
+          "sets": [
+            {
+              "weight": 55,
+              "reps": 15
+            },
+            {
+              "weight": 55,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 55,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 55,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-15",
+          "sets": [
+            {
+              "weight": 35,
+              "reps": 16
+            },
+            {
+              "weight": 50,
+              "reps": 16
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 50,
+            "reps": 16
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-05",
+        "sets": [
+          {
+            "weight": 65,
+            "reps": 15
+          },
+          {
+            "weight": 65,
+            "reps": 15
+          },
+          {
+            "weight": 70,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 70,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 70,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 65,
+        "reps": 20,
+        "date": "2025-10-29"
+      },
+      "allTimeMaxWeight": {
+        "weight": 70,
+        "reps": 15,
+        "date": "2025-11-05"
+      }
+    },
+    "Подъем EZ-штанги на бицепс стоя": {
+      "name": "Подъем EZ-штанги на бицепс стоя",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-05",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 12
+            },
+            {
+              "weight": 15,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-29",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 13
+            },
+            {
+              "weight": 15,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 13
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 13
+          }
+        },
+        {
+          "date": "2025-10-22",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 12
+            },
+            {
+              "weight": 15,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-15",
+          "sets": [
+            {
+              "weight": 5,
+              "reps": 12
+            },
+            {
+              "weight": 5,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 5,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 5,
+            "reps": 12
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-05",
+        "sets": [
+          {
+            "weight": 15,
+            "reps": 12
+          },
+          {
+            "weight": 15,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 15,
+          "reps": 12
+        },
+        "maxActualWorkingSet": {
+          "weight": 15,
+          "reps": 12
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 15,
+        "reps": 15,
+        "date": "2025-11-05"
+      },
+      "allTimeMaxWeight": {
+        "weight": 15,
+        "reps": 12,
+        "date": "2025-11-05"
+      }
+    },
+    "Подтягивания с весом": {
+      "name": "Подтягивания с весом",
+      "hasWeight": false,
+      "history": [
+        {
+          "date": "2025-11-05",
+          "sets": [
+            {
+              "weight": 30,
+              "reps": 6
+            },
+            {
+              "weight": 30,
+              "reps": 6
+            }
+          ]
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-05",
+        "sets": [
+          {
+            "weight": 30,
+            "reps": 6
+          },
+          {
+            "weight": 30,
+            "reps": 6
+          }
+        ]
+      },
+      "allTimeMaxReps": {
+        "reps": 6,
+        "date": "2025-11-05"
+      },
+      "allTimeMaxWeight": null
+    },
+    "Подъемы ног на пресс на скамье": {
+      "name": "Подъемы ног на пресс на скамье",
+      "hasWeight": false,
+      "history": [
+        {
+          "date": "2025-11-05",
+          "sets": [
+            {
+              "reps": 15
+            },
+            {
+              "reps": 15
+            },
+            {
+              "reps": 15
+            }
+          ]
+        },
+        {
+          "date": "2025-10-29",
+          "sets": [
+            {
+              "reps": 15
+            },
+            {
+              "reps": 15
+            },
+            {
+              "reps": 15
+            }
+          ]
+        },
+        {
+          "date": "2025-10-22",
+          "sets": [
+            {
+              "reps": 8
+            },
+            {
+              "reps": 15
+            }
+          ]
+        },
+        {
+          "date": "2025-10-15",
+          "sets": [
+            {
+              "reps": 12
+            },
+            {
+              "reps": 12
+            },
+            {
+              "reps": 10
+            }
+          ]
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-05",
+        "sets": [
+          {
+            "reps": 15
+          },
+          {
+            "reps": 15
+          },
+          {
+            "reps": 15
+          }
+        ]
+      },
+      "allTimeMaxReps": {
+        "reps": 15,
+        "date": "2025-11-05"
+      },
+      "allTimeMaxWeight": null
+    },
+    "Приседания со штангой": {
+      "name": "Приседания со штангой",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-10-26",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 15
+            },
+            {
+              "weight": 10,
+              "reps": 15
+            },
+            {
+              "weight": 20,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 20,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 20,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-19",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 12
+            },
+            {
+              "weight": 0,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 0,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 0,
+            "reps": 12
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-10-26",
+        "sets": [
+          {
+            "weight": 0,
+            "reps": 15
+          },
+          {
+            "weight": 10,
+            "reps": 15
+          },
+          {
+            "weight": 20,
+            "reps": 12
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 20,
+          "reps": 12
+        },
+        "maxActualWorkingSet": {
+          "weight": 20,
+          "reps": 12
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 10,
+        "reps": 15,
+        "date": "2025-10-26"
+      },
+      "allTimeMaxWeight": {
+        "weight": 20,
+        "reps": 12,
+        "date": "2025-10-26"
+      }
+    },
+    "Болгарский сплит-присед": {
+      "name": "Болгарский сплит-присед",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-02",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 10
+            },
+            {
+              "weight": 10,
+              "reps": 10
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 10
+          }
+        },
+        {
+          "date": "2025-10-26",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 9
+            },
+            {
+              "weight": 10,
+              "reps": 9
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 9
+          }
+        },
+        {
+          "date": "2025-10-19",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 8
+            },
+            {
+              "weight": 10,
+              "reps": 8
+            },
+            {
+              "weight": 10,
+              "reps": 10
+            },
+            {
+              "weight": 10,
+              "reps": 10
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 8
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-02",
+        "sets": [
+          {
+            "weight": 10,
+            "reps": 10
+          },
+          {
+            "weight": 10,
+            "reps": 10
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 10,
+          "reps": 10
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 10,
+        "reps": 10,
+        "date": "2025-10-19"
+      },
+      "allTimeMaxWeight": {
+        "weight": 10,
+        "reps": 9,
+        "date": "2025-10-26"
+      }
+    },
+    "Вертикальная тяга блока узким хватом": {
+      "name": "Вертикальная тяга блока узким хватом",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-02",
+          "sets": [
+            {
+              "weight": 40,
+              "reps": 15
+            },
+            {
+              "weight": 40,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 40,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 40,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-26",
+          "sets": [
+            {
+              "weight": 40,
+              "reps": 15
+            },
+            {
+              "weight": 40,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 40,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 40,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-19",
+          "sets": [
+            {
+              "weight": 35,
+              "reps": 15
+            },
+            {
+              "weight": 40,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 40,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 40,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-02",
+        "sets": [
+          {
+            "weight": 40,
+            "reps": 15
+          },
+          {
+            "weight": 40,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 40,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 40,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 40,
+        "reps": 15,
+        "date": "2025-10-26"
+      },
+      "allTimeMaxWeight": {
+        "weight": 40,
+        "reps": 15,
+        "date": "2025-10-26"
+      }
+    },
+    "Обратные разводки на пек-деке": {
+      "name": "Обратные разводки на пек-деке",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-02",
+          "sets": [
+            {
+              "weight": 50,
+              "reps": 15
+            },
+            {
+              "weight": 50,
+              "reps": 13
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 50,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 50,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-26",
+          "sets": [
+            {
+              "weight": 50,
+              "reps": 12
+            },
+            {
+              "weight": 50,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 50,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 50,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-19",
+          "sets": [
+            {
+              "weight": 50,
+              "reps": 10
+            },
+            {
+              "weight": 45,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 50,
+            "reps": 10
+          },
+          "maxActualWorkingSet": {
+            "weight": 45,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-02",
+        "sets": [
+          {
+            "weight": 50,
+            "reps": 15
+          },
+          {
+            "weight": 50,
+            "reps": 13
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 50,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 50,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 50,
+        "reps": 15,
+        "date": "2025-11-02"
+      },
+      "allTimeMaxWeight": {
+        "weight": 50,
+        "reps": 12,
+        "date": "2025-10-26"
+      }
+    },
+    "Разводки на пэк-деке": {
+      "name": "Разводки на пэк-деке",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-02",
+          "sets": [
+            {
+              "weight": 45,
+              "reps": 15
+            },
+            {
+              "weight": 50,
+              "reps": 16
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 50,
+            "reps": 16
+          },
+          "maxActualWorkingSet": {
+            "weight": 45,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-26",
+          "sets": [
+            {
+              "weight": 40,
+              "reps": 15
+            },
+            {
+              "weight": 45,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 45,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 45,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-19",
+          "sets": [
+            {
+              "weight": 30,
+              "reps": 15
+            },
+            {
+              "weight": 40,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 40,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 40,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-02",
+        "sets": [
+          {
+            "weight": 45,
+            "reps": 15
+          },
+          {
+            "weight": 50,
+            "reps": 16
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 50,
+          "reps": 16
+        },
+        "maxActualWorkingSet": {
+          "weight": 45,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 50,
+        "reps": 16,
+        "date": "2025-11-02"
+      },
+      "allTimeMaxWeight": {
+        "weight": 50,
+        "reps": 16,
+        "date": "2025-11-02"
+      }
+    },
+    "Жим лежа": {
+      "name": "Жим лежа",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-02",
+          "sets": [
+            {
+              "weight": 30,
+              "reps": 8
+            },
+            {
+              "weight": 35,
+              "reps": 8
+            },
+            {
+              "weight": 35,
+              "reps": 8
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 35,
+            "reps": 8
+          }
+        },
+        {
+          "date": "2025-10-26",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 15
+            },
+            {
+              "weight": 30,
+              "reps": 7
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 30,
+            "reps": 7
+          },
+          "maxActualWorkingSet": {
+            "weight": 10,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-02",
+        "sets": [
+          {
+            "weight": 30,
+            "reps": 8
+          },
+          {
+            "weight": 35,
+            "reps": 8
+          },
+          {
+            "weight": 35,
+            "reps": 8
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 35,
+          "reps": 8
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 10,
+        "reps": 15,
+        "date": "2025-10-26"
+      },
+      "allTimeMaxWeight": {
+        "weight": 35,
+        "reps": 8,
+        "date": "2025-11-02"
+      }
+    },
+    "Байесовский подъём на бицепс": {
+      "name": "Байесовский подъём на бицепс",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-11-02",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 12
+            },
+            {
+              "weight": 15,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-26",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 12
+            },
+            {
+              "weight": 15,
+              "reps": 12
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-19",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 15
+            },
+            {
+              "weight": 10,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 10,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 10,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-02",
+        "sets": [
+          {
+            "weight": 15,
+            "reps": 12
+          },
+          {
+            "weight": 15,
+            "reps": 12
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 15,
+          "reps": 12
+        },
+        "maxActualWorkingSet": {
+          "weight": 15,
+          "reps": 12
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 10,
+        "reps": 15,
+        "date": "2025-10-19"
+      },
+      "allTimeMaxWeight": {
+        "weight": 15,
+        "reps": 12,
+        "date": "2025-10-26"
+      }
+    },
+    "Велосипед на пресс": {
+      "name": "Велосипед на пресс",
+      "hasWeight": false,
+      "history": [
+        {
+          "date": "2025-11-02",
+          "sets": [
+            {
+              "reps": 20
+            },
+            {
+              "reps": 20
+            }
+          ]
+        },
+        {
+          "date": "2025-10-26",
+          "sets": [
+            {
+              "reps": 30
+            },
+            {
+              "reps": 30
+            }
+          ]
+        },
+        {
+          "date": "2025-10-24",
+          "sets": [
+            {
+              "reps": 30
+            },
+            {
+              "reps": 30
+            }
+          ]
+        },
+        {
+          "date": "2025-10-19",
+          "sets": [
+            {
+              "reps": 26
+            },
+            {
+              "reps": 20
+            }
+          ]
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-02",
+        "sets": [
+          {
+            "reps": 20
+          },
+          {
+            "reps": 20
+          }
+        ]
+      },
+      "allTimeMaxReps": {
+        "reps": 30,
+        "date": "2025-10-26"
+      },
+      "allTimeMaxWeight": null
+    },
+    "Жим гантелей лежа на горизонтальной скамье": {
+      "name": "Жим гантелей лежа на горизонтальной скамье",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-10-28",
+          "sets": [
+            {
+              "weight": 12.5,
+              "reps": 15
+            },
+            {
+              "weight": 15,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 15,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 15,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-13",
+          "sets": [
+            {
+              "weight": 12.5,
+              "reps": 15
+            },
+            {
+              "weight": 12.5,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 12.5,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 12.5,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-10-28",
+        "sets": [
+          {
+            "weight": 12.5,
+            "reps": 15
+          },
+          {
+            "weight": 15,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 15,
+          "reps": 15
+        },
+        "maxActualWorkingSet": {
+          "weight": 15,
+          "reps": 15
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 15,
+        "reps": 15,
+        "date": "2025-10-28"
+      },
+      "allTimeMaxWeight": {
+        "weight": 15,
+        "reps": 15,
+        "date": "2025-10-28"
       }
     },
     "Верхняя тяга блока к груди": {
@@ -514,211 +3381,6 @@
         "date": "2025-10-28"
       }
     },
-    "Подъем гантелей на дельты": {
-      "name": "Подъем гантелей на дельты",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-11-03",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 15
-            },
-            {
-              "weight": 9,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 9,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 15
-            },
-            {
-              "weight": 9,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 9,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-28",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 12
-            },
-            {
-              "weight": 9,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 9,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 9,
-              "reps": 12
-            },
-            {
-              "weight": 9,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 9,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 9,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 8,
-              "reps": 15
-            },
-            {
-              "weight": 8,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 8,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 8,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "weight": 7,
-              "reps": 15
-            },
-            {
-              "weight": 7,
-              "reps": 16
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 7,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 7,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-10",
-          "sets": [
-            {
-              "weight": 6,
-              "reps": 15
-            },
-            {
-              "weight": 6,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 6,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 6,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 7,
-              "reps": 8
-            },
-            {
-              "weight": 5,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 7,
-            "reps": 8
-          },
-          "maxActualWorkingSet": {
-            "weight": 5,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-11-03",
-        "sets": [
-          {
-            "weight": 9,
-            "reps": 15
-          },
-          {
-            "weight": 9,
-            "reps": 15
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 9,
-          "reps": 15
-        },
-        "maxActualWorkingSet": {
-          "weight": 9,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 7,
-        "reps": 16,
-        "date": "2025-10-13"
-      },
-      "allTimeMaxWeight": {
-        "weight": 9,
-        "reps": 15,
-        "date": "2025-10-31"
-      }
-    },
     "Подъем на носки с гантелями": {
       "name": "Подъем на носки с гантелями",
       "hasWeight": true,
@@ -798,6 +3460,143 @@
         "date": "2025-10-28"
       }
     },
+    "Жим от груди в Смите": {
+      "name": "Жим от груди в Смите",
+      "hasWeight": true,
+      "history": [
+        {
+          "date": "2025-10-22",
+          "sets": [
+            {
+              "weight": 40,
+              "reps": 12
+            },
+            {
+              "weight": 40,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 40,
+            "reps": 12
+          },
+          "maxActualWorkingSet": {
+            "weight": 40,
+            "reps": 12
+          }
+        },
+        {
+          "date": "2025-10-19",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 15
+            },
+            {
+              "weight": 20,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 20,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 20,
+            "reps": 15
+          }
+        },
+        {
+          "date": "2025-10-15",
+          "sets": [
+            {
+              "weight": 30,
+              "reps": 15
+            },
+            {
+              "weight": 40,
+              "reps": 15
+            }
+          ],
+          "maxActualWeight": {
+            "weight": 40,
+            "reps": 15
+          },
+          "maxActualWorkingSet": {
+            "weight": 40,
+            "reps": 15
+          }
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-10-22",
+        "sets": [
+          {
+            "weight": 40,
+            "reps": 12
+          },
+          {
+            "weight": 40,
+            "reps": 15
+          }
+        ],
+        "maxActualWeight": {
+          "weight": 40,
+          "reps": 12
+        },
+        "maxActualWorkingSet": {
+          "weight": 40,
+          "reps": 12
+        }
+      },
+      "allTimeMaxReps": {
+        "weight": 40,
+        "reps": 15,
+        "date": "2025-10-22"
+      },
+      "allTimeMaxWeight": {
+        "weight": 40,
+        "reps": 12,
+        "date": "2025-10-22"
+      }
+    },
+    "Main/Training/Exercises/Жим гантелей лежа на горизонтальной скамье": {
+      "name": "Main/Training/Exercises/Жим гантелей лежа на горизонтальной скамье",
+      "hasWeight": false,
+      "history": [
+        {
+          "date": "2025-11-03",
+          "sets": [
+            {
+              "weight": 15,
+              "reps": 15
+            },
+            {
+              "weight": 17.5,
+              "reps": 10
+            }
+          ]
+        }
+      ],
+      "lastWorkout": {
+        "date": "2025-11-03",
+        "sets": [
+          {
+            "weight": 15,
+            "reps": 15
+          },
+          {
+            "weight": 17.5,
+            "reps": 10
+          }
+        ]
+      },
+      "allTimeMaxReps": {
+        "reps": 15,
+        "date": "2025-11-03"
+      },
+      "allTimeMaxWeight": null
+    },
     "Гоблет-присед с гантелью": {
       "name": "Гоблет-присед с гантелью",
       "hasWeight": true,
@@ -854,1010 +3653,6 @@
         "weight": 16,
         "reps": 12,
         "date": "2025-11-02"
-      }
-    },
-    "Болгарский сплит-присед": {
-      "name": "Болгарский сплит-присед",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-11-02",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 10
-            },
-            {
-              "weight": 10,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 10
-          }
-        },
-        {
-          "date": "2025-10-26",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 9
-            },
-            {
-              "weight": 10,
-              "reps": 9
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 9
-          }
-        },
-        {
-          "date": "2025-10-19",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 8
-            },
-            {
-              "weight": 10,
-              "reps": 8
-            },
-            {
-              "weight": 10,
-              "reps": 10
-            },
-            {
-              "weight": 10,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 8
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-11-02",
-        "sets": [
-          {
-            "weight": 10,
-            "reps": 10
-          },
-          {
-            "weight": 10,
-            "reps": 10
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 10,
-          "reps": 10
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 10,
-        "reps": 10,
-        "date": "2025-11-02"
-      },
-      "allTimeMaxWeight": {
-        "weight": 10,
-        "reps": 10,
-        "date": "2025-11-02"
-      }
-    },
-    "Вертикальная тяга блока узким хватом": {
-      "name": "Вертикальная тяга блока узким хватом",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-11-02",
-          "sets": [
-            {
-              "weight": 40,
-              "reps": 15
-            },
-            {
-              "weight": 40,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 40,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 40,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-26",
-          "sets": [
-            {
-              "weight": 40,
-              "reps": 15
-            },
-            {
-              "weight": 40,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 40,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 40,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-19",
-          "sets": [
-            {
-              "weight": 35,
-              "reps": 15
-            },
-            {
-              "weight": 40,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 40,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 40,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-11-02",
-        "sets": [
-          {
-            "weight": 40,
-            "reps": 15
-          },
-          {
-            "weight": 40,
-            "reps": 15
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 40,
-          "reps": 15
-        },
-        "maxActualWorkingSet": {
-          "weight": 40,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 40,
-        "reps": 15,
-        "date": "2025-11-02"
-      },
-      "allTimeMaxWeight": {
-        "weight": 40,
-        "reps": 15,
-        "date": "2025-11-02"
-      }
-    },
-    "Тяга горизонтального блока к поясу": {
-      "name": "Тяга горизонтального блока к поясу",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-11-02",
-          "sets": [
-            {
-              "weight": 45,
-              "reps": 10
-            },
-            {
-              "weight": 45,
-              "reps": 12
-            },
-            {
-              "weight": 45,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 45,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 45,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "weight": 45,
-              "reps": 15
-            },
-            {
-              "weight": 45,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 45,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 45,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-26",
-          "sets": [
-            {
-              "weight": 45,
-              "reps": 12
-            },
-            {
-              "weight": 40,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 45,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 45,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 40,
-              "reps": 15
-            },
-            {
-              "weight": 45,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 45,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 45,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-19",
-          "sets": [
-            {
-              "weight": 40,
-              "reps": 15
-            },
-            {
-              "weight": 40,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 40,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 40,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 35,
-              "reps": 15
-            },
-            {
-              "weight": 35,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 35,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-10",
-          "sets": [
-            {
-              "weight": 35,
-              "reps": 14
-            },
-            {
-              "weight": 30,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 14
-          },
-          "maxActualWorkingSet": {
-            "weight": 35,
-            "reps": 14
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 15
-            },
-            {
-              "weight": 30,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 30,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 30,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-11-02",
-        "sets": [
-          {
-            "weight": 45,
-            "reps": 10
-          },
-          {
-            "weight": 45,
-            "reps": 12
-          },
-          {
-            "weight": 45,
-            "reps": 10
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 45,
-          "reps": 10
-        },
-        "maxActualWorkingSet": {
-          "weight": 45,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 45,
-        "reps": 15,
-        "date": "2025-10-31"
-      },
-      "allTimeMaxWeight": {
-        "weight": 45,
-        "reps": 10,
-        "date": "2025-11-02"
-      }
-    },
-    "Обратные разводки на пек-деке": {
-      "name": "Обратные разводки на пек-деке",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-11-02",
-          "sets": [
-            {
-              "weight": 50,
-              "reps": 15
-            },
-            {
-              "weight": 50,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 50,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 50,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-26",
-          "sets": [
-            {
-              "weight": 50,
-              "reps": 12
-            },
-            {
-              "weight": 50,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 50,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 50,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-19",
-          "sets": [
-            {
-              "weight": 50,
-              "reps": 10
-            },
-            {
-              "weight": 45,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 50,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 45,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-11-02",
-        "sets": [
-          {
-            "weight": 50,
-            "reps": 15
-          },
-          {
-            "weight": 50,
-            "reps": 13
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 50,
-          "reps": 15
-        },
-        "maxActualWorkingSet": {
-          "weight": 50,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 50,
-        "reps": 15,
-        "date": "2025-11-02"
-      },
-      "allTimeMaxWeight": {
-        "weight": 50,
-        "reps": 15,
-        "date": "2025-11-02"
-      }
-    },
-    "Разводки на пэк-деке": {
-      "name": "Разводки на пэк-деке",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-11-02",
-          "sets": [
-            {
-              "weight": 45,
-              "reps": 15
-            },
-            {
-              "weight": 50,
-              "reps": 16
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 50,
-            "reps": 16
-          },
-          "maxActualWorkingSet": {
-            "weight": 45,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-26",
-          "sets": [
-            {
-              "weight": 40,
-              "reps": 15
-            },
-            {
-              "weight": 45,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 45,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 45,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-19",
-          "sets": [
-            {
-              "weight": 30,
-              "reps": 15
-            },
-            {
-              "weight": 40,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 40,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 40,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-11-02",
-        "sets": [
-          {
-            "weight": 45,
-            "reps": 15
-          },
-          {
-            "weight": 50,
-            "reps": 16
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 50,
-          "reps": 16
-        },
-        "maxActualWorkingSet": {
-          "weight": 45,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 50,
-        "reps": 16,
-        "date": "2025-11-02"
-      },
-      "allTimeMaxWeight": {
-        "weight": 50,
-        "reps": 16,
-        "date": "2025-11-02"
-      }
-    },
-    "Жим лежа": {
-      "name": "Жим лежа",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-11-02",
-          "sets": [
-            {
-              "weight": 30,
-              "reps": 8
-            },
-            {
-              "weight": 35,
-              "reps": 8
-            },
-            {
-              "weight": 35,
-              "reps": 8
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 35,
-            "reps": 8
-          }
-        },
-        {
-          "date": "2025-10-26",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 15
-            },
-            {
-              "weight": 30,
-              "reps": 7
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 30,
-            "reps": 7
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-11-02",
-        "sets": [
-          {
-            "weight": 30,
-            "reps": 8
-          },
-          {
-            "weight": 35,
-            "reps": 8
-          },
-          {
-            "weight": 35,
-            "reps": 8
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 35,
-          "reps": 8
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 10,
-        "reps": 15,
-        "date": "2025-10-26"
-      },
-      "allTimeMaxWeight": {
-        "weight": 35,
-        "reps": 8,
-        "date": "2025-11-02"
-      }
-    },
-    "Байесовский подъём на бицепс": {
-      "name": "Байесовский подъём на бицепс",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-11-02",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 12
-            },
-            {
-              "weight": 15,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-26",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 12
-            },
-            {
-              "weight": 15,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-19",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 15
-            },
-            {
-              "weight": 10,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-11-02",
-        "sets": [
-          {
-            "weight": 15,
-            "reps": 12
-          },
-          {
-            "weight": 15,
-            "reps": 12
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 15,
-          "reps": 12
-        },
-        "maxActualWorkingSet": {
-          "weight": 15,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 10,
-        "reps": 15,
-        "date": "2025-10-19"
-      },
-      "allTimeMaxWeight": {
-        "weight": 15,
-        "reps": 12,
-        "date": "2025-11-02"
-      }
-    },
-    "Велосипед на пресс": {
-      "name": "Велосипед на пресс",
-      "hasWeight": false,
-      "history": [
-        {
-          "date": "2025-11-02",
-          "sets": [
-            {
-              "reps": 20
-            },
-            {
-              "reps": 20
-            }
-          ]
-        },
-        {
-          "date": "2025-10-26",
-          "sets": [
-            {
-              "reps": 30
-            },
-            {
-              "reps": 30
-            }
-          ]
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "reps": 30
-            },
-            {
-              "reps": 30
-            }
-          ]
-        },
-        {
-          "date": "2025-10-19",
-          "sets": [
-            {
-              "reps": 26
-            },
-            {
-              "reps": 20
-            }
-          ]
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-11-02",
-        "sets": [
-          {
-            "reps": 20
-          },
-          {
-            "reps": 20
-          }
-        ]
-      },
-      "allTimeMaxReps": {
-        "reps": 30,
-        "date": "2025-10-26"
-      },
-      "allTimeMaxWeight": null
-    },
-    "Жим штанги лёжа узким хватом": {
-      "name": "Жим штанги лёжа узким хватом",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "weight": 25,
-              "reps": 12
-            },
-            {
-              "weight": 30,
-              "reps": 8
-            },
-            {
-              "weight": 30,
-              "reps": 8
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 30,
-            "reps": 8
-          },
-          "maxActualWorkingSet": {
-            "weight": 25,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 20,
-              "reps": 15
-            },
-            {
-              "weight": 25,
-              "reps": 10
-            },
-            {
-              "weight": 25,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 25,
-            "reps": 10
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 16
-            },
-            {
-              "weight": 20,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-10",
-          "sets": [
-            {
-              "weight": 0,
-              "reps": 15
-            },
-            {
-              "weight": 10,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 0,
-              "reps": 12
-            },
-            {
-              "weight": 0,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 0,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 0,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-31",
-        "sets": [
-          {
-            "weight": 25,
-            "reps": 12
-          },
-          {
-            "weight": 30,
-            "reps": 8
-          },
-          {
-            "weight": 30,
-            "reps": 8
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 30,
-          "reps": 8
-        },
-        "maxActualWorkingSet": {
-          "weight": 25,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 10,
-        "reps": 16,
-        "date": "2025-10-17"
-      },
-      "allTimeMaxWeight": {
-        "weight": 30,
-        "reps": 8,
-        "date": "2025-10-31"
       }
     },
     "Становая тяга классика (средний вес)": {
@@ -1992,286 +3787,6 @@
         }
       },
       "allTimeMaxReps": {
-        "weight": 10,
-        "reps": 15,
-        "date": "2025-10-31"
-      },
-      "allTimeMaxWeight": {
-        "weight": 15,
-        "reps": 15,
-        "date": "2025-10-31"
-      }
-    },
-    "Жим гантелей на наклонной скамье (45°)": {
-      "name": "Жим гантелей на наклонной скамье (45°)",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "weight": 12.5,
-              "reps": 15
-            },
-            {
-              "weight": 15,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 12.5,
-              "reps": 15
-            },
-            {
-              "weight": 12.5,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12.5,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 12.5,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 12.5,
-              "reps": 15
-            },
-            {
-              "weight": 12.5,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12.5,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 12.5,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-10",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 13
-            },
-            {
-              "weight": 10,
-              "reps": 14
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 12.5,
-              "reps": 8
-            },
-            {
-              "weight": 10,
-              "reps": 13
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12.5,
-            "reps": 8
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 13
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-31",
-        "sets": [
-          {
-            "weight": 12.5,
-            "reps": 15
-          },
-          {
-            "weight": 15,
-            "reps": 12
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 15,
-          "reps": 12
-        },
-        "maxActualWorkingSet": {
-          "weight": 15,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 12.5,
-        "reps": 15,
-        "date": "2025-10-31"
-      },
-      "allTimeMaxWeight": {
-        "weight": 15,
-        "reps": 12,
-        "date": "2025-10-31"
-      }
-    },
-    "Разгибания рук с гантелью из-за головы (французский жим сидя)": {
-      "name": "Разгибания рук с гантелью из-за головы (французский жим сидя)",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 15
-            },
-            {
-              "weight": 15,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 12.5,
-              "reps": 15
-            },
-            {
-              "weight": 12.5,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12.5,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 12.5,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 12.5,
-              "reps": 15
-            },
-            {
-              "weight": 12.5,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12.5,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 12.5,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-10",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 15
-            },
-            {
-              "weight": 10,
-              "reps": 10
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 10
-            },
-            {
-              "weight": 10,
-              "reps": 9
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 10
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-31",
-        "sets": [
-          {
-            "weight": 15,
-            "reps": 15
-          },
-          {
-            "weight": 15,
-            "reps": 10
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 15,
-          "reps": 15
-        },
-        "maxActualWorkingSet": {
-          "weight": 15,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
         "weight": 15,
         "reps": 15,
         "date": "2025-10-31"
@@ -2280,893 +3795,6 @@
         "weight": 15,
         "reps": 15,
         "date": "2025-10-31"
-      }
-    },
-    "Гиперэкстензия": {
-      "name": "Гиперэкстензия",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-31",
-          "sets": [
-            {
-              "weight": 0,
-              "reps": 15
-            },
-            {
-              "weight": 10,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 10,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 10,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-24",
-          "sets": [
-            {
-              "weight": 0,
-              "reps": 15
-            },
-            {
-              "weight": 0,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 0,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 0,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-17",
-          "sets": [
-            {
-              "weight": 0,
-              "reps": 15
-            },
-            {
-              "weight": 0,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 0,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 0,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "weight": 0,
-              "reps": 12
-            },
-            {
-              "weight": 0,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 0,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 0,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-10",
-          "sets": [
-            {
-              "weight": 0,
-              "reps": 15
-            },
-            {
-              "weight": 0,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 0,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 0,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-09",
-          "sets": [
-            {
-              "weight": 0,
-              "reps": 12
-            },
-            {
-              "weight": 0,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 0,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 0,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-31",
-        "sets": [
-          {
-            "weight": 0,
-            "reps": 15
-          },
-          {
-            "weight": 10,
-            "reps": 12
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 10,
-          "reps": 12
-        },
-        "maxActualWorkingSet": {
-          "weight": 10,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 0,
-        "reps": 15,
-        "date": "2025-10-31"
-      },
-      "allTimeMaxWeight": {
-        "weight": 10,
-        "reps": 12,
-        "date": "2025-10-31"
-      }
-    },
-    "Жим ног": {
-      "name": "Жим ног",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-29",
-          "sets": [
-            {
-              "weight": 100,
-              "reps": 15
-            },
-            {
-              "weight": 110,
-              "reps": 15
-            },
-            {
-              "weight": 120,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 120,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 120,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-22",
-          "sets": [
-            {
-              "weight": 80,
-              "reps": 15
-            },
-            {
-              "weight": 80,
-              "reps": 15
-            },
-            {
-              "weight": 90,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 90,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 90,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-15",
-          "sets": [
-            {
-              "weight": 50,
-              "reps": 15
-            },
-            {
-              "weight": 70,
-              "reps": 15
-            },
-            {
-              "weight": 70,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 70,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 70,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-29",
-        "sets": [
-          {
-            "weight": 100,
-            "reps": 15
-          },
-          {
-            "weight": 110,
-            "reps": 15
-          },
-          {
-            "weight": 120,
-            "reps": 15
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 120,
-          "reps": 15
-        },
-        "maxActualWorkingSet": {
-          "weight": 120,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 100,
-        "reps": 15,
-        "date": "2025-10-29"
-      },
-      "allTimeMaxWeight": {
-        "weight": 120,
-        "reps": 15,
-        "date": "2025-10-29"
-      }
-    },
-    "Жим на верхних блоках стоя": {
-      "name": "Жим на верхних блоках стоя",
-      "hasWeight": false,
-      "history": [
-        {
-          "date": "2025-10-29",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 15
-            },
-            {
-              "weight": 15,
-              "reps": 15
-            },
-            {
-              "weight": 20,
-              "reps": 15
-            }
-          ]
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-29",
-        "sets": [
-          {
-            "weight": 15,
-            "reps": 15
-          },
-          {
-            "weight": 15,
-            "reps": 15
-          },
-          {
-            "weight": 20,
-            "reps": 15
-          }
-        ]
-      },
-      "allTimeMaxReps": {
-        "reps": 15,
-        "date": "2025-10-29"
-      },
-      "allTimeMaxWeight": null
-    },
-    "Подъём гантелей на дельты лежа": {
-      "name": "Подъём гантелей на дельты лежа",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-29",
-          "sets": [
-            {
-              "weight": 12.5,
-              "reps": 15
-            },
-            {
-              "weight": 12.5,
-              "reps": 15
-            },
-            {
-              "weight": 15,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-22",
-          "sets": [
-            {
-              "weight": 12.5,
-              "reps": 15
-            },
-            {
-              "weight": 12.5,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12.5,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 12.5,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-15",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 16
-            },
-            {
-              "weight": 12.5,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12.5,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 12.5,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-29",
-        "sets": [
-          {
-            "weight": 12.5,
-            "reps": 15
-          },
-          {
-            "weight": 12.5,
-            "reps": 15
-          },
-          {
-            "weight": 15,
-            "reps": 15
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 15,
-          "reps": 15
-        },
-        "maxActualWorkingSet": {
-          "weight": 15,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 10,
-        "reps": 16,
-        "date": "2025-10-15"
-      },
-      "allTimeMaxWeight": {
-        "weight": 15,
-        "reps": 15,
-        "date": "2025-10-29"
-      }
-    },
-    "Разгибание ног в тренажере": {
-      "name": "Разгибание ног в тренажере",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-29",
-          "sets": [
-            {
-              "weight": 55,
-              "reps": 15
-            },
-            {
-              "weight": 60,
-              "reps": 15
-            },
-            {
-              "weight": 65,
-              "reps": 20
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 65,
-            "reps": 20
-          },
-          "maxActualWorkingSet": {
-            "weight": 60,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-22",
-          "sets": [
-            {
-              "weight": 55,
-              "reps": 15
-            },
-            {
-              "weight": 55,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 55,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 55,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-15",
-          "sets": [
-            {
-              "weight": 35,
-              "reps": 16
-            },
-            {
-              "weight": 50,
-              "reps": 16
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 50,
-            "reps": 16
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-29",
-        "sets": [
-          {
-            "weight": 55,
-            "reps": 15
-          },
-          {
-            "weight": 60,
-            "reps": 15
-          },
-          {
-            "weight": 65,
-            "reps": 20
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 65,
-          "reps": 20
-        },
-        "maxActualWorkingSet": {
-          "weight": 60,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 65,
-        "reps": 20,
-        "date": "2025-10-29"
-      },
-      "allTimeMaxWeight": {
-        "weight": 65,
-        "reps": 20,
-        "date": "2025-10-29"
-      }
-    },
-    "Подъем EZ-штанги на бицепс стоя": {
-      "name": "Подъем EZ-штанги на бицепс стоя",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-29",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 13
-            },
-            {
-              "weight": 15,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 13
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 13
-          }
-        },
-        {
-          "date": "2025-10-22",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 12
-            },
-            {
-              "weight": 15,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-15",
-          "sets": [
-            {
-              "weight": 5,
-              "reps": 12
-            },
-            {
-              "weight": 5,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 5,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 5,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-29",
-        "sets": [
-          {
-            "weight": 15,
-            "reps": 13
-          },
-          {
-            "weight": 15,
-            "reps": 12
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 15,
-          "reps": 13
-        },
-        "maxActualWorkingSet": {
-          "weight": 15,
-          "reps": 13
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 5,
-        "reps": 15,
-        "date": "2025-10-15"
-      },
-      "allTimeMaxWeight": {
-        "weight": 15,
-        "reps": 13,
-        "date": "2025-10-29"
-      }
-    },
-    "Подъемы ног на пресс на скамье": {
-      "name": "Подъемы ног на пресс на скамье",
-      "hasWeight": false,
-      "history": [
-        {
-          "date": "2025-10-29",
-          "sets": [
-            {
-              "reps": 15
-            },
-            {
-              "reps": 15
-            },
-            {
-              "reps": 15
-            }
-          ]
-        },
-        {
-          "date": "2025-10-22",
-          "sets": [
-            {
-              "reps": 8
-            },
-            {
-              "reps": 15
-            }
-          ]
-        },
-        {
-          "date": "2025-10-15",
-          "sets": [
-            {
-              "reps": 12
-            },
-            {
-              "reps": 12
-            },
-            {
-              "reps": 10
-            }
-          ]
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-29",
-        "sets": [
-          {
-            "reps": 15
-          },
-          {
-            "reps": 15
-          },
-          {
-            "reps": 15
-          }
-        ]
-      },
-      "allTimeMaxReps": {
-        "reps": 15,
-        "date": "2025-10-29"
-      },
-      "allTimeMaxWeight": null
-    },
-    "Приседания со штангой": {
-      "name": "Приседания со штангой",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-26",
-          "sets": [
-            {
-              "weight": 0,
-              "reps": 15
-            },
-            {
-              "weight": 10,
-              "reps": 15
-            },
-            {
-              "weight": 20,
-              "reps": 12
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-19",
-          "sets": [
-            {
-              "weight": 0,
-              "reps": 12
-            },
-            {
-              "weight": 0,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 0,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 0,
-            "reps": 12
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-26",
-        "sets": [
-          {
-            "weight": 0,
-            "reps": 15
-          },
-          {
-            "weight": 10,
-            "reps": 15
-          },
-          {
-            "weight": 20,
-            "reps": 12
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 20,
-          "reps": 12
-        },
-        "maxActualWorkingSet": {
-          "weight": 20,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 0,
-        "reps": 15,
-        "date": "2025-10-26"
-      },
-      "allTimeMaxWeight": {
-        "weight": 20,
-        "reps": 12,
-        "date": "2025-10-26"
-      }
-    },
-    "Жим от груди в Смите": {
-      "name": "Жим от груди в Смите",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-22",
-          "sets": [
-            {
-              "weight": 40,
-              "reps": 12
-            },
-            {
-              "weight": 40,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 40,
-            "reps": 12
-          },
-          "maxActualWorkingSet": {
-            "weight": 40,
-            "reps": 12
-          }
-        },
-        {
-          "date": "2025-10-19",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 15
-            },
-            {
-              "weight": 20,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 20,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 20,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-15",
-          "sets": [
-            {
-              "weight": 30,
-              "reps": 15
-            },
-            {
-              "weight": 40,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 40,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 40,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-22",
-        "sets": [
-          {
-            "weight": 40,
-            "reps": 12
-          },
-          {
-            "weight": 40,
-            "reps": 15
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 40,
-          "reps": 12
-        },
-        "maxActualWorkingSet": {
-          "weight": 40,
-          "reps": 12
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 40,
-        "reps": 15,
-        "date": "2025-10-22"
-      },
-      "allTimeMaxWeight": {
-        "weight": 40,
-        "reps": 12,
-        "date": "2025-10-22"
       }
     },
     "Подъёмы ног в висе": {
@@ -3223,85 +3851,6 @@
         "date": "2025-10-10"
       },
       "allTimeMaxWeight": null
-    },
-    "Жим гантелей лежа на горизонтальной скамье": {
-      "name": "Жим гантелей лежа на горизонтальной скамье",
-      "hasWeight": true,
-      "history": [
-        {
-          "date": "2025-10-28",
-          "sets": [
-            {
-              "weight": 12.5,
-              "reps": 15
-            },
-            {
-              "weight": 15,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 15,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 15,
-            "reps": 15
-          }
-        },
-        {
-          "date": "2025-10-13",
-          "sets": [
-            {
-              "weight": 12.5,
-              "reps": 15
-            },
-            {
-              "weight": 12.5,
-              "reps": 15
-            }
-          ],
-          "maxActualWeight": {
-            "weight": 12.5,
-            "reps": 15
-          },
-          "maxActualWorkingSet": {
-            "weight": 12.5,
-            "reps": 15
-          }
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-10-28",
-        "sets": [
-          {
-            "weight": 12.5,
-            "reps": 15
-          },
-          {
-            "weight": 15,
-            "reps": 15
-          }
-        ],
-        "maxActualWeight": {
-          "weight": 15,
-          "reps": 15
-        },
-        "maxActualWorkingSet": {
-          "weight": 15,
-          "reps": 15
-        }
-      },
-      "allTimeMaxReps": {
-        "weight": 12.5,
-        "reps": 15,
-        "date": "2025-10-28"
-      },
-      "allTimeMaxWeight": {
-        "weight": 15,
-        "reps": 15,
-        "date": "2025-10-28"
-      }
     },
     "Жим ногами на носки": {
       "name": "Жим ногами на носки",
@@ -3360,43 +3909,6 @@
         "reps": 12,
         "date": "2025-10-13"
       }
-    },
-    "Main/Training/Exercises/Жим гантелей лежа на горизонтальной скамье": {
-      "name": "Main/Training/Exercises/Жим гантелей лежа на горизонтальной скамье",
-      "hasWeight": false,
-      "history": [
-        {
-          "date": "2025-11-03",
-          "sets": [
-            {
-              "weight": 15,
-              "reps": 15
-            },
-            {
-              "weight": 17.5,
-              "reps": 10
-            }
-          ]
-        }
-      ],
-      "lastWorkout": {
-        "date": "2025-11-03",
-        "sets": [
-          {
-            "weight": 15,
-            "reps": 15
-          },
-          {
-            "weight": 17.5,
-            "reps": 10
-          }
-        ]
-      },
-      "allTimeMaxReps": {
-        "reps": 15,
-        "date": "2025-11-03"
-      },
-      "allTimeMaxWeight": null
     }
   }
 }

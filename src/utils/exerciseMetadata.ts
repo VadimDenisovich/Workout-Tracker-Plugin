@@ -3,6 +3,7 @@ import { App } from 'obsidian';
 export interface ExerciseMetadata {
 	name: string;
 	hasWeight: boolean;
+	imageLink?: string; // Ссылка на изображение упражнения
 }
 
 export interface ExerciseMetadataStore {
@@ -65,10 +66,10 @@ export class ExerciseMetadataManager {
 		}
 	}
 
-	async addExercise(name: string, hasWeight: boolean): Promise<void> {
-		this.metadata.exercises[name] = { name, hasWeight };
+	async addExercise(name: string, hasWeight: boolean, imageLink?: string): Promise<void> {
+		this.metadata.exercises[name] = { name, hasWeight, imageLink };
 		await this.save();
-		console.log('[ExerciseMetadata] Добавлено упражнение:', name, 'hasWeight:', hasWeight);
+		console.log('[ExerciseMetadata] Добавлено упражнение:', name, 'hasWeight:', hasWeight, 'imageLink:', imageLink);
 	}
 
 	async removeExercise(name: string): Promise<void> {
@@ -162,9 +163,13 @@ export class ExerciseMetadataManager {
 		
 		// Добавляем/обновляем упражнения из реестра
 		for (const exercise of exerciseRegistry) {
+			// Сохраняем существующий imageLink, если он есть
+			const existingImageLink = this.metadata.exercises[exercise.name]?.imageLink;
+			
 			this.metadata.exercises[exercise.name] = {
 				name: exercise.name,
-				hasWeight: exercise.hasWeight
+				hasWeight: exercise.hasWeight,
+				imageLink: existingImageLink
 			};
 		}
 
@@ -244,5 +249,136 @@ export class ExerciseMetadataManager {
 		}
 		
 		return { added, removed };
+	}
+
+	/**
+	 * Сканирует файлы логов и собирает изображения упражнений
+	 * Изображения находятся над заголовком 3-го уровня с названием упражнения
+	 * @param logsPath Путь к папке Logs (например, "Workout/Logs")
+	 * @returns Объект с информацией о количестве обновленных упражнений
+	 */
+	async updateImagesFromLogs(logsPath: string): Promise<{ updated: number; scanned: number }> {
+		console.log('[ExerciseMetadata] 🖼️ Сканирование логов для поиска изображений...');
+		console.log('[ExerciseMetadata] 📂 Путь к логам:', logsPath);
+		
+		let updated = 0;
+		let scanned = 0;
+
+		try {
+			// Получаем все файлы логов
+			const files = this.app.vault.getMarkdownFiles();
+			const logFiles = files.filter(f => f.path.startsWith(logsPath) && f.extension === 'md');
+			
+			console.log('[ExerciseMetadata] 📁 Найдено файлов логов:', logFiles.length);
+			
+			// Регулярное выражение для поиска изображений перед заголовком 3 уровня
+			// Формат: ![[image.png|400]] или ![[image.png]]
+			// за которым следует ### Название упражнения
+			const imageBeforeH3Regex = /!\[\[([^\]]+)\]\][\s\S]*?###\s+(?:\[\[)?([^\]\n]+?)(?:\]\])?\s*$/gm;
+			
+			for (const logFile of logFiles) {
+				scanned++;
+				
+				try {
+					const content = await this.app.vault.read(logFile);
+					
+					// Разбиваем контент на строки для более точного поиска
+					const lines = content.split('\n');
+					
+					for (let i = 0; i < lines.length; i++) {
+						const line = lines[i].trim();
+						
+						// Ищем заголовок 3 уровня с названием упражнения
+						const h3Match = line.match(/^###\s+(?:\[\[)?([^\]\n]+?)(?:\]\])?\s*$/);
+						
+						if (h3Match) {
+							const exerciseName = h3Match[1].trim();
+							
+							// Проверяем, есть ли это упражнение в метаданных
+							if (!this.metadata.exercises[exerciseName]) {
+								console.log('[ExerciseMetadata] ⚠️ Упражнение не найдено в метаданных:', exerciseName);
+								continue;
+							}
+							
+							// Ищем изображение над заголовком (в предыдущих строках)
+							let imageLink: string | null = null;
+							
+							// Проверяем до 3 строк назад (чтобы учесть пустые строки)
+							for (let j = i - 1; j >= Math.max(0, i - 3); j--) {
+								const prevLine = lines[j].trim();
+								
+								// Ищем паттерн ![[image.png|400]] или ![[image.png]]
+								const imageMatch = prevLine.match(/^!\[\[([^\]]+)\]\]$/);
+								
+								if (imageMatch) {
+									imageLink = prevLine; // Сохраняем полную строку с изображением
+									break;
+								}
+								
+								// Если встретили непустую строку, которая не изображение, прекращаем поиск
+								if (prevLine && !imageMatch) {
+									break;
+								}
+							}
+							
+							// Обновляем метаданные, если нашли изображение
+							if (imageLink) {
+								const currentImageLink = this.metadata.exercises[exerciseName].imageLink;
+								
+								// Обновляем только если изображения нет или оно отличается
+								if (!currentImageLink || currentImageLink !== imageLink) {
+									this.metadata.exercises[exerciseName].imageLink = imageLink;
+									updated++;
+									console.log('[ExerciseMetadata] 🖼️ Обновлено изображение для:', exerciseName, '→', imageLink);
+								}
+							}
+						}
+					}
+					
+				} catch (error) {
+					console.error('[ExerciseMetadata] ❌ Ошибка чтения файла лога:', logFile.path, error);
+				}
+			}
+			
+			// Сохраняем изменения, если были обновления
+			if (updated > 0) {
+				await this.save();
+				console.log('[ExerciseMetadata] ✅ Обновление изображений завершено. Обновлено:', updated);
+			} else {
+				console.log('[ExerciseMetadata] ✅ Изображения не требуют обновления');
+			}
+			
+		} catch (error) {
+			console.error('[ExerciseMetadata] ❌ Ошибка сканирования логов:', error);
+		}
+		
+		return { updated, scanned };
+	}
+
+	/**
+	 * Полное обновление метаданных: синхронизация с файловой системой и сбор изображений
+	 * @param exercisesPath Путь к папке Exercises
+	 * @param logsPath Путь к папке Logs
+	 * @param exerciseRegistry Реестр упражнений из настроек
+	 */
+	async fullUpdate(
+		exercisesPath: string,
+		logsPath: string,
+		exerciseRegistry: Array<{ name: string; hasWeight: boolean }>
+	): Promise<{ exercises: { added: number; removed: number }; images: { updated: number; scanned: number } }> {
+		console.log('[ExerciseMetadata] 🔄 Полное обновление метаданных...');
+		
+		// 1. Синхронизация с файловой системой
+		const exercisesResult = await this.syncWithFileSystem(exercisesPath, exerciseRegistry);
+		
+		// 2. Сбор изображений из логов
+		const imagesResult = await this.updateImagesFromLogs(logsPath);
+		
+		console.log('[ExerciseMetadata] ✅ Полное обновление завершено');
+		
+		return {
+			exercises: exercisesResult,
+			images: imagesResult
+		};
 	}
 }
