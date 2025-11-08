@@ -2,9 +2,9 @@ import { App, Modal } from 'obsidian';
 
 export class TemplateNameModal extends Modal {
 	private resolve: (value: string | null) => void;
-	private templateType: 'workout' | 'experiment';
+	private templateType: 'workout' | 'experiment' | 'muscle-group' | 'special-day';
 
-	constructor(app: App, resolve: (value: string | null) => void, templateType: 'workout' | 'experiment' = 'workout') {
+	constructor(app: App, resolve: (value: string | null) => void, templateType: 'workout' | 'experiment' | 'muscle-group' | 'special-day' = 'workout') {
 		super(app);
 		this.resolve = resolve;
 		this.templateType = templateType;
@@ -14,9 +14,20 @@ export class TemplateNameModal extends Modal {
 		const { contentEl } = this;
 		contentEl.empty();
 
-		const title = this.templateType === 'experiment' 
-			? 'Создать шаблон эксперимента' 
-			: 'Создать шаблон тренировки';
+		let title: string;
+		switch (this.templateType) {
+			case 'experiment':
+				title = 'Создать шаблон эксперимента';
+				break;
+			case 'muscle-group':
+				title = 'Создать шаблон на группу мышц';
+				break;
+			case 'special-day':
+				title = 'Создать шаблон для особого дня';
+				break;
+			default:
+				title = 'Создать шаблон тренировки';
+		}
 		
 		contentEl.createEl('h2', { text: title });
 

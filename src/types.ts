@@ -11,7 +11,7 @@ export interface CustomTemplate {
 	name: string;
 	fileName: string;
 	content: string;
-	type: 'workout' | 'experiment';
+	type: 'workout' | 'experiment' | 'muscle-group' | 'special-day';
 }
 
 export interface WorkoutTrackerSettings {

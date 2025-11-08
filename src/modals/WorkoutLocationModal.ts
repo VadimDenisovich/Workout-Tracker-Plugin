@@ -64,6 +64,24 @@ export class WorkoutLocationModal extends Modal {
 				.onClick(() => {
 					this.showExperimentSelection();
 				}));
+
+		new Setting(contentEl)
+			.setName('На группу мышц')
+			.setDesc('Тренировки на группу мышц')
+			.addButton(button => button
+				.setButtonText('Выбрать')
+				.onClick(() => {
+					this.showMuscleGroupSelection();
+				}));
+
+		new Setting(contentEl)
+			.setName('Для особых дней')
+			.setDesc('Тренировки для особых дней')
+			.addButton(button => button
+				.setButtonText('Выбрать')
+				.onClick(() => {
+					this.showSpecialDaySelection();
+				}));
 	}
 
 	private showTemplateSelection() {
@@ -199,6 +217,164 @@ export class WorkoutLocationModal extends Modal {
 		};
 	}
 
+	private async showMuscleGroupSelection() {
+		const { contentEl } = this;
+		contentEl.empty();
+		
+		// Разрешаем закрытие через крестик
+		this.shouldReject = true;
+
+		contentEl.createEl('h2', { text: 'Выберите шаблон на группу мышц' });
+
+		// Синхронизация: проверяем, какие шаблоны существуют
+		await this.syncCustomTemplates('muscle-group');
+
+		const muscleGroupTemplates = this.plugin.settings.customTemplates.filter(
+			(t: CustomTemplate) => t.type === 'muscle-group'
+		);
+
+		// Контейнер для списка шаблонов
+		const listContainer = contentEl.createEl('div', { cls: 'template-list-container' });
+		listContainer.style.marginBottom = '20px';
+
+		if (muscleGroupTemplates.length === 0) {
+			// Пустое состояние
+			const emptyState = listContainer.createEl('div', { cls: 'empty-state' });
+			emptyState.style.textAlign = 'center';
+			emptyState.style.padding = '80px 20px 60px 20px';
+			emptyState.style.color = 'var(--text-muted)';
+			
+			emptyState.createEl('p', { 
+				text: 'Пока пусто',
+				cls: 'empty-state-text'
+			});
+			emptyState.querySelector('.empty-state-text')!.setAttribute('style', 'font-size: 16px; margin: 0;');
+		} else {
+			// Показываем список шаблонов
+			muscleGroupTemplates.forEach((template: CustomTemplate) => {
+				new Setting(listContainer)
+					.setName(template.name)
+					.addButton(button => button
+						.setButtonText('🗑️')
+						.setClass('template-delete-button-small')
+						.setTooltip('Удалить шаблон')
+						.onClick(async () => {
+							await this.deleteTemplate(template);
+						}))
+					.addButton(button => button
+						.setButtonText('Выбрать')
+						.onClick(() => {
+							this.shouldReject = false;
+							this.resolve({ 
+								location: WorkoutLocation.GYM,
+								customTemplate: template
+							});
+							this.close();
+						}));
+			});
+		}
+
+		// Добавляем кнопку "Создать" внизу по центру
+		const buttonContainer = contentEl.createEl('div', { cls: 'centered-button-container' });
+		buttonContainer.style.display = 'flex';
+		buttonContainer.style.justifyContent = 'center';
+		buttonContainer.style.marginTop = '40px';
+		buttonContainer.style.position = 'relative';
+		buttonContainer.style.zIndex = '1';
+
+		const createButton = buttonContainer.createEl('button', {
+			text: 'Создать',
+			cls: 'mod-cta'
+		});
+		createButton.style.minWidth = '120px';
+		createButton.style.padding = '8px 16px';
+
+		createButton.onclick = async (e) => {
+			e.preventDefault();
+			e.stopPropagation();
+			await this.createNewMuscleGroupTemplate();
+		};
+	}
+
+	private async showSpecialDaySelection() {
+		const { contentEl } = this;
+		contentEl.empty();
+		
+		// Разрешаем закрытие через крестик
+		this.shouldReject = true;
+
+		contentEl.createEl('h2', { text: 'Выберите шаблон для особых дней' });
+
+		// Синхронизация: проверяем, какие шаблоны существуют
+		await this.syncCustomTemplates('special-day');
+
+		const specialDayTemplates = this.plugin.settings.customTemplates.filter(
+			(t: CustomTemplate) => t.type === 'special-day'
+		);
+
+		// Контейнер для списка шаблонов
+		const listContainer = contentEl.createEl('div', { cls: 'template-list-container' });
+		listContainer.style.marginBottom = '20px';
+
+		if (specialDayTemplates.length === 0) {
+			// Пустое состояние
+			const emptyState = listContainer.createEl('div', { cls: 'empty-state' });
+			emptyState.style.textAlign = 'center';
+			emptyState.style.padding = '80px 20px 60px 20px';
+			emptyState.style.color = 'var(--text-muted)';
+			
+			emptyState.createEl('p', { 
+				text: 'Пока пусто',
+				cls: 'empty-state-text'
+			});
+			emptyState.querySelector('.empty-state-text')!.setAttribute('style', 'font-size: 16px; margin: 0;');
+		} else {
+			// Показываем список шаблонов
+			specialDayTemplates.forEach((template: CustomTemplate) => {
+				new Setting(listContainer)
+					.setName(template.name)
+					.addButton(button => button
+						.setButtonText('🗑️')
+						.setClass('template-delete-button-small')
+						.setTooltip('Удалить шаблон')
+						.onClick(async () => {
+							await this.deleteTemplate(template);
+						}))
+					.addButton(button => button
+						.setButtonText('Выбрать')
+						.onClick(() => {
+							this.shouldReject = false;
+							this.resolve({ 
+								location: WorkoutLocation.GYM,
+								customTemplate: template
+							});
+							this.close();
+						}));
+			});
+		}
+
+		// Добавляем кнопку "Создать" внизу по центру
+		const buttonContainer = contentEl.createEl('div', { cls: 'centered-button-container' });
+		buttonContainer.style.display = 'flex';
+		buttonContainer.style.justifyContent = 'center';
+		buttonContainer.style.marginTop = '40px';
+		buttonContainer.style.position = 'relative';
+		buttonContainer.style.zIndex = '1';
+
+		const createButton = buttonContainer.createEl('button', {
+			text: 'Создать',
+			cls: 'mod-cta'
+		});
+		createButton.style.minWidth = '120px';
+		createButton.style.padding = '8px 16px';
+
+		createButton.onclick = async (e) => {
+			e.preventDefault();
+			e.stopPropagation();
+			await this.createNewSpecialDayTemplate();
+		};
+	}
+
 	private async deleteTemplate(template: CustomTemplate) {
 		const templatesPath = `${this.plugin.settings.workoutFolder}/Templates`;
 		const filePath = `${templatesPath}/${template.fileName}`;
@@ -216,8 +392,8 @@ export class WorkoutLocationModal extends Modal {
 
 				new Notice(`Шаблон "${template.name}" удалён`);
 				
-				// Обновляем список
-				this.showExperimentSelection();
+				// Обновляем список в зависимости от типа шаблона
+				this.refreshTemplateList(template.type);
 			} catch (error) {
 				console.error('Error deleting template:', error);
 				new Notice('Ошибка при удалении шаблона');
@@ -229,11 +405,27 @@ export class WorkoutLocationModal extends Modal {
 			);
 			await this.plugin.saveSettings();
 			new Notice(`Шаблон "${template.name}" удалён из списка`);
-			this.showExperimentSelection();
+			this.refreshTemplateList(template.type);
 		}
 	}
 
-	private async syncCustomTemplates(type: 'workout' | 'experiment') {
+	private refreshTemplateList(type: 'workout' | 'experiment' | 'muscle-group' | 'special-day') {
+		switch (type) {
+			case 'experiment':
+				this.showExperimentSelection();
+				break;
+			case 'muscle-group':
+				this.showMuscleGroupSelection();
+				break;
+			case 'special-day':
+				this.showSpecialDaySelection();
+				break;
+			default:
+				this.onOpen();
+		}
+	}
+
+	private async syncCustomTemplates(type: 'workout' | 'experiment' | 'muscle-group' | 'special-day') {
 		const templatesPath = `${this.plugin.settings.workoutFolder}/Templates`;
 		const templatesFolder = this.app.vault.getAbstractFileByPath(templatesPath);
 		
@@ -414,7 +606,155 @@ export class WorkoutLocationModal extends Modal {
 		}
 	}
 
-	private async promptForTemplateName(type: 'workout' | 'experiment' = 'workout'): Promise<string | null> {
+	private async createNewMuscleGroupTemplate() {
+		const templateName = await this.promptForTemplateName('muscle-group');
+		if (!templateName) {
+			// Возвращаемся к выбору групп мышц
+			this.showMuscleGroupSelection();
+			return;
+		}
+
+		const templatesPath = `${this.plugin.settings.workoutFolder}/Templates`;
+		const fileName = `${templateName}.md`;
+		const filePath = `${templatesPath}/${fileName}`;
+
+		// Проверяем, что папка Templates существует
+		const templatesFolder = this.app.vault.getAbstractFileByPath(templatesPath);
+		if (!templatesFolder) {
+			new Notice('Папка Templates не найдена');
+			this.showMuscleGroupSelection();
+			return;
+		}
+
+		// Проверяем, что файл не существует
+		if (this.app.vault.getAbstractFileByPath(filePath)) {
+			new Notice('Шаблон с таким названием уже существует');
+			this.showMuscleGroupSelection();
+			return;
+		}
+
+		const defaultContent = `# Группа мышц - ${templateName}
+
+**Дата:** {{date}}
+**Место:** {{location}}
+
+## Целевая группа мышц
+
+Опишите целевую группу мышц здесь.
+
+## Упражнения
+
+### Упражнение 1
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+## Заметки
+
+`;
+
+		try {
+			// Создаем файл
+			const file = await this.app.vault.create(filePath, defaultContent);
+
+			// Добавляем в настройки
+			const newTemplate: CustomTemplate = {
+				name: templateName,
+				fileName: fileName,
+				content: defaultContent,
+				type: 'muscle-group'
+			};
+
+			this.plugin.settings.customTemplates.push(newTemplate);
+			await this.plugin.saveSettings();
+
+			new Notice(`Шаблон группы мышц "${templateName}" создан`);
+			
+			// Открываем созданный файл шаблона
+			await this.app.workspace.getLeaf().openFile(file);
+			this.shouldReject = false;
+			this.close();
+		} catch (error) {
+			console.error('Error creating muscle group template:', error);
+			new Notice(`Ошибка при создании шаблона: ${error.message}`);
+			this.showMuscleGroupSelection();
+		}
+	}
+
+	private async createNewSpecialDayTemplate() {
+		const templateName = await this.promptForTemplateName('special-day');
+		if (!templateName) {
+			// Возвращаемся к выбору особых дней
+			this.showSpecialDaySelection();
+			return;
+		}
+
+		const templatesPath = `${this.plugin.settings.workoutFolder}/Templates`;
+		const fileName = `${templateName}.md`;
+		const filePath = `${templatesPath}/${fileName}`;
+
+		// Проверяем, что папка Templates существует
+		const templatesFolder = this.app.vault.getAbstractFileByPath(templatesPath);
+		if (!templatesFolder) {
+			new Notice('Папка Templates не найдена');
+			this.showSpecialDaySelection();
+			return;
+		}
+
+		// Проверяем, что файл не существует
+		if (this.app.vault.getAbstractFileByPath(filePath)) {
+			new Notice('Шаблон с таким названием уже существует');
+			this.showSpecialDaySelection();
+			return;
+		}
+
+		const defaultContent = `# Особый день - ${templateName}
+
+**Дата:** {{date}}
+**Место:** {{location}}
+
+## Описание
+
+Опишите особенности этого дня здесь.
+
+## Упражнения
+
+### Упражнение 1
+Подход 1: _ кг x _ раз
+Подход 2: _ кг x _ раз
+
+## Заметки
+
+`;
+
+		try {
+			// Создаем файл
+			const file = await this.app.vault.create(filePath, defaultContent);
+
+			// Добавляем в настройки
+			const newTemplate: CustomTemplate = {
+				name: templateName,
+				fileName: fileName,
+				content: defaultContent,
+				type: 'special-day'
+			};
+
+			this.plugin.settings.customTemplates.push(newTemplate);
+			await this.plugin.saveSettings();
+
+			new Notice(`Шаблон особого дня "${templateName}" создан`);
+			
+			// Открываем созданный файл шаблона
+			await this.app.workspace.getLeaf().openFile(file);
+			this.shouldReject = false;
+			this.close();
+		} catch (error) {
+			console.error('Error creating special day template:', error);
+			new Notice(`Ошибка при создании шаблона: ${error.message}`);
+			this.showSpecialDaySelection();
+		}
+	}
+
+	private async promptForTemplateName(type: 'workout' | 'experiment' | 'muscle-group' | 'special-day' = 'workout'): Promise<string | null> {
 		return new Promise((resolve) => {
 			const modal = new TemplateNameModal(this.app, resolve, type);
 			modal.open();
